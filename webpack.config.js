@@ -1,11 +1,17 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
   entry: './src/index.tsx',
   output: {
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
+  plugins: [
+    new HtmlWebpackPlugin({ // Injects script tag into index.html
+      template: './public/index.html',
+    }),
+  ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
   },
@@ -20,7 +26,24 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: 'babel-loader'
-      }
+      },
+      {
+        test: /\.module\.css$/, // Target only files ending with `.module.css`
+        use: [
+          'style-loader', // Injects styles into the DOM
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true
+            },
+          },
+        ],
+      },
+      {
+        test: /\.css$/, // Target regular `.css` files
+        exclude: /\.module\.css$/, // Exclude `.module.css` files (already handled above)
+        use: ['style-loader', 'css-loader'], // Handle global CSS
+      },
     ]
   },
   devServer: {
