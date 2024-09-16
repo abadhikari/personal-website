@@ -31,8 +31,8 @@ export default function FooterLeft() {
         <li>
           <SocialsImage
             imageLink="https://github.com/abadhikari"
-            hoveredSrc="/assets/glb.png"
-            defaultSrc="/assets/glw.png"
+            hoveredSrc="/assets/githubLogoBlue.png"
+            defaultSrc="/assets/githubLogoWhite.png"
             altText="Github Logo"
             width={40}
             height={40}
@@ -41,8 +41,8 @@ export default function FooterLeft() {
         <li>
           <SocialsImage
             imageLink="https://www.linkedin.com/in/abhinna-adhikari-aba168187/"
-            hoveredSrc="/assets/llb.png"
-            defaultSrc="/assets/llw.png"
+            hoveredSrc="/assets/linkedinLogoBlue.png"
+            defaultSrc="/assets/linkedinLogoWhite.png"
             altText="Linkedin Logo"
             width={40}
             height={40}
@@ -51,8 +51,8 @@ export default function FooterLeft() {
         <li>
           <SocialsImage
             imageLink="https://x.com/ya_binya"
-            hoveredSrc="/assets/tlb.png"
-            defaultSrc="/assets/tlw.png"
+            hoveredSrc="/assets/twitterLogoBlue.png"
+            defaultSrc="/assets/twitterLogoWhite.png"
             altText="Twitter Logo"
             width={35}
             height={35}

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import * as styles from './styles/FooterRight.module.css';
 
 export default function FooterRight() {
@@ -6,16 +7,16 @@ export default function FooterRight() {
       <h2>Information</h2>
       <ul className={styles.footerMenu}>
         <li>
-          <a href="#home">Home</a>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <a href="#about">About</a>
+          <Link to="/about">About</Link>
         </li>
         <li>
-          <a href="#projects">Projects</a>
+          <Link to="/projects">Projects</Link>
         </li>
         <li>
-          <a href="#contact">Contact</a>
+          <Link to="/contact">Contact</Link>
         </li>
       </ul>
     </div>
