@@ -1,0 +1,15 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: "Poppins", Arial, sans-serif;
+}
+
+.mainContent {
+  margin-top: 60px;
+  flex: 1;
+}
+
+a:hover {
+  color: #0CAFFF;
+}

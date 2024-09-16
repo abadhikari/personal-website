@@ -1,0 +1,15 @@
+.logo {
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.logoLeft {
+  color: white;
+  display: inline;
+}
+
+.logoRight {
+  color: #0CAFFF;
+  display: inline;
+}

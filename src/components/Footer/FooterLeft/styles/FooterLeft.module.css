@@ -1,0 +1,41 @@
+.footerQuote {
+  display: flex;
+  flex-direction: column; 
+  padding: 20px 0;
+  width: 100%;
+  max-width: 600px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.footerQuoteText {
+  text-align: justify;
+  font-size: 1.2vw;
+}
+
+.footerQuoteReference {
+  text-align: right;
+  font-size: 1.1vw;
+  margin: 0
+}
+
+.footerSocials {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding-inline-start: 0px;
+}
+
+.footerSocials li {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbarMenuSocials img {
+  border-radius: 50%;
+  object-fit: cover;
+}

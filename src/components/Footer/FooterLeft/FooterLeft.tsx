@@ -1,0 +1,64 @@
+/* eslint-disable react/no-unescaped-entities */
+import Logo from '../../Logo/Logo';
+import SocialsImage from './SocialsImage';
+import * as styles from './styles/FooterLeft.module.css';
+
+export default function FooterLeft() {
+  return (
+    <div>
+      <Logo />
+
+      <div className={styles.footerQuote}>
+        <p className={styles.footerQuoteText}>
+          {' '}
+          “Greatness is a transitory experience. It is never consistent. It
+          depends in part upon the myth-making imagination of humankind. The
+          person who experiences greatness must have a feeling for the myth he
+          in. He must reflect what is projected upon him. And he must have a
+          strong sense of the sardonic. This is what uncouples him from belief
+          in in his own pretensions. The sardonic is all that permits him to
+          within himself. Without this quality, even occasional greatness will
+          destroy a man.”{' '}
+        </p>
+        <p className={styles.footerQuoteReference}>
+          --- FROM "COLLECTED SAYINGS OF MUAD'DIB"
+        </p>
+        <p className={styles.footerQuoteReference}>BY THE PRINCESS IRULAN</p>
+        <p className={styles.footerQuoteReference}>Frank Herbert, Dune</p>
+      </div>
+
+      <ul className={styles.footerSocials}>
+        <li>
+          <SocialsImage
+            imageLink="https://github.com/abadhikari"
+            hoveredSrc="/assets/glb.png"
+            defaultSrc="/assets/glw.png"
+            altText="Github Logo"
+            width={40}
+            height={40}
+          />
+        </li>
+        <li>
+          <SocialsImage
+            imageLink="https://www.linkedin.com/in/abhinna-adhikari-aba168187/"
+            hoveredSrc="/assets/llb.png"
+            defaultSrc="/assets/llw.png"
+            altText="Linkedin Logo"
+            width={40}
+            height={40}
+          />
+        </li>
+        <li>
+          <SocialsImage
+            imageLink="https://x.com/ya_binya"
+            hoveredSrc="/assets/tlb.png"
+            defaultSrc="/assets/tlw.png"
+            altText="Twitter Logo"
+            width={35}
+            height={35}
+          />
+        </li>
+      </ul>
+    </div>
+  );
+}

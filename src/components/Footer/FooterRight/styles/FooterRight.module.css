@@ -1,0 +1,17 @@
+.footerMenu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  padding-inline-start: 10px;
+}
+
+.footerMenu li {
+  display: block;
+}
+
+.footerMenu a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
