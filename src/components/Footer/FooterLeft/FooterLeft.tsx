@@ -34,8 +34,8 @@ export default function FooterLeft() {
             hoveredSrc="/assets/githubLogoBlue.png"
             defaultSrc="/assets/githubLogoWhite.png"
             altText="Github Logo"
-            width={40}
-            height={40}
+            width={35}
+            height={35}
           />
         </li>
         <li>
@@ -44,8 +44,8 @@ export default function FooterLeft() {
             hoveredSrc="/assets/linkedinLogoBlue.png"
             defaultSrc="/assets/linkedinLogoWhite.png"
             altText="Linkedin Logo"
-            width={40}
-            height={40}
+            width={30}
+            height={30}
           />
         </li>
         <li>
@@ -54,8 +54,8 @@ export default function FooterLeft() {
             hoveredSrc="/assets/twitterLogoBlue.png"
             defaultSrc="/assets/twitterLogoWhite.png"
             altText="Twitter Logo"
-            width={35}
-            height={35}
+            width={30}
+            height={30}
           />
         </li>
       </ul>

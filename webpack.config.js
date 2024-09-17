@@ -5,27 +5,28 @@ module.exports = {
   entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   plugins: [
-    new HtmlWebpackPlugin({ // Injects script tag into index.html
+    new HtmlWebpackPlugin({
+      // Injects script tag into index.html
       template: './public/index.html',
     }),
   ],
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
   },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: 'ts-loader'
+        use: 'ts-loader',
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
+        use: 'babel-loader',
       },
       {
         test: /\.module\.css$/, // Target only files ending with `.module.css`
@@ -34,7 +35,7 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: true
+              modules: true,
             },
           },
         ],
@@ -44,13 +45,13 @@ module.exports = {
         exclude: /\.module\.css$/, // Exclude `.module.css` files (already handled above)
         use: ['style-loader', 'css-loader'], // Handle global CSS
       },
-    ]
+    ],
   },
   devServer: {
     static: {
-        directory: path.join(__dirname, 'public'),
+      directory: path.join(__dirname, 'public'),
     },
     compress: true,
-    port: 3000
-  }
+    port: 3000,
+  },
 };

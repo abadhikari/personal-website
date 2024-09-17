@@ -1,6 +1,6 @@
 .footerQuote {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   padding: 20px 0;
   width: 100%;
   max-width: 600px;
@@ -9,13 +9,13 @@
 
 .footerQuoteText {
   text-align: justify;
-  font-size: 1.2vw;
+  font-size: clamp(12px, 1.2vw, 24px);
 }
 
 .footerQuoteReference {
   text-align: right;
-  font-size: 1.1vw;
-  margin: 0
+  font-size: clamp(11px, 1.1vw, 23px);
+  margin: 0;
 }
 
 .footerSocials {
@@ -29,8 +29,8 @@
   display: flex;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   justify-content: center;
   align-items: center;
 }

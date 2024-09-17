@@ -1,8 +1,38 @@
+import * as styles from './styles/Home.module.css';
+
 export default function Home() {
   return (
-    <div>
-      <h1>Welcome to the Home Page</h1>
-      <p>This is the main page of the website.</p>
+    <div className={styles.home}>
+      <div className={styles.homePainting}>
+        <img
+          src="/assets/melodyOfTheNight.png"
+          alt="Melody of the Night Painting"
+        />
+        <div className={styles.paintingOverlay}>
+          <h2>Melody of the Night by Leonid Afremov</h2>
+          <p>
+            I first discovered this painting when searching for a poster in
+            college, and ever since then, I&apos;ve kept a version of it hanging
+            in my room. The vibrant colors, textured strokes, and blurred
+            reflections on the rain-soaked ground invoke a deep sense of calm
+            that makes this one of my favorite paintings.
+          </p>
+        </div>
+      </div>
+      <div className={styles.homeText}>
+        <h1>Welcome!</h1>
+        <p>
+          This website shows a little glimpse into who I am and what I&apos;ve
+          been working on. You&apos;ll find the following here:
+        </p>
+        <ul>
+          <li>Projects</li>
+          <li>Photography</li>
+          <li>Writing</li>
+          <li>Drawings</li>
+          <li>Reviews</li>
+        </ul>
+      </div>
     </div>
   );
 }
