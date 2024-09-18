@@ -11,7 +11,9 @@ export default function About() {
         />
       </div>
       <div className={styles.aboutInfo}>
-        <h1>A Little About Me</h1>
+        <h1>
+          <span className={styles.strike}>A Little</span> About Me
+        </h1>
         <ul>
           <li>
             I was born in Nepal🇳🇵 and moved to the US when I was 4 years old.

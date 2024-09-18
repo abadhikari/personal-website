@@ -1,0 +1,33 @@
+.projects {
+  display: flex;
+  flex-direction: column;
+  height: 100rh;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+@keyframes eyeMove {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(200px);
+  }
+  50% {
+    transform: translateX(-200px);
+  }
+  75% {
+    transform: translateY(-200px);
+  }
+  100% {
+    transform: translateY(200px);
+  }
+}
+
+.eyes {
+  display: inline-block;
+  animation: eyeMove 6s ease-in-out infinite alternate;
+}
+

@@ -70,3 +70,19 @@
   hyphens: auto;
   margin-bottom: 0;
 }
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.scaleUp {
+  animation: scaleUp 2s ease-in-out alternate;
+  white-space: nowrap;
+}

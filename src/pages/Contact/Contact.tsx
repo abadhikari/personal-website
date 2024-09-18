@@ -8,13 +8,19 @@ export default function Contact() {
       <div className={styles.contactResourceContainer}>
         <div className={styles.contactResource}>
           <h2>Email</h2>
-          <Link href="mailto:abhinna.adhikari.v1@gmail.com">
+          <Link
+            href="mailto:abhinna.adhikari.v1@gmail.com"
+            className={styles.typewriter}
+          >
             abhinna.adhikari.v1@gmail.com
           </Link>
         </div>
         <div className={styles.contactResource}>
           <h2>Linkedin</h2>
-          <Link href="https://www.linkedin.com/in/abhinna-adhikari-aba168187/">
+          <Link
+            href="https://www.linkedin.com/in/abhinna-adhikari-aba168187/"
+            className={styles.typewriter}
+          >
             https://www.linkedin.com/in/abhinna-adhikari-aba168187/
           </Link>
         </div>
