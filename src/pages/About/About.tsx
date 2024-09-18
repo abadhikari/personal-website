@@ -1,3 +1,4 @@
+import Link from '../../components/common/Link';
 import * as styles from './styles/About.module.css';
 
 export default function About() {
@@ -20,15 +21,9 @@ export default function About() {
           <li>I grew up in Massachusetts and went to school at UConn.</li>
           <li>
             I&apos;m a self-taught piano enthusiast, enjoy playing chess{' '}
-            <a
-              href="https://www.chess.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              ♛
-            </a>
-            , and recently have gotten back into running and reading (currently
-            reading Don Quixote).
+            <Link href="https://www.chess.com/">♛</Link>, and recently have
+            gotten back into running and reading (currently reading Don
+            Quixote).
           </li>
           <li>
             I&apos;m a huge fan of soccer⚽ (Manchester United) and have been
@@ -39,8 +34,7 @@ export default function About() {
             are my favorite shows of all time.
           </li>
           <li>
-            Bonus: Here&apos;s your reward for waiting patiently and reading
-            everything:
+            Bonus: Here&apos;s your reward for patiently reading everything
             <img
               src="/assets/childhoodPhoto.png"
               alt="Me when I was a cute kid wearing a red turtlekneck."

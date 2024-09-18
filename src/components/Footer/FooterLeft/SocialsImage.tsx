@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from '../../common/Link';
 import * as styles from './styles/FooterLeft.module.css';
 
 interface SocialsImageProps {
@@ -14,12 +15,7 @@ export default function SocialsImage(props: SocialsImageProps) {
   const [isHovered, setIsHovered] = useState(false);
   const { imageLink, hoveredSrc, defaultSrc, altText, width, height } = props;
   return (
-    <a
-      href={imageLink}
-      className={styles.navbarMenuSocials}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <Link href={imageLink} className={styles.navbarMenuSocials}>
       <img
         src={isHovered ? hoveredSrc : defaultSrc}
         alt={altText}
@@ -27,6 +23,6 @@ export default function SocialsImage(props: SocialsImageProps) {
         onMouseLeave={() => setIsHovered(false)}
         style={{ width: `${width}px`, height: `${height}px` }}
       />
-    </a>
+    </Link>
   );
 }

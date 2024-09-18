@@ -24,6 +24,12 @@
     "react/jsx-filename-extension": [
       1,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+    "react/require-default-props": [
+      "off",
+      {
+        "ignoreFunctionalComponents": true
+      }
     ]
   },
   "settings": {

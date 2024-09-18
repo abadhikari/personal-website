@@ -1,10 +1,11 @@
+import Link from '../common/Link';
 import * as styles from './styles/Logo.module.css';
 
 export default function Logo() {
   return (
-    <a href="/" className={styles.logo}>
+    <Link href="/" className={styles.logo} target="">
       <p className={styles.logoLeft}>Abhinna</p>
       <p className={styles.logoRight}>Adhikari.</p>
-    </a>
+    </Link>
   );
 }
