@@ -1,16 +1,22 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 module.exports = {
   entry: './src/index.tsx',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
   },
   plugins: [
     new HtmlWebpackPlugin({
       // Injects script tag into index.html
       template: './public/index.html',
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'public', to: '', globOptions: { ignore: ['**/index.html'] } }
+      ],
     }),
   ],
   resolve: {
@@ -44,6 +50,10 @@ module.exports = {
         test: /\.css$/, // Target regular `.css` files
         exclude: /\.module\.css$/, // Exclude `.module.css` files (already handled above)
         use: ['style-loader', 'css-loader'], // Handle global CSS
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        type: 'asset/resource',
       },
     ],
   },

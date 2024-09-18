@@ -31,8 +31,8 @@ export default function FooterLeft() {
         <li>
           <SocialsImage
             imageLink="https://github.com/abadhikari"
-            hoveredSrc="/assets/githubLogoBlue.png"
-            defaultSrc="/assets/githubLogoWhite.png"
+            hoveredSrc="./assets/githubLogoBlue.png"
+            defaultSrc="./assets/githubLogoWhite.png"
             altText="Github Logo"
             width={35}
             height={35}

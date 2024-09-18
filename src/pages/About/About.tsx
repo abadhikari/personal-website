@@ -6,12 +6,12 @@ export default function About() {
     const hour = new Date().getHours();
     if (hour >= 8 && hour < 20) {
       return {
-        src: '/assets/childhoodPhoto.png',
+        src: '/assets/childhoodPhoto.jpg',
         altText: 'Me when I was a cute kid wearing a red turtlekneck.',
       };
     }
     return {
-      src: '/assets/stupidFace.png',
+      src: '/assets/stupidFace.jpg',
       altText:
         'Me making a stupid face while blinded by the flash from my phone.',
     };
@@ -23,7 +23,7 @@ export default function About() {
     <div className={styles.about}>
       <div className={styles.aboutPhoto}>
         <img
-          src="/assets/photoWithMum.png"
+          src="/assets/photoWithMum.jpg"
           alt="Me with my mom at Brooklyn bridge"
         />
       </div>

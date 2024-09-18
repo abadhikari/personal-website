@@ -5,7 +5,7 @@ export default function Home() {
     <div className={styles.home}>
       <div className={styles.homePainting}>
         <img
-          src="/assets/melodyOfTheNight.png"
+          src="./assets/melodyOfTheNight.jpg"
           alt="Melody of the Night Painting"
         />
         <div className={styles.paintingOverlay}>
