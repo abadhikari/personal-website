@@ -1,0 +1,112 @@
+.about {
+  display: flex;
+  height: 100vh;
+  width: 80%;
+  flex-direction: row;
+  align-items: center;
+}
+
+.aboutPhoto {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+}
+
+.aboutPhoto img {
+  height: 100%;
+  max-height: calc(100vh - 60px);
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.aboutPhoto img:hover {
+  transform: scale(1.7);
+  z-index: 1;
+}
+
+.aboutInfo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-left: 50px;
+  color: black;
+  line-height: 1.6;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.aboutInfo h1 {
+  margin-bottom: 0;
+}
+
+.aboutInfo a {
+  color: black;
+}
+
+.aboutInfo img {
+  width: 5%;
+  height: 5%;
+  transition: transform 0.3s ease;
+}
+
+.aboutInfo img:hover {
+  transform: scale(15) translateY(-20%) translateX(-10%);
+  z-index: 1;
+  overflow: visible;
+}
+
+.aboutInfo li {
+  list-style-type: circle;
+  transition: color 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 2s ease forwards;
+}
+
+.aboutInfo ul li:hover {
+  color: #0cafff;
+}
+
+.aboutInfo ul li:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.aboutInfo ul li:nth-child(2) {
+  animation-delay: 3s;
+}
+
+.aboutInfo ul li:nth-child(3) {
+  animation-delay: 5s;
+}
+
+.aboutInfo ul li:nth-child(4) {
+  animation-delay: 7s;
+}
+
+.aboutInfo ul li:nth-child(5) {
+  animation-delay: 10s;
+}
+
+.aboutInfo ul li:nth-child(6) {
+  animation-delay: 14s;
+}
+
+.aboutInfo ul li:nth-child(7) {
+  animation-delay: 17s;
+}
+
+.aboutInfo ul li:nth-child(8) {
+  animation-delay: 25s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
