@@ -20,7 +20,9 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.homeText}>
-        <h1 className={styles.scaleUp}>Welcome!🫡</h1>
+        <h1 className={styles.welcome}>
+          Welcome!<span className={styles.wavingHand}>👋</span>
+        </h1>
         <p>
           This website shows a little glimpse into who I am and what I&apos;ve
           been working on. You&apos;ll find the following here:
