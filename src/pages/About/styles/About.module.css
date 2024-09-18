@@ -52,7 +52,7 @@
 }
 
 .aboutInfo img:hover {
-  transform: scale(20) translateY(-20%) translateX(-10%);
+  transform: scale(20) translateY(-30%) translateX(-10%);
   z-index: 1;
   overflow: visible;
 }
