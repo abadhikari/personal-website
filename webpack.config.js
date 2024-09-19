@@ -1,5 +1,4 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -12,11 +11,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       // Injects script tag into index.html
       template: './public/index.html',
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        { from: 'public', to: '', globOptions: { ignore: ['**/index.html'] } }
-      ],
     }),
   ],
   resolve: {
