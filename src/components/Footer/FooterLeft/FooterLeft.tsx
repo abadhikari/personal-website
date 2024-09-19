@@ -16,7 +16,7 @@ export default function FooterLeft() {
           person who experiences greatness must have a feeling for the myth he
           in. He must reflect what is projected upon him. And he must have a
           strong sense of the sardonic. This is what uncouples him from belief
-          in in his own pretensions. The sardonic is all that permits him to
+          in his own pretensions. The sardonic is all that permits him to move
           within himself. Without this quality, even occasional greatness will
           destroy a man.”{' '}
         </p>
