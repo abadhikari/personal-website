@@ -13,10 +13,10 @@ export default function Home() {
             <h2>Melody of the Night by Leonid Afremov</h2>
             <p>
               I first discovered this painting when searching for a poster in
-              college, and ever since then, I&apos;ve kept a version of it hanging
-              in my room. The vibrant colors, textured strokes, and blurred
-              reflections on the rain-soaked ground invoke a deep sense of calm
-              that makes this one of my favorite paintings.
+              college, and ever since then, I&apos;ve kept a version of it
+              hanging in my room. The vibrant colors, textured strokes, and
+              blurred reflections on the rain-soaked ground invoke a deep sense
+              of calm that makes this one of my favorite paintings.
             </p>
           </div>
         </div>
