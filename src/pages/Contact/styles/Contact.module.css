@@ -44,6 +44,9 @@
 }
 
 @media (max-width: 900px) {
+  .contact {
+    width: 100%;
+  }
   .contactResourceContainer {
     flex-direction: column;
   }
