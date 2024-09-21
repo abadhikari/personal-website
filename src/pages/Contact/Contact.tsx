@@ -21,7 +21,7 @@ export default function Contact() {
             href="https://www.linkedin.com/in/abhinna-adhikari-aba168187/"
             className={styles.typewriter}
           >
-            https://www.linkedin.com/in/abhinna-adhikari-aba168187/
+            abhinna-adhikari-aba168187
           </Link>
         </div>
       </div>
