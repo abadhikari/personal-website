@@ -1,4 +1,5 @@
 .header {
+  display: flex;
   width: 100%;
   height: 60px;
   background-color: #222831;
@@ -6,7 +7,6 @@
   top: 0;
   left: 0;
   z-index: 999;
-  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -16,19 +16,4 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.navbarMenu {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
-
-.navbarMenu li {
-  display: inline;
-}
-
-.navbarMenu a {
-  text-decoration: none;
-  font-size: 0.9em;
 }

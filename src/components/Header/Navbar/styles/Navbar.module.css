@@ -1,14 +1,53 @@
 .navbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navbarLinks {
   list-style: none;
   display: flex;
   gap: 20px;
 }
 
-.navbar li {
+.navbarLinks li {
   display: inline;
 }
 
-.navbar a {
+.navbarLinks a {
   text-decoration: none;
   font-size: 0.9em;
+}
+
+.hamburger {
+  display: none;
+  font-size: 2em;
+  cursor: pointer;
+  color: #f7f0e6;
+}
+
+@media (max-width: 900px) {
+  .navbarLinks {
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: rgba(34, 40, 49, 0.95);
+    padding: 15px 0;
+    margin: 0;
+    align-items: center;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+  }
+
+  .navbarLinks.active {
+    max-height: 100vh;
+    opacity: 1;
+  }
+
+  .hamburger {
+    display: block;
+  }
 }
