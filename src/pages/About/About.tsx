@@ -2,23 +2,6 @@ import Link from '../../components/common/Link';
 import * as styles from './styles/About.module.css';
 
 export default function About() {
-  const getBonusPhotoByTime = () => {
-    const hour = new Date().getHours();
-    if (hour >= 8 && hour < 20) {
-      return {
-        src: '/assets/childhoodPhoto.jpg',
-        altText: 'Me when I was a cute kid wearing a red turtlekneck.',
-      };
-    }
-    return {
-      src: '/assets/stupidFace.jpg',
-      altText:
-        'Me making a stupid face while blinded by the flash from my phone.',
-    };
-  };
-
-  const bonusPhoto = getBonusPhotoByTime();
-
   return (
     <div className={styles.about}>
       <div className={styles.aboutPhoto}>
@@ -54,7 +37,11 @@ export default function About() {
           </li>
           <li>
             Bonus: Here&apos;s your reward for patiently reading everything
-            <img src={bonusPhoto.src} alt={bonusPhoto.altText} />
+            -&gt;
+            <Link href="https://www.youtube.com/watch?v=Kagw_DHxCAA">
+              {' '}
+              <span className={styles.aboutInfoMysteryLink}> Mystery Link</span>
+            </Link>
           </li>
         </ul>
       </div>
