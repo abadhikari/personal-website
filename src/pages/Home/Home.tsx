@@ -1,8 +1,9 @@
 import * as styles from './styles/Home.module.css';
+import * as animationStyles from '../../styles/animations.module.css';
 
 export default function Home() {
   return (
-    <div className={styles.home}>
+    <div className={`${styles.home} ${animationStyles.fadeInUp}`}>
       <div className={styles.homePaintingContainer}>
         <div className={styles.homePainting}>
           <img
@@ -26,7 +27,7 @@ export default function Home() {
           Welcome!<span className={styles.wavingHand}>👋</span>
         </h1>
         <p>
-          This website shows a little glimpse into who I am and what I&apos;ve
+          This website gives a little glimpse into who I am and what I&apos;ve
           been working on. You&apos;ll find the following here:
         </p>
         <ul>

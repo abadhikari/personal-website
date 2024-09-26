@@ -45,22 +45,22 @@
   color: black;
 }
 
-@keyframes fadeInUp {
+@keyframes fadeInLeft {
   from {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateX(125px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
 .aboutInfo li {
   list-style-type: circle;
-  transition: color 0.3s ease;
+  transition: color 1s ease;
   opacity: 0;
-  animation: fadeInUp 2s ease forwards;
+  animation: fadeInLeft 2s ease forwards;
 }
 
 .aboutInfo ul li:nth-child(1) {
@@ -104,30 +104,6 @@
   cursor: pointer;
 }
 
-@keyframes strike{
-  0%   { width : 0; }
-  100% { width: 100%; }
-}
-
-.strike {
-  position: relative;
-}
-
-.strike::after {
-  content: ' ';
-  position: absolute;
-  top: 45%;
-  left: 0;
-  width: 100%;
-  height: 5px;
-  background: black;
-  animation-name: strike;
-  animation-duration: 15s;
-  animation-timing-function: linear;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards; 
-}
-
 @media (max-width: 900px) {
   .about {
     width: 100%;
@@ -145,5 +121,9 @@
   .aboutPhoto {
     padding: 20px;
     order: 2;
+  }
+
+  .aboutPhoto img:hover {
+    transform: none;
   }
 }

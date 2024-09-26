@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './Header/Header';
+import ScrollToTop from './Header/Navbar/ScrollToTop';
 import Footer from './Footer/Footer';
 import Home from '../pages/Home/Home';
 import About from '../pages/About/About';
@@ -10,6 +11,7 @@ import '../styles/global.css';
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="app">
         <Header />
         <div className="mainContent">

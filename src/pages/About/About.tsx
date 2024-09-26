@@ -1,18 +1,19 @@
 import Link from '../../components/common/Link';
 import * as styles from './styles/About.module.css';
+import * as animationStyles from '../../styles/animations.module.css';
 
 export default function About() {
   return (
-    <div className={styles.about}>
-      <div className={styles.aboutPhoto}>
+    <div className={`${styles.about} ${animationStyles.fadeInUp}`}>
+      <div className={`${styles.aboutPhoto}`}>
         <img
           src="/assets/photoWithMum.jpg"
           alt="Me with my mom at Brooklyn bridge"
         />
       </div>
-      <div className={styles.aboutInfo}>
+      <div className={`${styles.aboutInfo}`}>
         <h1>
-          <span className={styles.strike}>A Little</span> About Me
+          <span className={animationStyles.strike}>A Little</span> About Me
         </h1>
         <ul>
           <li>

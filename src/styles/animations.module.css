@@ -1,0 +1,47 @@
+/*
+ * The element starts invisible and then slowly fades into the screen
+ * from the bottom.
+ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(70px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fadeInUp {
+  transition: color 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 3s ease forwards;
+}
+
+/*
+ * A line is drawn through the element - striking it. 
+ */
+@keyframes strike{
+  0%   { width : 0; }
+  100% { width: 100%; }
+}
+
+.strike {
+  position: relative;
+}
+
+.strike::after {
+  content: ' ';
+  position: absolute;
+  top: 45%;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: black;
+  animation-name: strike;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards; 
+}

@@ -1,9 +1,10 @@
 import Link from '../../components/common/Link';
 import * as styles from './styles/Contact.module.css';
+import * as animationStyles from '../../styles/animations.module.css';
 
 export default function Contact() {
   return (
-    <div className={styles.contact}>
+    <div className={`${styles.contact} ${animationStyles.fadeInUp}`}>
       <h1>Contact Me</h1>
       <div className={styles.contactResourceContainer}>
         <div className={styles.contactResource}>
