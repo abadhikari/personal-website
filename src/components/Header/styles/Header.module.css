@@ -52,6 +52,9 @@
 }
 
 @media (max-width: 900px) {
+  .audioButton {
+    font-size: 16px;
+  }
   .audioButton:hover {
     background-color: #f7f0e6;
   }
