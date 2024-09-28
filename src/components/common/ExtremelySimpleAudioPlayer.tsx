@@ -39,7 +39,7 @@ export default function SimpleAudioPlayer({
       </audio>
 
       <button onClick={toggleMute} type="button" className={className}>
-        {isMuted ? '🔇' : '🔈'}
+        {isMuted ? '🔈' : '🔇'}
       </button>
     </div>
   );
