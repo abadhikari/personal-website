@@ -8,17 +8,18 @@
 
 .aboutPhoto {
   position: relative;
+  height: calc(100vh - 60px);
   display: flex;
-  flex-direction: column;
-  flex: 1;
   justify-content: center;
+  flex: 1;
 }
 
 .aboutPhoto img {
-  height: 100%;
-  max-height: calc(100vh - 60px);
-  object-fit: contain;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
   transition: transform 0.3s ease;
+  object-fit: contain;
 }
 
 .aboutPhoto img:hover {
@@ -39,10 +40,16 @@
 
 .aboutInfo h1 {
   margin-bottom: 0;
+  text-align: center;
 }
 
 .aboutInfo a {
   color: black;
+}
+
+.audioPlayerContainer {
+  display: flex;
+  justify-content: center;
 }
 
 @keyframes fadeInLeft {

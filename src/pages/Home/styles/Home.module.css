@@ -86,7 +86,7 @@
   margin-bottom: 0;
 }
 
-.welcome { 
+.welcome {
   white-space: nowrap;
 }
 
@@ -98,7 +98,7 @@
     transform: rotate(7.5deg);
   }
   20% {
-    transform: rotate(15deg); 
+    transform: rotate(15deg);
   }
   30% {
     transform: rotate(7.5deg);
@@ -132,7 +132,7 @@
   animation: wave 1s ease-in-out infinite;
 }
 
-@media(max-width: 900px)  {
+@media (max-width: 900px) {
   .home {
     flex-direction: column;
     width: 100%;

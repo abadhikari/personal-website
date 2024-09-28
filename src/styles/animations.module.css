@@ -22,9 +22,13 @@
 /*
  * A line is drawn through the element - striking it. 
  */
-@keyframes strike{
-  0%   { width : 0; }
-  100% { width: 100%; }
+@keyframes strike {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 .strike {
@@ -43,5 +47,5 @@
   animation-duration: 15s;
   animation-timing-function: linear;
   animation-iteration-count: 1;
-  animation-fill-mode: forwards; 
+  animation-fill-mode: forwards;
 }

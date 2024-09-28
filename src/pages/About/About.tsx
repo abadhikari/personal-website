@@ -1,4 +1,5 @@
 import Link from '../../components/common/Link';
+import SimpleAudioPlayer from '../../components/common/ExtremelySimpleAudioPlayer';
 import * as styles from './styles/About.module.css';
 import * as animationStyles from '../../styles/animations.module.css';
 
@@ -15,6 +16,9 @@ export default function About() {
         <h1>
           <span className={animationStyles.strike}>A Little</span> About Me
         </h1>
+        <div className={styles.audioPlayerContainer}>
+          <SimpleAudioPlayer src="/assets/I_let_my_little_brother_use_Fl_studio.mp3" />
+        </div>
         <ul>
           <li>
             I was born in Nepal🇳🇵 and moved to the US when I was 4 years old.
@@ -33,8 +37,8 @@ export default function About() {
             playing since a kid.
           </li>
           <li>
-            I love anything produced by HBO and MAPPA. Nathan for you and HxH
-            are my favorite shows of all time.
+            I love anything produced by HBO and MAPPA. Nathan for you,
+            Succession, and HxH are my favorite shows of all time.
           </li>
           <li>
             Bonus: Here&apos;s your reward for patiently reading everything
