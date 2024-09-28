@@ -27,7 +27,7 @@ export default function Home() {
           Welcome!<span className={styles.wavingHand}>👋</span>
         </h1>
         <p>
-          This website gives a little glimpse into who I am and what I&apos;ve
+          This website offers a little glimpse into who I am and what I&apos;ve
           been working on. You&apos;ll find the following here:
         </p>
         <ul>
