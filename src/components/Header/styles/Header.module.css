@@ -43,8 +43,7 @@
   font-size: 20px;
   background-color: #f7f0e6;
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
+  aspect-ratio: 1 / 1;
   animation: changeBackgroundColor 1s ease-in-out 3;
 }
 
@@ -54,9 +53,7 @@
 
 @media (max-width: 900px) {
   .audioButton {
-    font-size: 16px;
-    width: 30px;
-    height: 30px;
+    font-size: 11px;
   }
   .audioButton:hover {
     background-color: #f7f0e6;
