@@ -17,7 +17,10 @@ export default function About() {
           <span className={animationStyles.strike}>A Little</span> About Me
         </h1>
         <div className={styles.audioPlayerContainer}>
-          <SimpleAudioPlayer src="/assets/I_let_my_little_brother_use_Fl_studio.mp3" />
+          <SimpleAudioPlayer
+            src="/assets/I_let_my_little_brother_use_Fl_studio.mp3"
+            initialVolume={0.3}
+          />
         </div>
         <ul>
           <li>
