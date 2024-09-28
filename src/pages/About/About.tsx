@@ -1,5 +1,4 @@
 import Link from '../../components/common/Link';
-import SimpleAudioPlayer from '../../components/common/ExtremelySimpleAudioPlayer';
 import * as styles from './styles/About.module.css';
 import * as animationStyles from '../../styles/animations.module.css';
 
@@ -16,12 +15,7 @@ export default function About() {
         <h1>
           <span className={animationStyles.strike}>A Little</span> About Me
         </h1>
-        <div className={styles.audioPlayerContainer}>
-          <SimpleAudioPlayer
-            src="/assets/I_let_my_little_brother_use_Fl_studio.mp3"
-            initialVolume={0.3}
-          />
-        </div>
+
         <ul>
           <li>
             I was born in Nepal🇳🇵 and moved to the US when I was 4 years old.

@@ -1,22 +1,24 @@
 import { useEffect, useRef, useState } from 'react';
-import * as styles from './styles/ExtremelySimpleAudioPlayer.module.css';
 
 interface SimpleAudioPlayerProps {
   src: string;
   initialVolume: number;
+  className: string;
 }
 
 export default function SimpleAudioPlayer({
   src,
   initialVolume,
+  className,
 }: SimpleAudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
 
   const toggleMute = () => {
     const currentAudio = audioRef.current;
     if (currentAudio) {
       currentAudio.muted = !isMuted;
+      currentAudio.play();
     }
     setIsMuted(!isMuted);
   };
@@ -36,7 +38,7 @@ export default function SimpleAudioPlayer({
         Your browser does not support the audio element.
       </audio>
 
-      <button onClick={toggleMute} type="button" className={styles.audioButton}>
+      <button onClick={toggleMute} type="button" className={className}>
         {isMuted ? '🔇' : '🔈'}
       </button>
     </div>

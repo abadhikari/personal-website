@@ -47,11 +47,6 @@
   color: black;
 }
 
-.audioPlayerContainer {
-  display: flex;
-  justify-content: center;
-}
-
 @keyframes fadeInLeft {
   from {
     opacity: 0;
