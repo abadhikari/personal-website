@@ -95,31 +95,31 @@
     transform: rotate(0deg);
   }
   10% {
-    transform: rotate(7.5deg);
+    transform: rotate(6deg);
   }
   20% {
-    transform: rotate(15deg);
+    transform: rotate(12deg);
   }
   30% {
-    transform: rotate(7.5deg);
+    transform: rotate(6deg);
   }
   40% {
     transform: rotate(0deg);
   }
   50% {
-    transform: rotate(-7.5deg);
+    transform: rotate(-6deg);
   }
   60% {
-    transform: rotate(-15deg);
+    transform: rotate(-12deg);
   }
   70% {
-    transform: rotate(-22.5deg);
+    transform: rotate(-18deg);
   }
   80% {
-    transform: rotate(-15deg);
+    transform: rotate(-12deg);
   }
   90% {
-    transform: rotate(-7.5deg);
+    transform: rotate(-6deg);
   }
   100% {
     transform: rotate(0deg);
