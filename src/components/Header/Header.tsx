@@ -10,9 +10,11 @@ export default function Header() {
         <Logo />
         <div className={styles.audioPlayerContainer}>
           <SimpleAudioPlayer
-            src="/assets/I_let_my_little_brother_use_Fl_studio.mp3"
+            src="/assets/Debussy - Arabesque No. 1 (Jazz Version) by Jacob Dupre.mp3"
             initialVolume={0.3}
             className={styles.audioButton}
+            link="https://www.youtube.com/watch?v=42FmgGpWQis&list=PLw7XQgISZIIAdy6JOrCQjO1klWhzz7j4V&index=3"
+            redirectTimeSecs={2}
           />
         </div>
         <NavBar />
