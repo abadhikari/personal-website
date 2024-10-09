@@ -17,8 +17,7 @@ export default function SimpleAudioPlayer({
 }: SimpleAudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isMuted, setIsMuted] = useState(true);
-  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const longPressRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const toggleMute = () => {
     const currentAudio = audioRef.current;
@@ -37,35 +36,19 @@ export default function SimpleAudioPlayer({
     setIsMuted(true);
   };
 
-  const handleMouseEnter = () => {
-    // Set a timeout to hover over button to redirect to link after x seconds
-    hoverTimeoutRef.current = setTimeout(() => {
+  const startRedirectTimer = () => {
+    // Set a timeout to redirect to link after x seconds
+    timeoutRef.current = setTimeout(() => {
       window.open(link, '_blank');
       mute();
     }, redirectTimeSecs * 1000);
   };
 
-  const handleMouseLeave = () => {
-    // Clear the timeout if the mouse leaves before the timeout is complete
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-      hoverTimeoutRef.current = null;
-    }
-  };
-
-  const handleTouchStart = () => {
-    // Set a timeout for holding buttom to redirect to link after x seconds
-    longPressRef.current = setTimeout(() => {
-      window.open(link, '_blank');
-      mute();
-    }, redirectTimeSecs * 1000);
-  };
-
-  const handleTouchEnd = () => {
-    // Clear the timeout if the hold on button ends before the timeout is complete
-    if (longPressRef.current) {
-      clearTimeout(longPressRef.current);
-      longPressRef.current = null;
+  const endRedirectTimer = () => {
+    // Clear the timeout before the timeout is complete
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
     }
   };
 
@@ -88,10 +71,8 @@ export default function SimpleAudioPlayer({
         onClick={toggleMute}
         type="button"
         className={className}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
+        onMouseEnter={startRedirectTimer}
+        onMouseLeave={endRedirectTimer}
       >
         {isMuted ? '🔈' : '🔇'}
       </button>
