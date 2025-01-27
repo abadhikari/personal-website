@@ -119,20 +119,22 @@
 }
 
 .photoDetails h2 {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: normal;
   color: #555;
+  font-style: italic;
   margin-bottom: 20px;
 }
 
 .metadataContainer {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 .timestamp {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 
 .timestamp img {
@@ -145,6 +147,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 
 .location img {

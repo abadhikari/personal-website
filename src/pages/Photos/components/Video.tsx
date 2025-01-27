@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import ViewType from '../viewType';
+import Image from './Image';
 
 interface VideoProps {
   src: string;
@@ -14,13 +15,12 @@ interface VideoProps {
  * @returns A styled video component.
  */
 export default function Video({ src, viewType, className }: VideoProps) {
-  const videoSettings =
-    viewType === ViewType.MODAL
-      ? { autoPlay: true, muted: false, controls: true }
-      : { autoPlay: false, muted: true, controls: false };
-
-  return (
-    <>
+  const renderVideo = () => {
+    const videoSettings =
+      viewType === ViewType.MODAL
+        ? { autoPlay: true, muted: false, controls: true }
+        : { autoPlay: false, muted: true, controls: false };
+    return (
       <video
         className={className || ''}
         autoPlay={videoSettings.autoPlay}
@@ -30,13 +30,21 @@ export default function Video({ src, viewType, className }: VideoProps) {
         <source src={src} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      {viewType === ViewType.THUMBNAIL && (
+    );
+  };
+
+  const renderThumbnail = () => {
+    return (
+      <>
+        <Image src={src} altText="video thumbnail" className={className} />
         <img
           src="./assets/videoIcon.png"
           alt="Video Icon"
           className="icon-overlay"
         />
-      )}
-    </>
-  );
+      </>
+    );
+  };
+
+  return viewType === ViewType.THUMBNAIL ? renderThumbnail() : renderVideo();
 }
