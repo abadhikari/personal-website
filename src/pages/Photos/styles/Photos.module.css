@@ -1,0 +1,187 @@
+.photos {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.photosContainer {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: black;
+}
+
+.photosFeedContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.photoFeedImageContainer {
+  position: relative;
+  display: flex;
+  margin: 15px;
+  width: calc(33% - 30px);
+  aspect-ratio: 1 / 1;
+  box-shadow: 7px 7px 20px black;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.photoFeedImageContainerMedia {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.photoFeedImageContainer:focus {
+  outline: 2px solid #000;
+}
+
+.photoFeedImageContainer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s ease;
+}
+
+.photoFeedImageContainer:hover::after {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.stackIcon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 5px;
+  color: white;
+  height: 25px;
+  width: 25px;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  width: auto;
+  height: auto;
+  max-width: 80vw;
+  max-height: 80vh;
+  align-items: center;
+  overflow: auto;
+  background: #fff;
+}
+
+.fullSizeMedia {
+  max-height: 80vh;
+  max-width: calc(80vw - 300px);
+  width: auto;
+  object-fit: contain;
+  box-sizing: border-box;
+}
+
+.photoDetails {
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+  overflow-wrap: break-word;
+}
+
+.photoDetails h2 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.metadataContainer {
+  font-size: 0.8rem;
+}
+
+.timestamp {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.timestamp img {
+  width: 15px;
+  height: 15px;
+  opacity: 0.8;
+}
+
+.location {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.location img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .photosFeedContainer {
+    flex-wrap: none;
+  }
+
+  .photoFeedImageContainer {
+    width: 100%;
+  }
+
+  .modalContent {
+    flex-direction: column;
+    max-width: 80vw;
+    max-height: 90vh;
+  }
+
+  .fullSizeMedia {
+    max-width: 80vw;
+    max-height: 90vh;
+    height: auto;
+  }
+}

@@ -6,6 +6,7 @@ import Home from '../pages/Home/Home';
 import About from '../pages/About/About';
 import Projects from '../pages/Projects/Projects';
 import Contact from '../pages/Contact/Contact';
+import Photos from '../pages/Photos/Photos';
 import '../styles/global.css';
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/photos" element={<Photos />} />
           </Routes>
         </div>
         <Footer />

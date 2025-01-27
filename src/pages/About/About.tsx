@@ -15,7 +15,7 @@ export default function About() {
         <h1>
           <span className={animationStyles.strike}>A Little</span> About Me
         </h1>
-
+        <div className="divider" />
         <ul>
           <li>
             I was born in Nepal🇳🇵 and moved to the US when I was 4 years old.

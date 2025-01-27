@@ -29,6 +29,26 @@ a:hover {
   color: #0cafff;
 }
 
+.divider {
+  width: 50px;
+  height: 2px;
+  background-color: #333;
+  margin: 8px auto;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.icon-overlay {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 25px;
+  height: 25px;
+  z-index: 10;
+}
+
 @media (max-width: 900px) {
   html {
     font-size: 16px;

@@ -36,6 +36,11 @@ export default function NavBar() {
           </Link>
         </li>
         <li>
+          <Link to="/photos" onClick={closeDropdownMenu}>
+            Photos
+          </Link>
+        </li>
+        <li>
           <Link to="/projects" onClick={closeDropdownMenu}>
             Projects
           </Link>

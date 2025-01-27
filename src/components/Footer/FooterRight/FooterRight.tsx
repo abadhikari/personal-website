@@ -13,6 +13,9 @@ export default function FooterRight() {
           <Link to="/about">About</Link>
         </li>
         <li>
+          <Link to="/photos">Photos</Link>
+        </li>
+        <li>
           <Link to="/projects">Projects</Link>
         </li>
         <li>

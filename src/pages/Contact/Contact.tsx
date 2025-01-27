@@ -6,6 +6,7 @@ export default function Contact() {
   return (
     <div className={`${styles.contact} ${animationStyles.fadeInUp}`}>
       <h1>Contact Me</h1>
+      <div className="divider" />
       <div className={styles.contactResourceContainer}>
         <div className={styles.contactResource}>
           <h2>Email</h2>
