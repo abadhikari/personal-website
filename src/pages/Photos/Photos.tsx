@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import * as styles from './styles/Photos.module.css';
 import * as animationStyles from '../../styles/animations.module.css';
 import { MediaStack } from './types';
@@ -6,6 +6,7 @@ import fetchPhotos from './fetchPhotos';
 import MediaRenderer from './components/MediaRenderer';
 import Modal from './components/Modal';
 import ViewType from './viewType';
+import InfiniteScroll from './components/InfiniteScroll';
 
 /**
  * Renders the Photos page, which fetches and displays a list of media stacks.
@@ -18,9 +19,11 @@ import ViewType from './viewType';
  */
 export default function Photos() {
   const [stacks, setStacks] = useState<MediaStack[]>([]);
+  const [lastEvaluatedKey, setLastEvaluatedKey] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedStack, setSelectedStack] = useState<MediaStack | null>(null);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
 
   const handleThumbnailClick = (stack: MediaStack) => {
     setSelectedStack(stack);
@@ -30,29 +33,49 @@ export default function Photos() {
     setSelectedStack(null);
   };
 
+  const fetchPhotoData = async (key: string | null = null) => {
+    try {
+      const data = await fetchPhotos({
+        ...(key && { lastEvaluatedKey: key }),
+      });
+      setStacks((prev) => [...prev, ...data.stackAndMediaData]);
+      setLastEvaluatedKey(data.lastEvaluatedKey || null);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : 'An unexpected error occurred.'
+      );
+    }
+  };
+
+  const fetchMorePhotos = useCallback(async () => {
+    if (isFetchingMore || !lastEvaluatedKey) return;
+
+    setIsFetchingMore(true);
+    try {
+      await fetchPhotoData(lastEvaluatedKey);
+    } finally {
+      setIsFetchingMore(false);
+    }
+  }, [lastEvaluatedKey, isFetchingMore]);
+
   useEffect(() => {
-    async function loadPhotos() {
+    async function loadInitialPhotos() {
       try {
-        const data = await fetchPhotos();
-        setStacks(data);
-      } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : 'An unexpected error occurred.';
-        setError(errorMessage);
+        await fetchPhotoData();
       } finally {
         setLoading(false);
       }
     }
 
-    loadPhotos();
+    loadInitialPhotos();
   }, []);
 
   if (loading) {
-    return <div className={styles.photos}>Loading...</div>;
+    return <div className={styles.photosTemporaryText}>Loading...</div>;
   }
 
   if (error) {
-    return <div className={styles.photos}>Error: {error}</div>;
+    return <div className={styles.photosTemporaryText}>Error: {error}</div>;
   }
 
   return (
@@ -86,6 +109,14 @@ export default function Photos() {
           ))}
         </div>
       </div>
+
+      {lastEvaluatedKey && (
+        <InfiniteScroll
+          fetchMore={fetchMorePhotos}
+          isFetching={isFetchingMore}
+        />
+      )}
+
       {selectedStack && (
         <Modal mediaStack={selectedStack} onClose={handleCloseModal} />
       )}

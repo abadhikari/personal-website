@@ -59,3 +59,8 @@ export interface MediaStack {
   media: Media[];
   stack: Stack;
 }
+
+export interface MediaReadApiResponse {
+  stackAndMediaData: MediaStack[];
+  lastEvaluatedKey?: string;
+}

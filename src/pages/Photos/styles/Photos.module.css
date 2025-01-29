@@ -6,6 +6,11 @@
   align-items: center;
 }
 
+.photosTemporaryText {
+  text-align: 'center';
+  color: black;
+}
+
 .photosContainer {
   display: flex;
   flex-direction: column;
