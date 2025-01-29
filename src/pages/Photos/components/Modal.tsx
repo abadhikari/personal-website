@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { MediaStack } from '../types';
 import * as styles from '../styles/Photos.module.css';
+import * as animationStyles from '../../../styles/animations.module.css';
 import MediaRenderer from './MediaRenderer';
 import ViewType from '../viewType';
 
@@ -44,7 +45,7 @@ export default function Modal({ mediaStack, onClose }: ModalProps) {
 
   return (
     <div
-      className={styles.modalOverlay}
+      className={`${styles.modalOverlay} ${animationStyles.backdropFade}`}
       role="button"
       tabIndex={0}
       onMouseDown={handleClickOutside}
