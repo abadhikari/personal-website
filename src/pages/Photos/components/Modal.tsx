@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { MediaStack } from '../types';
 import * as styles from '../styles/Photos.module.css';
 import MediaRenderer from './MediaRenderer';
@@ -20,6 +20,16 @@ interface ModalProps {
  * @returns {JSX.Element} The rendered modal component.
  */
 export default function Modal({ mediaStack, onClose }: ModalProps) {
+  const modalRef = useRef<HTMLDivElement | null>(null);
+
+  const handleClickOutside = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      onClose();
+    }
+  };
+
   useEffect(() => {
     // Prevent scrolling when the modal is rendered
     document.body.classList.add('no-scroll');
@@ -33,8 +43,13 @@ export default function Modal({ mediaStack, onClose }: ModalProps) {
   const uploadDate = new Date(mediaStack.stack.uploadTimestamp);
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent}>
+    <div
+      className={styles.modalOverlay}
+      role="button"
+      tabIndex={0}
+      onMouseDown={handleClickOutside}
+    >
+      <div ref={modalRef} className={styles.modalContent}>
         <MediaRenderer
           media={mediaStack.media[0]}
           viewType={ViewType.MODAL}

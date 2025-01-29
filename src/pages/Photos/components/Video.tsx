@@ -18,14 +18,15 @@ export default function Video({ src, viewType, className }: VideoProps) {
   const renderVideo = () => {
     const videoSettings =
       viewType === ViewType.MODAL
-        ? { autoPlay: true, muted: false, controls: true }
-        : { autoPlay: false, muted: true, controls: false };
+        ? { autoPlay: true, muted: false, controls: true, loop: true }
+        : { autoPlay: false, muted: true, controls: false, loop: false };
     return (
       <video
         className={className || ''}
         autoPlay={videoSettings.autoPlay}
         muted={videoSettings.muted}
         controls={videoSettings.controls}
+        loop={videoSettings.loop}
       >
         <source src={src} type="video/mp4" />
         Your browser does not support the video tag.
