@@ -1,7 +1,7 @@
 # React TypeScript Frontend for [abhinnaadhikari.com](https://abhinnaadhikari.com)
 
 ## Description
-This repository contains the React TypeScript frontend for [abhinnaadhikari.com](https://abhinnaadhikari.com). The project is hosted on Vercel, providing a modern and fast deployment pipeline.
+This repository contains the React TypeScript frontend for [abhinnaadhikari.com](https://abhinnaadhikari.com). The project is hosted on Vercel.
 
 ## 🛠️ Getting Started
 
