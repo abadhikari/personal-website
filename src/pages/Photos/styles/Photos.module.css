@@ -173,6 +173,10 @@
 }
 
 @media (max-width: 900px) {
+  .photosContainer {
+    width: 100%;
+  }
+
   .photoFeedImageContainer {
     width: calc(50% - 30px);
   }
