@@ -173,12 +173,8 @@
 }
 
 @media (max-width: 900px) {
-  .photosFeedContainer {
-    flex-wrap: none;
-  }
-
   .photoFeedImageContainer {
-    width: 100%;
+    width: calc(50% - 30px);
   }
 
   .modalContent {
