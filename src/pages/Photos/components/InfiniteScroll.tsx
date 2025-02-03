@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import * as styles from '../styles/Photos.module.css';
+import BouncingText from '../../../components/common/animations/BouncingText';
 
 interface InfiniteScrollProps {
   fetchMore: () => void;
@@ -39,7 +40,7 @@ export default function InfiniteScroll({
 
   return (
     <div ref={loaderRef} className={styles.photosTemporaryText}>
-      {isFetching && <p>...</p>}
+      {isFetching && <BouncingText text="..." />}
     </div>
   );
 }

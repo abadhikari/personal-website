@@ -7,6 +7,7 @@ import MediaRenderer from './components/MediaRenderer';
 import Modal from './components/Modal';
 import ViewType from './viewType';
 import InfiniteScroll from './components/InfiniteScroll';
+import BouncingText from '../../components/common/animations/BouncingText';
 
 /**
  * Renders the Photos page, which fetches and displays a list of media stacks.
@@ -77,7 +78,7 @@ export default function Photos() {
   }, []);
 
   if (loading) {
-    return <div className={styles.photosTemporaryText}>Loading...</div>;
+    return <BouncingText text="..." className={styles.photosTemporaryText} />;
   }
 
   if (error) {
