@@ -177,6 +177,10 @@
     width: 100%;
   }
 
+  .photosFeedContainer {
+    margin-bottom: 1px;
+  }
+
   .photoFeedImageContainer {
     margin: 0.5px;
     width: calc(50% - 1px);
