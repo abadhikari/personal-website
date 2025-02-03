@@ -178,8 +178,8 @@
   }
 
   .photoFeedImageContainer {
-    margin: 2px;
-    width: calc(50% - 4px);
+    margin: 0.5px;
+    width: calc(50% - 1px);
     box-shadow: none;
   }
 
