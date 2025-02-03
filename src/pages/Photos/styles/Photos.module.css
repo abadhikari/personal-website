@@ -178,7 +178,9 @@
   }
 
   .photoFeedImageContainer {
-    width: calc(50% - 30px);
+    margin: 2px;
+    width: calc(50% - 4px);
+    box-shadow: none;
   }
 
   .modalContent {
