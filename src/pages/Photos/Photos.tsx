@@ -33,9 +33,15 @@ export default function Photos() {
     setSelectedStack(null);
   };
 
+  const numberOfStacks = () => {
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    return isMobile ? 10 : 9;
+  };
+
   const fetchPhotoData = async (key: string | null = null) => {
     try {
       const data = await fetchPhotos({
+        stackLimit: numberOfStacks(),
         ...(key && { lastEvaluatedKey: key }),
       });
       setStacks((prev) => [...prev, ...data.stackAndMediaData]);
