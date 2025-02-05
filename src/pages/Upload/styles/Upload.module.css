@@ -1,0 +1,82 @@
+.upload {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  margin-bottom: 20px;
+}
+
+.uploadContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.uploadContainer img {
+  height: 50vh;
+  width: auto;
+  margin-bottom: 20px;
+}
+
+.uploadContainer img {
+  height: 50vh;
+  width: auto;
+  margin-bottom: 20px;
+}
+
+.uploadContainer video {
+  height: 50vh;
+  width: auto;
+  margin-bottom: 20px;
+}
+
+.uploadPreview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.uploadPreview p {
+  margin: 10px 0;
+}
+
+.uploadPreview button {
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  text-align: center;
+}
+
+.uploadPreview button:hover {
+  background: #f0f0f0;
+}
+
+.imageMetadata {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.imageMetadata input {
+  width: 100%;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.selectFromDeviceButton {
+  background-color: #0cafff;
+  color: #f7f0e6;
+  font-size: 18px;
+}
+
+.selectFromDeviceButton:hover {
+  background-color: rgb(0, 149, 246);
+}

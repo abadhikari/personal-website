@@ -1,6 +1,11 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 const path = require('path');
+const dotenv = require('dotenv');
+
+// Load .env file into process.env
+dotenv.config();
 
 module.exports = {
   entry: './src/index.tsx',
@@ -17,6 +22,9 @@ module.exports = {
       patterns: [
         { from: 'public', to: '', globOptions: { ignore: ['**/index.html'] } }
       ],
+    }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
     }),
   ],
   resolve: {

@@ -7,7 +7,10 @@ import About from '../pages/About/About';
 import Projects from '../pages/Projects/Projects';
 import Contact from '../pages/Contact/Contact';
 import Photos from '../pages/Photos/Photos';
+import Upload from '../pages/Upload/Upload';
+import Login from '../pages/Login/Login';
 import '../styles/global.css';
+import PrivateRoute from './common/PrivateRoute';
 
 export default function App() {
   return (
@@ -22,6 +25,15 @@ export default function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/photos" element={<Photos />} />
+            <Route
+              path="/upload"
+              element={
+                <PrivateRoute>
+                  <Upload />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
         <Footer />

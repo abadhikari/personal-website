@@ -1,0 +1,32 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: black;
+}
+
+.loginForm input {
+  width: 100%;
+}
+
+.loginForm button {
+  margin-top: 15px;
+}
+
+@media (max-width: 900px) {
+  .login {
+    width: 100%;
+  }
+}
