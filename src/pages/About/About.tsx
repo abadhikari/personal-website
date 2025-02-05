@@ -6,10 +6,7 @@ export default function About() {
   return (
     <div className={`${styles.about} ${animationStyles.fadeInUp}`}>
       <div className={`${styles.aboutPhoto}`}>
-        <img
-          src="/assets/photoWithMum.jpg"
-          alt="Me with my mom at Brooklyn bridge"
-        />
+        <img src="/assets/stupidFace.jpg" alt="Me making a stupid face" />
       </div>
       <div className={`${styles.aboutInfo}`}>
         <h1>

@@ -44,7 +44,7 @@
   height: 5px;
   background: black;
   animation-name: strike;
-  animation-duration: 15s;
+  animation-duration: 14s;
   animation-timing-function: linear;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
