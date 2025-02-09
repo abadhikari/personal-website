@@ -37,14 +37,12 @@ export interface ImageUrl {
  * @property {string} caption - A brief description or caption for the stack.
  * @property {string} location - The location associated with the stack.
  * @property {string} stackId - The unique identifier for the stack.
- * @property {string} staticKey - A static key used for stack identification or processing.
  * @property {number} uploadTimestamp - The timestamp indicating when the stack was uploaded.
  */
 export interface Stack {
   caption: string;
   location?: string;
   stackId: string;
-  staticKey: string;
   uploadTimestamp: number;
 }
 
