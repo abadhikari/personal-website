@@ -78,9 +78,9 @@ export default function Projects() {
           </div>
         }
       />
-      <p>
-        Keep an <span className={styles.eyes}>👁️👄👁️</span> out for future
-        projects.
+      <p className={styles.eyesText}>
+        That&apos;s all for now! Keep an{' '}
+        <span className={styles.eyes}>👁️👄👁️</span> out for future projects.
       </p>
     </div>
   );

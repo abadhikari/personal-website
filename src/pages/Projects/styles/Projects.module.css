@@ -139,11 +139,14 @@
   }
 }
 
+.eyesText {
+  margin: 70px;
+  text-align: center;
+}
+
 .eyes {
   display: inline-block;
   animation: eyeMove 6s ease-in-out infinite alternate;
-  font-size: 0.8rem;
-  margin: 50px;
 }
 
 @media (max-width: 900px) {
