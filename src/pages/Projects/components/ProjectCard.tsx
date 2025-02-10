@@ -9,7 +9,7 @@ import * as styles from '../styles/Projects.module.css';
  * @property {object} image - An object containing the source and alt text of the project image.
  * @property {string} image.src - The URL source of the image to display in the card.
  * @property {string} image.altText - The alt text for the image, used for accessibility and SEO.
- * @property {string} description - A brief description of the project.
+ * @property {ReactNode} description - A brief description of the project.
  * @property {ReactNode} additionalContents - Additional content to be displayed in the card, such as
  * a list of frontend and backend technologies used, or any other JSX element.
  */
@@ -19,7 +19,7 @@ interface ProjectCardProps {
     src: string;
     altText: string;
   };
-  description: string;
+  description: ReactNode;
   additionalContents: ReactNode;
 }
 
@@ -46,7 +46,7 @@ export default function ProjectCard({
       <div className={styles.projectCardContents}>
         <h2>{title}</h2>
         <div className={styles.projectCardContentsDescription}>
-          <p>{description}</p>
+          {description}
         </div>
         {additionalContents}
       </div>

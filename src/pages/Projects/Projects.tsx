@@ -2,6 +2,7 @@ import * as styles from './styles/Projects.module.css';
 import * as animationStyles from '../../styles/animations.module.css';
 import ProjectCard from './components/ProjectCard';
 import TechStack from './components/TechStack';
+import SocialsImage from '../../components/Footer/FooterLeft/SocialsImage';
 
 /**
  * Projects Page Component
@@ -19,7 +20,13 @@ export default function Projects() {
       <ProjectCard
         title="Photos Page"
         image={{ src: '/assets/photosPage.jpg', altText: 'photos Page' }}
-        description="Created a photos page on my website that has a tiled view similar to instagram and supports both photos and videos."
+        description={
+          <p>
+            Created a photos page on my website that has a tiled view similar to
+            instagram and supports both photos and videos. See Photos Page
+            <a href="https://abhinnaadhikari.com/photos"> here.</a>
+          </p>
+        }
         additionalContents={
           <TechStack
             frontend={{
@@ -41,6 +48,34 @@ export default function Projects() {
                 'https://github.com/abadhikari/personal-website-cdk/blob/main/lib/stacks/photos-page-stack.ts',
             }}
           />
+        }
+      />
+      <ProjectCard
+        title="Mojilang"
+        image={{ src: '/assets/mojilang.jpg', altText: 'mojilang code' }}
+        description={
+          <p>
+            Created a simple interpreted programming language that utilizes
+            emojis and is built from scratch with a custom lexer, parser, and
+            interpreter. My goal with Mojilang was to learn the basic inner
+            workings of a programming language while also making a fun goofy
+            programming language using emojis for common programming constructs
+            like variables, loops, conditionals, and functions. It&apos;s
+            written in python which is slow, but allowed me to quickly iterate
+            and add features.
+          </p>
+        }
+        additionalContents={
+          <div className={styles.centralize}>
+            <SocialsImage
+              imageLink="https://github.com/abadhikari/MojiLang"
+              hoveredSrc="./assets/githubLogoBlue.png"
+              defaultSrc="./assets/githubLogoBlack.png"
+              altText="Github Logo"
+              width={30}
+              height={30}
+            />
+          </div>
         }
       />
       <p>
