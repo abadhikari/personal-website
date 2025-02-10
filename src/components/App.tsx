@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './Header/Header';
 import ScrollToTop from './Header/Navbar/ScrollToTop';
@@ -11,11 +12,13 @@ import Upload from '../pages/Upload/Upload';
 import Login from '../pages/Login/Login';
 import '../styles/global.css';
 import PrivateRoute from './common/PrivateRoute';
+import TrackPageViews from './common/TrackPageViews';
 
 export default function App() {
   return (
     <Router>
       <ScrollToTop />
+      <TrackPageViews />
       <div className="app">
         <Header />
         <div className="mainContent">
@@ -37,6 +40,7 @@ export default function App() {
           </Routes>
         </div>
         <Footer />
+        <Analytics />
       </div>
     </Router>
   );
