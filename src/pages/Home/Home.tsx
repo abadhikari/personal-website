@@ -16,8 +16,8 @@ export default function Home() {
               I first discovered this painting when searching for a poster in
               college, and ever since then, I&apos;ve kept a version of it
               hanging in my room. The vibrant colors, textured strokes, and
-              blurred reflections on the rain-soaked ground invoke a deep sense
-              of calm that makes this one of my favorite paintings.
+              blurred reflections on the rain-soaked ground makes this one of my
+              favorite paintings.
             </p>
           </div>
         </div>
@@ -27,14 +27,13 @@ export default function Home() {
           Welcome!<span className={styles.wavingHand}>👋</span>
         </h1>
         <p>
-          This website offers a little glimpse into who I am and what I&apos;ve
-          been working on. You&apos;ll find the following here:
+          This website offers a lil glimpse into who I am and what I&apos;ve
+          been working on. You&apos;ll eventually find the following here:
         </p>
         <ul>
           <li>Projects</li>
           <li>Photography</li>
           <li>Writing</li>
-          <li>Drawings</li>
           <li>Reviews</li>
         </ul>
       </div>
