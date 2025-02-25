@@ -34,6 +34,7 @@ export default function Home() {
           <li>Projects</li>
           <li>Photography</li>
           <li>Writing</li>
+          <li>Drawings</li>
           <li>Reviews</li>
         </ul>
       </div>
