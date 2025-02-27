@@ -2,10 +2,14 @@
  * Extracts a thumbnail image from the first frame of a given video file.
  *
  * @param {File} file - The video file from which to extract a thumbnail.
+ * @param {number} currentTime - the time to be used for the thumbnail.
  * @returns {Promise<File>} - A Promise that resolves with a File object containing the extracted thumbnail image.
  * @throws {Error} If the video fails to load, the canvas is unsupported, or the thumbnail extraction fails.
  */
-export default function extractThumbnailFromVideo(file: File): Promise<File> {
+export default function extractThumbnailFromVideo(
+  file: File,
+  currentTime: number
+): Promise<File> {
   return new Promise((resolve, reject) => {
     const video = document.createElement('video');
     const url = URL.createObjectURL(file);
@@ -17,7 +21,7 @@ export default function extractThumbnailFromVideo(file: File): Promise<File> {
     video.load();
 
     video.addEventListener('loadedmetadata', () => {
-      video.currentTime = 0;
+      video.currentTime = currentTime;
     });
 
     video.addEventListener('seeked', () => {

@@ -98,12 +98,14 @@ async function uploadToSignedUrl(signedUrlAndKey: SignedUrlAndKey, file: File) {
  * @param {File} file - The image file to be uploaded.
  * @param {string} userId - The ID of the user uploading the file.
  * @param {ImageMetadata} imageMetadata - The metadata for the image, including caption, alt text, and location.
+ * @param {number} videoCurrentTime - the time of the video for the thumbnail.
  * @throws Will throw an error if any step in the upload process fails (e.g., obtaining signed URL, uploading to S3, saving metadata).
  */
 export async function uploadImage(
   file: File,
   userId: string,
-  imageMetadata: ImageMetadata
+  imageMetadata: ImageMetadata,
+  videoCurrentTime: number
 ) {
   try {
     const signedUrlRequest = [
@@ -116,7 +118,7 @@ export async function uploadImage(
 
     let thumbnail;
     if (file.type.includes('video')) {
-      thumbnail = await extractThumbnailFromVideo(file);
+      thumbnail = await extractThumbnailFromVideo(file, videoCurrentTime);
       signedUrlRequest.push({
         fileName: thumbnail.name,
         contentType: thumbnail.type,

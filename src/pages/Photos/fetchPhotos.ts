@@ -35,7 +35,7 @@ export default async function fetchPhotos({
   const response = await fetch(url.toString());
 
   if (!response.ok) {
-    throw new Error(`Error: ${response.statusText}`);
+    throw new Error(`Error: ${response.status} ${response.statusText}`);
   }
 
   const data = await response.json();

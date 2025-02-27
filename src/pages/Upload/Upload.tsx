@@ -25,6 +25,7 @@ export default function Upload() {
     location: '',
   });
   const [uploadStatus, setUploadStatus] = useState<string>('');
+  const [videoCurrentTime, setVideoCurrentTime] = useState<number>(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const SUCCESS_PAGE_RESET_TIME = 60000;
 
@@ -59,7 +60,7 @@ export default function Upload() {
 
     try {
       setUploadStatus('Uploading...');
-      await uploadImage(imageFile, '1', imageMetadata);
+      await uploadImage(imageFile, '1', imageMetadata, videoCurrentTime);
       setUploadStatus(`File uploaded successfully!`);
       timerRef.current = setTimeout(() => {
         resetPage();
@@ -91,7 +92,13 @@ export default function Upload() {
         )}
         {imageFile && (
           <div className={styles.uploadPreview}>
-            <MediaPreview file={imageFile} />
+            <MediaPreview
+              file={imageFile}
+              onCurrentTimeChange={setVideoCurrentTime}
+            />
+            {imageFile.type.includes('video') && (
+              <p>Video Thumbnail Time: {videoCurrentTime} seconds </p>
+            )}
             <p>File Size: {(imageFile.size / (1024 * 1024)).toFixed(2)} MB</p>
             <p>File Type: {imageFile.type}</p>
             <MetadataForm

@@ -82,7 +82,7 @@ export default function Photos() {
   }
 
   if (error) {
-    return <div className={styles.photosTemporaryText}>Error: {error}</div>;
+    return <div className={styles.photosTemporaryText}>{error}</div>;
   }
 
   return (
