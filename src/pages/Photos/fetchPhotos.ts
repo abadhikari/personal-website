@@ -27,9 +27,9 @@ export default async function fetchPhotos({
     endTimestamp: endTimestamp.toString(),
     ...(lastEvaluatedKey && { lastEvaluatedKey }),
   };
-  const url = new URL(
-    'https://reoonusak1.execute-api.us-east-1.amazonaws.com/prod/v1/media'
-  );
+  const endpoint = process.env.MEDIA_BASE_ENDPOINT;
+  if (!endpoint) throw new Error('MEDIA_BASE_ENDPOINT is not defined');
+  const url = new URL(endpoint);
   url.search = new URLSearchParams(params).toString();
 
   const response = await fetch(url.toString());

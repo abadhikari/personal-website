@@ -55,17 +55,16 @@ export async function saveMetadata(
 
     const token = await getToken();
 
-    const writeResponse = await fetch(
-      'https://reoonusak1.execute-api.us-east-1.amazonaws.com/prod/v1/media',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(writeRequest),
-      }
-    );
+    const endpoint = process.env.MEDIA_BASE_ENDPOINT;
+    if (!endpoint) throw new Error('MEDIA_BASE_ENDPOINT is not defined');
+    const writeResponse = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(writeRequest),
+    });
 
     if (!writeResponse.ok) {
       throw Error(`Error writing metadata.`);
@@ -128,17 +127,16 @@ export async function uploadImage(
 
     const token = await getToken();
 
-    const signedUrlResponse = await fetch(
-      'https://reoonusak1.execute-api.us-east-1.amazonaws.com/prod/v1/media/upload-url',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ filesMetadata: signedUrlRequest }),
-      }
-    );
+    const endpoint = `${process.env.MEDIA_BASE_ENDPOINT}/upload-url`;
+    if (!endpoint) throw new Error('MEDIA_SIGNED_URLS_ENDPOINT is not defined');
+    const signedUrlResponse = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ filesMetadata: signedUrlRequest }),
+    });
 
     if (!signedUrlResponse.ok) {
       throw Error(`Error getting signed URL: ${signedUrlResponse.statusText}`);
