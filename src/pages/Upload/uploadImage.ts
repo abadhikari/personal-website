@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ImageMetadata } from './components/MetadataForm';
 import extractThumbnailFromVideo from './extractThumbnailFromVideo';
 import getToken from '../../auth/getToken';
+import getApiEndpoint from '../../api/config';
 
 interface SignedUrlResponse {
   signedUrlsAndKeys: Array<SignedUrlAndKey>;
@@ -54,9 +55,11 @@ export async function saveMetadata(
     };
 
     const token = await getToken();
+    if (!token) {
+      throw new Error('Missing authorization token');
+    }
 
-    const endpoint = process.env.MEDIA_BASE_ENDPOINT;
-    if (!endpoint) throw new Error('MEDIA_BASE_ENDPOINT is not defined');
+    const endpoint = getApiEndpoint(`media`);
     const writeResponse = await fetch(endpoint, {
       method: 'POST',
       headers: {
@@ -126,9 +129,11 @@ export async function uploadImage(
     }
 
     const token = await getToken();
+    if (!token) {
+      throw new Error('Missing authorization token');
+    }
 
-    const endpoint = `${process.env.MEDIA_BASE_ENDPOINT}/upload-url`;
-    if (!endpoint) throw new Error('MEDIA_SIGNED_URLS_ENDPOINT is not defined');
+    const endpoint = getApiEndpoint(`media/upload-url`);
     const signedUrlResponse = await fetch(endpoint, {
       method: 'POST',
       headers: {

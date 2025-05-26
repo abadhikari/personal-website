@@ -7,6 +7,11 @@ const dotenv = require('dotenv');
 // Load .env file into process.env
 dotenv.config();
 
+const apiBaseEndpoint = process.env.API_BASE_ENDPOINT;
+if (!apiBaseEndpoint) {
+  throw new Error('Missing API_BASE_ENDPOINT in .env');
+}
+
 module.exports = {
   entry: './src/index.tsx',
   output: {
@@ -71,6 +76,18 @@ module.exports = {
     },
     compress: true,
     port: 3000,
+    host: '0.0.0.0',
     historyApiFallback: true,
+    proxy: [{
+      context: ['/api'],
+      target: apiBaseEndpoint,
+      changeOrigin: true,
+      secure: true,
+      pathRewrite: { '^/api': '' },
+      logLevel: 'debug',
+      headers: {
+        Origin: 'http://localhost:3000',
+      },
+    }],
   },
 };

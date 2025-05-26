@@ -1,3 +1,5 @@
+import getApiEndpoint from '../../api/config';
+
 /**
  * Deletes a media item by stackId and (optionally) mediaId using your authenticated API.
  *
@@ -15,14 +17,18 @@ export default async function deleteMedia({
   mediaId?: string | null;
   token: string | null;
 }): Promise<void> {
-  const endpoint = process.env.MEDIA_BASE_ENDPOINT;
-  if (!endpoint) throw new Error('MEDIA_BASE_ENDPOINT is not defined');
+  if (!token) {
+    throw new Error('Missing authorization token');
+  }
 
-  const url = new URL(endpoint);
-  url.searchParams.append('stackId', stackId);
-  if (mediaId) url.searchParams.append('mediaId', mediaId);
+  const params = new URLSearchParams({
+    stackId,
+  });
+  if (mediaId) params.append('mediaId', mediaId);
 
-  const response = await fetch(url.toString(), {
+  const endpoint = getApiEndpoint(`media?${params.toString()}`);
+
+  const response = await fetch(endpoint, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,

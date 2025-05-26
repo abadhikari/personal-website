@@ -1,3 +1,4 @@
+import getApiEndpoint from '../../api/config';
 import { MediaReadApiResponse } from './types';
 
 /**
@@ -21,18 +22,14 @@ export default async function fetchPhotos({
   endTimestamp?: number;
   lastEvaluatedKey?: string;
 } = {}): Promise<MediaReadApiResponse> {
-  const params = {
-    stackLimit: stackLimit.toString(),
-    startTimestamp: startTimestamp.toString(),
-    endTimestamp: endTimestamp.toString(),
-    ...(lastEvaluatedKey && { lastEvaluatedKey }),
-  };
-  const endpoint = process.env.MEDIA_BASE_ENDPOINT;
-  if (!endpoint) throw new Error('MEDIA_BASE_ENDPOINT is not defined');
-  const url = new URL(endpoint);
-  url.search = new URLSearchParams(params).toString();
-
-  const response = await fetch(url.toString());
+  const search = new URLSearchParams({
+    stackLimit: String(stackLimit),
+    startTimestamp: String(startTimestamp),
+    endTimestamp: String(endTimestamp),
+    ...(lastEvaluatedKey ? { lastEvaluatedKey } : {}),
+  }).toString();
+  const endpoint = getApiEndpoint(`media?${search}`);
+  const response = await fetch(endpoint);
 
   if (!response.ok) {
     throw new Error(`Error: ${response.status} ${response.statusText}`);
