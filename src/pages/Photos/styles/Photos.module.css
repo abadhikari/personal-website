@@ -102,6 +102,72 @@
   background: #fff;
 }
 
+.modalMediaContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalActionMenu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 11;
+}
+
+.menuButton {
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  font-size: 20px;
+  padding: 4px 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.menuButton:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 34px;
+  right: 0;
+  background: rgba(20, 20, 20, 0.85);
+  border-radius: 8px;
+  padding: 4px 0;
+  z-index: 12;
+  min-width: 100px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.dropdownDelete {
+  background: none;
+  border: none;
+  color: #f7f0e6;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 12px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dropdownDelete:hover {
+  color: #ff4d4f;
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.dropdownConfirmText {
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #ccc;
+  text-align: left;
+}
+
 .fullSizeMedia {
   max-height: 80vh;
   max-width: calc(80vw - 300px);
@@ -124,11 +190,13 @@
 }
 
 .photoDetails h2 {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: normal;
   color: #555;
   font-style: italic;
   margin-bottom: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .metadataContainer {

@@ -3,7 +3,10 @@ import { MediaStack } from '../types';
 import * as styles from '../styles/Photos.module.css';
 import * as animationStyles from '../../../styles/animations.module.css';
 import MediaRenderer from './MediaRenderer';
+import ModalActionMenu from './ModalActionMenu';
 import ViewType from '../viewType';
+import useAuth from '../../../auth/useAuth';
+import deleteMedia from '../deleteMedia';
 
 interface ModalProps {
   mediaStack: MediaStack;
@@ -22,6 +25,7 @@ interface ModalProps {
  */
 export default function Modal({ mediaStack, onClose }: ModalProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
+  const { isAuthenticated, token } = useAuth();
 
   const handleClickOutside = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -51,11 +55,26 @@ export default function Modal({ mediaStack, onClose }: ModalProps) {
       onMouseDown={handleClickOutside}
     >
       <div ref={modalRef} className={styles.modalContent}>
-        <MediaRenderer
-          media={mediaStack.media[0]}
-          viewType={ViewType.MODAL}
-          className={styles.fullSizeMedia}
-        />
+        <div className={styles.modalMediaContainer}>
+          <MediaRenderer
+            media={mediaStack.media[0]}
+            viewType={ViewType.MODAL}
+            className={styles.fullSizeMedia}
+          />
+          {isAuthenticated && (
+            <ModalActionMenu
+              mediaStack={mediaStack}
+              onDelete={() => {
+                deleteMedia({
+                  stackId: mediaStack.stack.stackId,
+                  mediaId: mediaStack.media[0].mediaId,
+                  token,
+                });
+                onClose();
+              }}
+            />
+          )}
+        </div>
         <div className={styles.photoDetails}>
           <h2>{mediaStack.stack.caption}</h2>
           <div className="divider" />
