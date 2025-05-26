@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MediaStack } from '../types';
 import * as styles from '../styles/Photos.module.css';
 import * as animationStyles from '../../../styles/animations.module.css';
@@ -9,8 +9,10 @@ import useAuth from '../../../auth/useAuth';
 import deleteMedia from '../deleteMedia';
 
 interface ModalProps {
-  mediaStack: MediaStack;
+  mediaStacks: MediaStack[];
+  selectedStackIndex: number;
   onClose: () => void;
+  setStacks: React.Dispatch<React.SetStateAction<MediaStack[]>>;
 }
 
 /**
@@ -23,15 +25,50 @@ interface ModalProps {
  * @param {() => void} props.onClose - Callback function triggered when the modal is closed.
  * @returns {JSX.Element} The rendered modal component.
  */
-export default function Modal({ mediaStack, onClose }: ModalProps) {
+export default function Modal({
+  mediaStacks,
+  selectedStackIndex,
+  onClose,
+  setStacks,
+}: ModalProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
+  const selectedStack = mediaStacks[selectedStackIndex];
   const { isAuthenticated, token } = useAuth();
+  const [focusedMediaIndex] = useState<number>(0);
+  const focusedMedia = selectedStack.media[focusedMediaIndex];
 
   const handleClickOutside = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       onClose();
+    }
+  };
+
+  const handleDeleteMedia = async () => {
+    try {
+      const { mediaId } = focusedMedia;
+      await deleteMedia({
+        stackId: selectedStack.stack.stackId,
+        mediaId,
+        token,
+      });
+      setStacks((prev) => {
+        const newStacks = [...prev];
+        const stack = { ...newStacks[selectedStackIndex] };
+        stack.media = stack.media.filter((m) => m.mediaId !== mediaId);
+
+        if (stack.media.length === 0) {
+          newStacks.splice(selectedStackIndex, 1);
+          onClose();
+        } else {
+          newStacks[selectedStackIndex] = stack;
+        }
+
+        return newStacks;
+      });
+    } catch (err) {
+      console.error('Failed to delete media:', err);
     }
   };
 
@@ -45,7 +82,7 @@ export default function Modal({ mediaStack, onClose }: ModalProps) {
     };
   }, []);
 
-  const uploadDate = new Date(mediaStack.stack.uploadTimestamp);
+  const uploadDate = new Date(selectedStack.stack.uploadTimestamp);
 
   return (
     <div
@@ -57,33 +94,27 @@ export default function Modal({ mediaStack, onClose }: ModalProps) {
       <div ref={modalRef} className={styles.modalContent}>
         <div className={styles.modalMediaContainer}>
           <MediaRenderer
-            media={mediaStack.media[0]}
+            media={focusedMedia}
             viewType={ViewType.MODAL}
             className={styles.fullSizeMedia}
           />
           {isAuthenticated && (
             <ModalActionMenu
-              mediaStack={mediaStack}
               onDelete={() => {
-                deleteMedia({
-                  stackId: mediaStack.stack.stackId,
-                  mediaId: mediaStack.media[0].mediaId,
-                  token,
-                });
-                onClose();
+                handleDeleteMedia();
               }}
             />
           )}
         </div>
         <div className={styles.photoDetails}>
-          <h2>{mediaStack.stack.caption}</h2>
+          <h2>{selectedStack.stack.caption}</h2>
           <div className="divider" />
           <div className={styles.metadataContainer}>
-            {mediaStack.stack.location && (
+            {selectedStack.stack.location && (
               <div className={styles.location}>
                 <img src="./assets/locationIcon.png" alt="Location Icon" />
                 <p>&nbsp;</p>
-                <p>{mediaStack.stack.location}</p>
+                <p>{selectedStack.stack.location}</p>
               </div>
             )}
             <div className={styles.timestamp}>

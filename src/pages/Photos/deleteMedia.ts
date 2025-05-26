@@ -35,6 +35,10 @@ export default async function deleteMedia({
     },
   });
 
+  console.log(
+    `Successfully deleted item of stackId ${stackId} and mediaId ${mediaId}`
+  );
+
   if (!response.ok) {
     const text = await response.text();
     throw new Error(

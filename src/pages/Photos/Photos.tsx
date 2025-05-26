@@ -23,15 +23,17 @@ export default function Photos() {
   const [lastEvaluatedKey, setLastEvaluatedKey] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedStack, setSelectedStack] = useState<MediaStack | null>(null);
+  const [selectedStackIndex, setSelectedStackIndex] = useState<number | null>(
+    null
+  );
   const [isFetchingMore, setIsFetchingMore] = useState(false);
 
-  const handleThumbnailClick = (stack: MediaStack) => {
-    setSelectedStack(stack);
+  const handleThumbnailClick = (index: number) => {
+    setSelectedStackIndex(index);
   };
 
   const handleCloseModal = () => {
-    setSelectedStack(null);
+    setSelectedStackIndex(null);
   };
 
   const numberOfStacks = () => {
@@ -92,18 +94,18 @@ export default function Photos() {
         <div className="divider" />
         <p>A collection of photos and videos I&apos;ve taken.</p>
         <div className={styles.photosFeedContainer}>
-          {stacks.map((stack) => (
+          {stacks.map((stack, index) => (
             <div
               key={stack.stack.stackId}
               className={styles.photoFeedImageContainer}
-              onClick={() => handleThumbnailClick(stack)}
+              onClick={() => handleThumbnailClick(index)}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   // Prevent default scrolling behavior for the spacebar
                   e.preventDefault();
-                  handleThumbnailClick(stack);
+                  handleThumbnailClick(index);
                 }
               }}
             >
@@ -124,8 +126,13 @@ export default function Photos() {
         />
       )}
 
-      {selectedStack && (
-        <Modal mediaStack={selectedStack} onClose={handleCloseModal} />
+      {selectedStackIndex !== null && (
+        <Modal
+          mediaStacks={stacks}
+          selectedStackIndex={selectedStackIndex}
+          onClose={handleCloseModal}
+          setStacks={setStacks}
+        />
       )}
     </div>
   );
