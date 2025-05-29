@@ -1,5 +1,6 @@
 import { Analytics } from '@vercel/analytics/react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import Header from './Header/Header';
 import ScrollToTop from './Header/Navbar/ScrollToTop';
 import Footer from './Footer/Footer';
@@ -16,32 +17,50 @@ import TrackPageViews from './common/TrackPageViews';
 
 export default function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <TrackPageViews />
-      <div className="app">
-        <Header />
-        <div className="mainContent">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/photos" element={<Photos />} />
-            <Route
-              path="/upload"
-              element={
-                <PrivateRoute>
-                  <Upload />
-                </PrivateRoute>
-              }
-            />
-            <Route path="/login" element={<Login />} />
-          </Routes>
+    <>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            background: '#fff',
+            color: '#333',
+            fontFamily: "'Courier New', monospace",
+            fontSize: '17px',
+            fontWeight: '500',
+            borderRadius: '8px',
+            padding: '10px 16px',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+            border: '1px solid #eee',
+          },
+        }}
+      />
+      <Router>
+        <ScrollToTop />
+        <TrackPageViews />
+        <div className="app">
+          <Header />
+          <div className="mainContent">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/photos" element={<Photos />} />
+              <Route
+                path="/upload"
+                element={
+                  <PrivateRoute>
+                    <Upload />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </div>
+          <Footer />
+          <Analytics />
         </div>
-        <Footer />
-        <Analytics />
-      </div>
-    </Router>
+      </Router>
+    </>
   );
 }

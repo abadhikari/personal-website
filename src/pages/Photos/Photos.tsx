@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import * as styles from './styles/Photos.module.css';
 import * as animationStyles from '../../styles/animations.module.css';
 import { MediaStack } from './types';
 import fetchPhotos from './fetchPhotos';
 import MediaRenderer from './components/MediaRenderer';
-import Modal from './components/Modal';
+import Modal from './components/modal/Modal';
 import ViewType from './viewType';
 import InfiniteScroll from './components/InfiniteScroll';
 import BouncingText from '../../components/common/animations/BouncingText';
@@ -34,6 +35,7 @@ export default function Photos() {
 
   const handleCloseModal = () => {
     setSelectedStackIndex(null);
+    toast.success('Media Deleted.');
   };
 
   const numberOfStacks = () => {

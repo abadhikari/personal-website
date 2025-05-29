@@ -88,7 +88,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 999;
 }
 
 .modalContent {
@@ -161,6 +161,55 @@
 .dropdownDelete:hover {
   color: #ff4d4f;
   background-color: rgba(255, 0, 0, 0.1);
+}
+
+.dropdownEdit {
+  background: none;
+  border: none;
+  color: #f7f0e6;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 12px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dropdownEdit:hover {
+  color: #4da3ff;
+  background-color: rgba(34, 0, 255, 0.1);
+}
+
+.editCaptionInput {
+  padding: 6px;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 4px;
+  font-size: 1.1rem;
+  font-weight: normal;
+  color: #555;
+  font-style: italic;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  resize: none;
+}
+
+.editLocationInput {
+  padding: 6px;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 4px;
+  font-size: 0.7rem;
+}
+
+.editControls {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: flex-end;
 }
 
 .dropdownConfirmText {
