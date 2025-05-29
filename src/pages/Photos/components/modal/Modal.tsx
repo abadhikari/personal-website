@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { toast } from 'react-hot-toast';
 import { MediaStack } from '../../types';
 import MediaRenderer from '../MediaRenderer';
 import ModalActionMenu from './ModalActionMenu';
@@ -56,9 +55,6 @@ export default function Modal({
     selectedIndex: selectedStackIndex,
     setStacks,
     token,
-    onFinish: () => {
-      toast.success('Metadata Updated.');
-    },
   });
 
   const handleDeleteMedia = useDeleteMedia({

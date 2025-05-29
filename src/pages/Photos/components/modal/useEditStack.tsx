@@ -8,7 +8,6 @@ interface UseEditStackParams {
   selectedIndex: number;
   setStacks: React.Dispatch<React.SetStateAction<MediaStack[]>>;
   token: string | null;
-  onFinish?: () => void;
 }
 
 /**
@@ -19,7 +18,6 @@ interface UseEditStackParams {
  * @param {number} params.selectedIndex - Index of the selected stack in the stack array.
  * @param {Function} params.setStacks - Setter to update the full media stack list.
  * @param {string} params.token - Auth token for the API request.
- * @param {Function} [params.onFinish] - Optional callback invoked after a successful edit.
  *
  * @returns {Object} Editing state and handlers.
  * @returns {boolean} return.isEditing - Whether the modal is in editing mode.
@@ -35,7 +33,6 @@ export default function useEditStack({
   selectedIndex,
   setStacks,
   token,
-  onFinish,
 }: UseEditStackParams) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedCaption, setEditedCaption] = useState(stack.stack.caption);
@@ -71,20 +68,12 @@ export default function useEditStack({
       });
 
       setIsEditing(false);
-      onFinish?.();
+      toast.success('Metadata Updated.');
     } catch (err) {
       console.error('Failed to edit stack:', err);
       toast.error('Failed to edit stack. Please try again.');
     }
-  }, [
-    editedCaption,
-    editedLocation,
-    stack,
-    selectedIndex,
-    setStacks,
-    token,
-    onFinish,
-  ]);
+  }, [editedCaption, editedLocation, stack, selectedIndex, setStacks, token]);
 
   return {
     isEditing,

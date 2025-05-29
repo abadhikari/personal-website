@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
 import * as styles from './styles/Photos.module.css';
 import * as animationStyles from '../../styles/animations.module.css';
 import { MediaStack } from './types';
@@ -35,7 +34,6 @@ export default function Photos() {
 
   const handleCloseModal = () => {
     setSelectedStackIndex(null);
-    toast.success('Media Deleted.');
   };
 
   const numberOfStacks = () => {

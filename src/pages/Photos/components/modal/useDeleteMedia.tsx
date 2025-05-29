@@ -50,6 +50,7 @@ export default function useDeleteMedia({
         if (stack.media.length === 0) {
           newStacks.splice(selectedStackIndex, 1);
           onClose();
+          toast.success('Media Deleted.');
         } else {
           newStacks[selectedStackIndex] = stack;
         }
