@@ -130,17 +130,29 @@ export default function Modal({
           </div>
           {isAuthenticated && isEditing && (
             <div className={styles.editControls}>
-              <button type="button" onClick={saveEdit}>
+              <button
+                type="button"
+                onClick={saveEdit}
+                className={`${styles.editButton} ${styles.saveButton}`}
+              >
                 Save
               </button>
-              <button type="button" onClick={() => setIsEditing(false)}>
+              <button
+                type="button"
+                onClick={() => setIsEditing(false)}
+                className={styles.editButton}
+              >
                 Cancel
               </button>
             </div>
           )}
         </div>
       </div>
-      <button className={styles.closeButton} onClick={onClose} type="button">
+      <button
+        className={styles.closeModalButton}
+        onClick={onClose}
+        type="button"
+      >
         ✕
       </button>
     </ModalWrapper>
