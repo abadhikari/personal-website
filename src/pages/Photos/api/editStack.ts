@@ -1,4 +1,5 @@
 import getApiEndpoint from '../../../api/config';
+import log from '../../../utils/logger';
 
 interface EditStackParams {
   stackId: string;
@@ -46,5 +47,5 @@ export default async function editStack({
     );
   }
 
-  console.log(`Successfully edited stack ${stackId}`);
+  log.info(`Successfully edited stack ${stackId}`);
 }

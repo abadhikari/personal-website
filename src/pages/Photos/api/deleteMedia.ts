@@ -1,4 +1,5 @@
 import getApiEndpoint from '../../../api/config';
+import log from '../../../utils/logger';
 
 /**
  * Deletes a media item by stackId and (optionally) mediaId using your authenticated API.
@@ -35,7 +36,7 @@ export default async function deleteMedia({
     },
   });
 
-  console.log(
+  log.info(
     `Successfully deleted item of stackId ${stackId} and mediaId ${mediaId}`
   );
 

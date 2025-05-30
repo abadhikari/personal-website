@@ -1,3 +1,5 @@
+import { isProd } from '../utils/env';
+
 /**
  * Returns the base API URL depending on the current environment.
  *
@@ -12,7 +14,7 @@
  * @throws {Error} If in production and `API_BASE_ENDPOINT` is not defined.
  */
 function getApiBaseUrl(): string {
-  if (process.env.STAGE === 'prod') {
+  if (isProd()) {
     const apiBaseEndpoint = process.env.API_BASE_ENDPOINT;
     if (!apiBaseEndpoint) {
       throw new Error('Missing API_BASE_ENDPOINT in .env');

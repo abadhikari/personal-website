@@ -3,6 +3,7 @@ import { ImageMetadata } from './components/MetadataForm';
 import extractThumbnailFromVideo from './extractThumbnailFromVideo';
 import getToken from '../../auth/getToken';
 import getApiEndpoint from '../../api/config';
+import log from '../../utils/logger';
 
 interface SignedUrlResponse {
   signedUrlsAndKeys: Array<SignedUrlAndKey>;
@@ -73,7 +74,7 @@ export async function saveMetadata(
       throw Error(`Error writing metadata.`);
     }
   } catch (error) {
-    console.log('Upload Error: ', error);
+    log.error('Upload Error: ', error);
     throw error;
   }
 }
@@ -169,7 +170,7 @@ export async function uploadImage(
 
     saveMetadata(uploadTimestamp, imageMetadata, file.type, key, thumbnailKey);
   } catch (error) {
-    console.log('Upload Error: ', error);
+    log.error('Upload Error: ', error);
     throw error;
   }
 }
