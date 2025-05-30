@@ -32,6 +32,16 @@
   box-shadow: 7px 7px 20px black;
   cursor: pointer;
   overflow: hidden;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeInTile 1s ease forwards;
+}
+
+@keyframes fadeInTile {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .feedItem::after {
