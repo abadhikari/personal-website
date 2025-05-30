@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import * as styles from '../../styles/Photos.module.css';
+import * as styles from '../../styles/Modal.module.css';
 import * as animationStyles from '../../../../styles/animations.module.css';
 
 interface ModalWrapperProps {

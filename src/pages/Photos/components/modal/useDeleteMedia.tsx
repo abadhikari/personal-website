@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
-import deleteMedia from '../../deleteMedia';
-import { MediaStack } from '../../types';
+import deleteMedia from '../../api/deleteMedia';
+import { MediaStack } from '../../types/mediaTypes';
 
 interface UseDeleteMediaParams {
   selectedStack: MediaStack;

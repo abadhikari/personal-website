@@ -1,4 +1,4 @@
-import getApiEndpoint from '../../api/config';
+import getApiEndpoint from '../../../api/config';
 
 /**
  * Deletes a media item by stackId and (optionally) mediaId using your authenticated API.

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/media-has-caption */
-import ViewType from '../viewType';
+import ViewType from '../../types/viewType';
 import Image from './Image';
 
 interface VideoProps {

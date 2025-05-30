@@ -1,7 +1,7 @@
-import { Media } from '../types';
+import { Media } from '../../types/mediaTypes';
+import ViewType from '../../types/viewType';
 import Image from './Image';
 import Video from './Video';
-import ViewType from '../viewType';
 
 interface MediaRendererProps {
   media: Media;

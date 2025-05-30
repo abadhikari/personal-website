@@ -1,4 +1,4 @@
-import getApiEndpoint from '../../api/config';
+import getApiEndpoint from '../../../api/config';
 
 interface EditStackParams {
   stackId: string;

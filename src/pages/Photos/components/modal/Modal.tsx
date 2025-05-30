@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { MediaStack } from '../../types';
-import MediaRenderer from '../MediaRenderer';
+import { MediaStack } from '../../types/mediaTypes';
+import MediaRenderer from '../media/MediaRenderer';
 import ModalActionMenu from './ModalActionMenu';
-import ViewType from '../../viewType';
+import ViewType from '../../types/viewType';
 import useAuth from '../../../../auth/useAuth';
 import ModalWrapper from './ModalWrapper';
 import useEditStack from './useEditStack';
 import useDeleteMedia from './useDeleteMedia';
-import * as styles from '../../styles/Photos.module.css';
+import * as styles from '../../styles/Modal.module.css';
 
 interface ModalProps {
   mediaStacks: MediaStack[];
@@ -83,13 +83,13 @@ export default function Modal({
           />
         )}
       </div>
-      <div className={styles.photoDetails}>
+      <div className={styles.mediaDetails}>
         {isEditing ? (
           <textarea
             value={editedCaption}
             onChange={(e) => setEditedCaption(e.target.value)}
             className={styles.editCaptionInput}
-            rows={2}
+            rows={3}
           />
         ) : (
           <h2>{selectedStack.stack.caption}</h2>

@@ -1,5 +1,5 @@
-import getApiEndpoint from '../../api/config';
-import { MediaReadApiResponse } from './types';
+import getApiEndpoint from '../../../api/config';
+import { MediaReadApiResponse } from '../types/mediaTypes';
 
 /**
  * Fetches photo stacks from the API with optional parameters for customization.

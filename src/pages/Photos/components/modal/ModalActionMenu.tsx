@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import * as styles from '../../styles/Photos.module.css';
+import * as styles from '../../styles/ModalActionMenu.module.css';
 
 interface Props {
   onDelete: () => void;

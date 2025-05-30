@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import * as styles from './styles/Photos.module.css';
 import * as animationStyles from '../../styles/animations.module.css';
-import { MediaStack } from './types';
-import fetchPhotos from './fetchPhotos';
-import MediaRenderer from './components/MediaRenderer';
+import { MediaStack } from './types/mediaTypes';
+import fetchPhotos from './api/fetchPhotos';
+import MediaRenderer from './components/media/MediaRenderer';
 import Modal from './components/modal/Modal';
-import ViewType from './viewType';
+import ViewType from './types/viewType';
 import InfiniteScroll from './components/InfiniteScroll';
 import BouncingText from '../../components/common/animations/BouncingText';
 
@@ -80,11 +80,11 @@ export default function Photos() {
   }, []);
 
   if (loading) {
-    return <BouncingText text="..." className={styles.photosTemporaryText} />;
+    return <BouncingText text="..." className="loadingText" />;
   }
 
   if (error) {
-    return <div className={styles.photosTemporaryText}>{error}</div>;
+    return <div className="loadingText">{error}</div>;
   }
 
   return (
@@ -93,11 +93,11 @@ export default function Photos() {
         <h1>My Photos</h1>
         <div className="divider" />
         <p>A collection of photos and videos I&apos;ve taken.</p>
-        <div className={styles.photosFeedContainer}>
+        <div className={styles.feedContainer}>
           {stacks.map((stack, index) => (
             <div
               key={stack.stack.stackId}
-              className={styles.photoFeedImageContainer}
+              className={styles.feedItem}
               onClick={() => handleThumbnailClick(index)}
               role="button"
               tabIndex={0}
@@ -112,7 +112,7 @@ export default function Photos() {
               <MediaRenderer
                 media={stack.media[0]}
                 viewType={ViewType.THUMBNAIL}
-                className={styles.photoFeedImageContainerMedia}
+                className={styles.feedMedia}
               />
             </div>
           ))}
