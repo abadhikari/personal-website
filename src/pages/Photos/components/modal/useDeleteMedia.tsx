@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
 import deleteMedia from '../../api/deleteMedia';
 import { MediaStack } from '../../types/mediaTypes';
+import log from '../../../../utils/logger';
 
 interface UseDeleteMediaParams {
   selectedStack: MediaStack;
@@ -10,6 +11,7 @@ interface UseDeleteMediaParams {
   setStacks: React.Dispatch<React.SetStateAction<MediaStack[]>>;
   token: string | null;
   onClose: () => void;
+  setIsProcessing: React.Dispatch<boolean>;
 }
 
 /**
@@ -22,6 +24,7 @@ interface UseDeleteMediaParams {
  * @param {Function} params.setStacks - State setter for the stack list.
  * @param {string} params.token - Authorization token.
  * @param {Function} params.onClose - Function to call if the modal should be closed (e.g., no media remains).
+ * @param {Function} params.setIsProcessing - Setter to update if a process is underway.
  *
  * @returns {Function} deleteMedia - Async handler to delete the focused media from the stack.
  */
@@ -32,8 +35,10 @@ export default function useDeleteMedia({
   setStacks,
   token,
   onClose,
+  setIsProcessing,
 }: UseDeleteMediaParams) {
   return useCallback(async () => {
+    setIsProcessing(true);
     try {
       const { mediaId } = selectedStack.media[selectedMediaIndex];
       await deleteMedia({
@@ -58,8 +63,10 @@ export default function useDeleteMedia({
         return newStacks;
       });
     } catch (err) {
-      console.error('Failed to delete media:', err);
+      log.error('Failed to delete media:', err);
       toast.error('Failed to delete media. Please try again.');
+    } finally {
+      setIsProcessing(false);
     }
   }, [selectedStack, selectedStackIndex, setStacks, token, onClose]);
 }

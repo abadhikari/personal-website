@@ -7,6 +7,7 @@ import useAuth from '../../../../auth/useAuth';
 import ModalWrapper from './ModalWrapper';
 import useEditStack from './useEditStack';
 import useDeleteMedia from './useDeleteMedia';
+import BouncingText from '../../../../components/common/animations/BouncingText';
 import * as styles from '../../styles/Modal.module.css';
 
 interface ModalProps {
@@ -37,6 +38,7 @@ export default function Modal({
   onClose,
   setStacks,
 }: ModalProps) {
+  const [isProcessing, setIsProcessing] = useState(false);
   const selectedStack = mediaStacks[selectedStackIndex];
   const [selectedMediaIndex] = useState(0);
   const focusedMedia = selectedStack.media[0];
@@ -50,11 +52,13 @@ export default function Modal({
     setEditedLocation,
     setIsEditing,
     saveEdit,
+    isEdited,
   } = useEditStack({
     stack: selectedStack,
     selectedIndex: selectedStackIndex,
     setStacks,
     token,
+    setIsProcessing,
   });
 
   const handleDeleteMedia = useDeleteMedia({
@@ -64,6 +68,7 @@ export default function Modal({
     setStacks,
     token,
     onClose,
+    setIsProcessing,
   });
 
   const uploadDate = new Date(selectedStack.stack.uploadTimestamp);
@@ -134,6 +139,7 @@ export default function Modal({
                 type="button"
                 onClick={saveEdit}
                 className={`${styles.editButton} ${styles.saveButton}`}
+                disabled={!isEdited || isProcessing}
               >
                 Save
               </button>
@@ -145,6 +151,9 @@ export default function Modal({
                 Cancel
               </button>
             </div>
+          )}
+          {isProcessing && (
+            <BouncingText text="..." className="loadingOverlay" />
           )}
         </div>
       </div>

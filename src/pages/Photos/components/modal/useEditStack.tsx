@@ -9,6 +9,7 @@ interface UseEditStackParams {
   selectedIndex: number;
   setStacks: React.Dispatch<React.SetStateAction<MediaStack[]>>;
   token: string | null;
+  setIsProcessing: React.Dispatch<boolean>;
 }
 
 /**
@@ -19,6 +20,7 @@ interface UseEditStackParams {
  * @param {number} params.selectedIndex - Index of the selected stack in the stack array.
  * @param {Function} params.setStacks - Setter to update the full media stack list.
  * @param {string} params.token - Auth token for the API request.
+ * @param {Function} params.setIsProcessing - Setter to update if a process is underway.
  *
  * @returns {Object} Editing state and handlers.
  * @returns {boolean} return.isEditing - Whether the modal is in editing mode.
@@ -28,18 +30,23 @@ interface UseEditStackParams {
  * @returns {Function} return.setEditedLocation - Setter for location.
  * @returns {Function} return.setIsEditing - Toggle editing mode.
  * @returns {Function} return.saveEdit - Handler to commit the edit.
+ * @returns {boolean} return.isEdited - Whether fields have been updated or not.
  */
 export default function useEditStack({
   stack,
   selectedIndex,
   setStacks,
   token,
+  setIsProcessing,
 }: UseEditStackParams) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedCaption, setEditedCaption] = useState(stack.stack.caption);
   const [editedLocation, setEditedLocation] = useState(
     stack.stack.location || ''
   );
+  const isEdited =
+    editedCaption !== stack.stack.caption ||
+    editedLocation !== (stack.stack.location || '');
 
   useEffect(() => {
     setEditedCaption(stack.stack.caption);
@@ -47,6 +54,7 @@ export default function useEditStack({
   }, [stack]);
 
   const saveEdit = useCallback(async () => {
+    setIsProcessing(true);
     try {
       await editStack({
         stackId: stack.stack.stackId,
@@ -73,6 +81,8 @@ export default function useEditStack({
     } catch (err) {
       log.error('Failed to edit stack:', err);
       toast.error('Failed to edit stack. Please try again.');
+    } finally {
+      setIsProcessing(false);
     }
   }, [editedCaption, editedLocation, stack, selectedIndex, setStacks, token]);
 
@@ -84,5 +94,6 @@ export default function useEditStack({
     setEditedLocation,
     setIsEditing,
     saveEdit,
+    isEdited,
   };
 }
