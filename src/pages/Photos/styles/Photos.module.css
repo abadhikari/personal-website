@@ -33,16 +33,6 @@
   box-shadow: 7px 7px 20px black;
   cursor: pointer;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(12px);
-  animation: fadeInTile 1s ease forwards;
-}
-
-@keyframes fadeInTile {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .feedItem::after {
@@ -66,6 +56,34 @@
   object-fit: cover;
 }
 
+.searchInput {
+  width: 80%;
+  max-width: 300px;
+  padding: 10px;
+  margin: 20px auto;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  display: block;
+  scroll-margin-top: 70px
+}
+
+.searchInput:focus {
+  border-color: #0070f3;
+  box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
+}
+
+.noMedia {
+  font-size: 1.1rem;
+  color: black;
+  margin-top: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+
 @media (max-width: 900px) {
   .photosContainer {
     width: 100%;
@@ -79,5 +97,10 @@
     margin: 0.5px;
     width: calc(50% - 1px);
     box-shadow: none;
+  }
+
+  .searchInput {
+    margin: 10px auto;
+    scroll-margin-top: none;
   }
 }
