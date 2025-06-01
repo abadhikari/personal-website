@@ -68,7 +68,7 @@
   transition: border 0.2s ease, box-shadow 0.2s ease;
   outline: none;
   display: block;
-  scroll-margin-top: 70px
+  scroll-margin-top: 70px;
 }
 
 .searchInput:focus {

@@ -73,7 +73,7 @@ export default function useSearchQuery({
   };
 
   const handleSearchSubmit = async (trimmedQuery: string) => {
-    if (searchProcessing || trimmedQuery.length < 2) return;
+    if (searchProcessing) return;
     setIsSearching(true);
     setSubmittedQuery(trimmedQuery);
     if (searchStacks.length === 0) {

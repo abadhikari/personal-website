@@ -28,7 +28,7 @@ export default function MediaFeed({
   const hasNoStacks = stacks.length === 0;
 
   return hasNoStacks && !searchProcessing ? (
-    <p className={styles.noMedia}>No media found.</p>
+    <p className={styles.noMedia}>No media found 😔.</p>
   ) : (
     <div className={styles.feedContainer}>
       <AnimatePresence>
