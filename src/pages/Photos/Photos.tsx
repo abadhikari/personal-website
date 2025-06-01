@@ -109,7 +109,7 @@ export default function Photos() {
         <input
           type="text"
           ref={searchInputRef}
-          placeholder="Search by keywords..."
+          placeholder="🔍 Search by keywords..."
           value={query}
           onChange={handleQueryChange}
           onKeyDown={(e) => {
