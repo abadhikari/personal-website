@@ -23,8 +23,8 @@ export default function About() {
           <li>
             I&apos;m a self-taught piano enthusiast, enjoy playing chess{' '}
             <Link href="https://www.chess.com/">♛</Link>, and recently have
-            gotten back into running and reading (currently reading Don
-            Quixote).
+            gotten back into running and reading (currently reading Blood
+            Meridian).
           </li>
           <li>
             I&apos;m a huge fan of soccer⚽ (Manchester United) and have been

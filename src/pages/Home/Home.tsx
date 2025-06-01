@@ -29,14 +29,8 @@ export default function Home() {
         <p>
           This website offers a lil glimpse into who I am and what I&apos;ve
           been working on. You&apos;ll eventually find the following here:
+          projects, photography, writing, drawings, and reviews.
         </p>
-        <ul>
-          <li>Projects</li>
-          <li>Photography</li>
-          <li>Writing</li>
-          <li>Drawings</li>
-          <li>Reviews</li>
-        </ul>
       </div>
     </div>
   );

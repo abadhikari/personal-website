@@ -76,12 +76,7 @@
   margin-bottom: 0;
 }
 
-.homeText li {
-  list-style-type: circle;
-}
-
 .homeText p {
-  text-align: justify;
   hyphens: auto;
   margin-bottom: 0;
 }
