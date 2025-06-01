@@ -84,23 +84,27 @@ export default function useSearchQuery({
   };
 
   const filteredStacks = useMemo(() => {
-    if (!submittedQuery.trim()) return searchStacks;
+    const trimmedQuery = submittedQuery.trim();
+    if (!trimmedQuery) return searchStacks;
 
-    const lowerCaseQuery = submittedQuery.toLowerCase();
+    // Split by any whitespace
+    const keywords = trimmedQuery.toLowerCase().split(/\s+/);
 
     return searchStacks.filter((stack) => {
-      const selectedStack = stack.stack;
-      const location = selectedStack.location?.toLowerCase() ?? '';
-      const caption = selectedStack.caption?.toLowerCase() ?? '';
+      const {
+        location = '',
+        caption = '',
+        uploadTimestamp,
+        stackId,
+      } = stack.stack;
       const readableDate = retrieveReadableDate(
-        selectedStack.stackId,
-        selectedStack.uploadTimestamp
-      ).toLocaleLowerCase();
-      return (
-        location.includes(lowerCaseQuery) ||
-        caption.includes(lowerCaseQuery) ||
-        readableDate.includes(lowerCaseQuery)
-      );
+        stackId,
+        uploadTimestamp
+      ).toLowerCase();
+
+      const haystack = `${location.toLowerCase()} ${caption.toLowerCase()} ${readableDate}`;
+
+      return keywords.every((keyword) => haystack.includes(keyword));
     });
   }, [searchStacks, submittedQuery]);
 
