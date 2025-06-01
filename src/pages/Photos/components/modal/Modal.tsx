@@ -9,6 +9,7 @@ import useEditStack from './useEditStack';
 import useDeleteMedia from './useDeleteMedia';
 import BouncingText from '../../../../components/common/animations/BouncingText';
 import * as styles from '../../styles/Modal.module.css';
+import retrieveReadableDate from '../../../../utils/retrieveReadableDate';
 
 interface ModalProps {
   mediaStacks: MediaStack[];
@@ -131,7 +132,12 @@ export default function Modal({
               })}
             </p>
             <p>&nbsp;·&nbsp;</p>
-            <p>{uploadDate.toLocaleDateString()}</p>
+            <p>
+              {retrieveReadableDate(
+                selectedStack.stack.stackId,
+                selectedStack.stack.uploadTimestamp
+              )}
+            </p>
           </div>
           {isAuthenticated && isEditing && (
             <div className={styles.editControls}>

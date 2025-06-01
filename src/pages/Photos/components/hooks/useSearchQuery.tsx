@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { MediaStack } from '../../types/mediaTypes';
 import fetchPhotos from '../../api/fetchPhotos';
+import retrieveReadableDate from '../../../../utils/retrieveReadableDate';
 
 interface UseSearchQueryParams {
   setError: React.Dispatch<React.SetStateAction<string | null>>;
@@ -85,12 +86,21 @@ export default function useSearchQuery({
   const filteredStacks = useMemo(() => {
     if (!submittedQuery.trim()) return searchStacks;
 
-    const lower = submittedQuery.toLowerCase();
+    const lowerCaseQuery = submittedQuery.toLowerCase();
 
     return searchStacks.filter((stack) => {
-      const location = stack.stack.location?.toLowerCase() ?? '';
-      const caption = stack.stack.caption?.toLowerCase() ?? '';
-      return location.includes(lower) || caption.includes(lower);
+      const selectedStack = stack.stack;
+      const location = selectedStack.location?.toLowerCase() ?? '';
+      const caption = selectedStack.caption?.toLowerCase() ?? '';
+      const readableDate = retrieveReadableDate(
+        selectedStack.stackId,
+        selectedStack.uploadTimestamp
+      ).toLocaleLowerCase();
+      return (
+        location.includes(lowerCaseQuery) ||
+        caption.includes(lowerCaseQuery) ||
+        readableDate.includes(lowerCaseQuery)
+      );
     });
   }, [searchStacks, submittedQuery]);
 
