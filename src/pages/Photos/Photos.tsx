@@ -15,7 +15,8 @@ import useSearchQuery from './components/hooks/useSearchQuery';
  */
 export default function Photos() {
   const DEFAULT_DEBOUNCE = 100;
-  const FIRST_SEARCH_DEBOUNCE = 1000;
+  const FIRST_SEARCH_DEBOUNCE = 500;
+
   const searchInputRef = useRef<HTMLInputElement>(null);
   const stackLimit = useMemo(() => {
     const isMobile = window.matchMedia('(max-width: 900px)').matches;
@@ -49,7 +50,8 @@ export default function Photos() {
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawQuery = e.target.value;
     setQuery(rawQuery);
-    const debounceDuration = filteredStacks.length === 0 ? FIRST_SEARCH_DEBOUNCE : DEFAULT_DEBOUNCE;
+    const debounceDuration =
+      filteredStacks.length === 0 ? FIRST_SEARCH_DEBOUNCE : DEFAULT_DEBOUNCE;
 
     const trimmedQuery = rawQuery.trim();
 
