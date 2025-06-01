@@ -28,7 +28,7 @@ export default async function fetchPhotos({
     endTimestamp: String(endTimestamp),
     ...(lastEvaluatedKey ? { lastEvaluatedKey } : {}),
   }).toString();
-  const endpoint = getApiEndpoint(`media?${search}`);
+  const endpoint = getApiEndpoint(`stacks?${search}`);
   const response = await fetch(endpoint);
 
   if (!response.ok) {

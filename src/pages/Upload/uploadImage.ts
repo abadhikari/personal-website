@@ -60,7 +60,7 @@ export async function saveMetadata(
       throw new Error('Missing authorization token');
     }
 
-    const endpoint = getApiEndpoint(`media`);
+    const endpoint = getApiEndpoint(`stack`);
     const writeResponse = await fetch(endpoint, {
       method: 'POST',
       headers: {
