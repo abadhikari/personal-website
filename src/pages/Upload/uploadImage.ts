@@ -115,7 +115,6 @@ export async function uploadImage(
       {
         fileName: file.name,
         contentType: file.type,
-        userId,
       },
     ];
 
@@ -125,7 +124,6 @@ export async function uploadImage(
       signedUrlRequest.push({
         fileName: thumbnail.name,
         contentType: thumbnail.type,
-        userId,
       });
     }
 
