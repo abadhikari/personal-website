@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as styles from './styles/Photos.module.css';
 import * as animationStyles from '../../styles/animations.module.css';
 import MediaFeed from './components/media/MediaFeed';
@@ -7,6 +8,8 @@ import BouncingText from '../../components/common/animations/BouncingText';
 import usePhotos from './components/hooks/usePhotos';
 import Modal from './components/modal/Modal';
 import useSearchQuery from './components/hooks/useSearchQuery';
+import useLinkedStackParams from './components/hooks/useLinkedStackUrlParams';
+import useLinkedStackLoader from './components/hooks/useLinkedStackLoader';
 
 /**
  * Renders the Photos page, which fetches and displays a list of media stacks as a feed.
@@ -17,6 +20,7 @@ export default function Photos() {
   const DEFAULT_DEBOUNCE = 100;
   const FIRST_SEARCH_DEBOUNCE = 500;
 
+  const navigate = useNavigate();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const stackLimit = useMemo(() => {
     const isMobile = window.matchMedia('(max-width: 900px)').matches;
@@ -44,6 +48,10 @@ export default function Photos() {
     setIsSearching,
     searchProcessing,
   } = useSearchQuery({ setError, searchInputRef });
+
+  const { stackId, mediaId } = useLinkedStackParams();
+  const { linkedStack, focusedMediaIndex, setLinkedStack } =
+    useLinkedStackLoader({ stackId, mediaId });
 
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
@@ -90,6 +98,13 @@ export default function Photos() {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (stackId) {
+      // Clean up the URL so it's just /photos
+      navigate('/photos', { replace: true });
+    }
+  }, [stackId, mediaId, navigate]);
 
   if (pageLoading) {
     return <BouncingText text="..." className="loadingText" />;
@@ -138,8 +153,19 @@ export default function Photos() {
         <Modal
           mediaStacks={visibleStacks}
           selectedStackIndex={selectedStackIndex}
+          initialMediaIndex={0}
           onClose={handleCloseModal}
           setStacks={setVisibleStacks}
+        />
+      )}
+
+      {linkedStack && (
+        <Modal
+          mediaStacks={[linkedStack]}
+          selectedStackIndex={0}
+          initialMediaIndex={focusedMediaIndex}
+          onClose={() => setLinkedStack(null)}
+          setStacks={() => {}}
         />
       )}
 

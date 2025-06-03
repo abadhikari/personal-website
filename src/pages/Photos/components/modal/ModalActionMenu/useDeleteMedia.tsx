@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
-import deleteMedia from '../../api/deleteMedia';
-import { MediaStack } from '../../types/mediaTypes';
-import log from '../../../../utils/logger';
+import deleteMedia from '../../../api/deleteMedia';
+import { MediaStack } from '../../../types/mediaTypes';
+import log from '../../../../../utils/logger';
 
 interface UseDeleteMediaParams {
   selectedStack: MediaStack;
@@ -36,7 +36,7 @@ export default function useDeleteMedia({
   token,
   onClose,
   setIsProcessing,
-}: UseDeleteMediaParams) {
+}: UseDeleteMediaParams): () => Promise<void> {
   return useCallback(async () => {
     setIsProcessing(true);
     try {

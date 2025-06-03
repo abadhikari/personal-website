@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { MediaStack } from '../../types/mediaTypes';
 import MediaRenderer from '../media/MediaRenderer';
-import ModalActionMenu from './ModalActionMenu';
+import ModalActionMenu from './ModalActionMenu/ModalActionMenu';
 import ViewType from '../../types/viewType';
 import useAuth from '../../../../auth/useAuth';
 import ModalWrapper from './ModalWrapper';
-import useEditStack from './useEditStack';
-import useDeleteMedia from './useDeleteMedia';
+import useEditStack from './ModalActionMenu/useEditStack';
+import useDeleteMedia from './ModalActionMenu/useDeleteMedia';
 import BouncingText from '../../../../components/common/animations/BouncingText';
 import * as styles from '../../styles/Modal.module.css';
 import retrieveReadableDate from '../../../../utils/retrieveReadableDate';
@@ -14,6 +14,7 @@ import retrieveReadableDate from '../../../../utils/retrieveReadableDate';
 interface ModalProps {
   mediaStacks: MediaStack[];
   selectedStackIndex: number;
+  initialMediaIndex: number;
   onClose: () => void;
   setStacks: React.Dispatch<React.SetStateAction<MediaStack[]>>;
 }
@@ -23,6 +24,7 @@ interface ModalProps {
  *
  * @param {MediaStack[]} mediaStacks - All available stacks with associated media.
  * @param {number} selectedStackIndex - Index of the currently focused stack.
+ * @param {number} initialMediaIndex - Index of the initially focused media.
  * @param {Function} onClose - Function to call when closing the modal.
  * @param {Function} setStacks - State setter to update stack list (after edits/deletes).
  *
@@ -36,13 +38,14 @@ interface ModalProps {
 export default function Modal({
   mediaStacks,
   selectedStackIndex,
+  initialMediaIndex,
   onClose,
   setStacks,
 }: ModalProps) {
   const [isProcessing, setIsProcessing] = useState(false);
   const selectedStack = mediaStacks[selectedStackIndex];
-  const [selectedMediaIndex] = useState(0);
-  const focusedMedia = selectedStack.media[0];
+  const [focusedMediaIndex] = useState(initialMediaIndex);
+  const focusedMedia = selectedStack.media[focusedMediaIndex];
   const { isAuthenticated, token } = useAuth();
 
   const {
@@ -65,7 +68,7 @@ export default function Modal({
   const handleDeleteMedia = useDeleteMedia({
     selectedStack,
     selectedStackIndex,
-    selectedMediaIndex,
+    selectedMediaIndex: focusedMediaIndex,
     setStacks,
     token,
     onClose,
@@ -82,12 +85,12 @@ export default function Modal({
           viewType={ViewType.MODAL}
           className={styles.fullSizeMedia}
         />
-        {isAuthenticated && (
-          <ModalActionMenu
-            onDelete={handleDeleteMedia}
-            setIsEditingStack={setIsEditing}
-          />
-        )}
+        <ModalActionMenu
+          onDelete={handleDeleteMedia}
+          setIsEditingStack={setIsEditing}
+          stackId={selectedStack.stack.stackId}
+          mediaId={focusedMedia.mediaId}
+        />
       </div>
       <div className={styles.mediaDetails}>
         {isEditing ? (

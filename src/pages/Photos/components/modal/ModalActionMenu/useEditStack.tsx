@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { MediaStack } from '../../types/mediaTypes';
-import editStack from '../../api/editStack';
-import log from '../../../../utils/logger';
+import { MediaStack } from '../../../types/mediaTypes';
+import editStack from '../../../api/editStack';
+import log from '../../../../../utils/logger';
 
 interface UseEditStackParams {
   stack: MediaStack;
