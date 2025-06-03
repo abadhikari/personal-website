@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { MediaStack } from '../../types/mediaTypes';
 import fetchPhotos from '../../api/fetchPhotos';
 import retrieveReadableDate from '../../../../utils/retrieveReadableDate';
@@ -34,6 +34,7 @@ export default function useSearchQuery({
   const [query, setQuery] = useState('');
   const [submittedQuery, setSubmittedQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
+  const isFetchingRef = useRef(false);
 
   const scrollToInput = (
     ref: React.RefObject<HTMLInputElement>,
@@ -48,6 +49,8 @@ export default function useSearchQuery({
   };
 
   const fetchSearchResults = async () => {
+    if (isFetchingRef.current) return;
+    isFetchingRef.current = true;
     setSearchProcessing(true);
     setError(null);
     let allResults: MediaStack[] = [];
@@ -69,12 +72,12 @@ export default function useSearchQuery({
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unexpected error.');
     } finally {
+      isFetchingRef.current = false;
       setSearchProcessing(false);
     }
   };
 
   const handleSearchSubmit = async (trimmedQuery: string) => {
-    if (searchProcessing) return;
     setIsSearching(true);
     setSubmittedQuery(trimmedQuery);
     if (searchStacks.length === 0) {

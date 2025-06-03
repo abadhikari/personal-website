@@ -18,7 +18,7 @@ import useLinkedStackLoader from './components/hooks/useLinkedStackLoader';
  */
 export default function Photos() {
   const DEFAULT_DEBOUNCE = 100;
-  const FIRST_SEARCH_DEBOUNCE = 500;
+  const FIRST_SEARCH_DEBOUNCE = 300;
 
   const navigate = useNavigate();
   const searchInputRef = useRef<HTMLInputElement>(null);
