@@ -63,7 +63,7 @@ a:hover {
 }
 
 .loadingOverlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -72,7 +72,7 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 20;
+  z-index: 9999;
   font-size: 1.2rem;
   font-weight: bold;
   color: white;
