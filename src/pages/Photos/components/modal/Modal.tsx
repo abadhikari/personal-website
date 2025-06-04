@@ -7,9 +7,9 @@ import useAuth from '../../../../auth/useAuth';
 import ModalWrapper from './ModalWrapper';
 import useEditStack from './ModalActionMenu/useEditStack';
 import useDeleteMedia from './ModalActionMenu/useDeleteMedia';
-import BouncingText from '../../../../components/common/animations/BouncingText';
 import * as styles from '../../styles/Modal.module.css';
 import retrieveReadableDate from '../../../../utils/retrieveReadableDate';
+import AnimatedSpinner from '../../../../components/common/animations/AnimatedSpinner';
 
 interface ModalProps {
   mediaStacks: MediaStack[];
@@ -162,7 +162,9 @@ export default function Modal({
             </div>
           )}
           {isProcessing && (
-            <BouncingText text="..." className="loadingOverlay" />
+            <div className="loadingOverlay">
+              <AnimatedSpinner />
+            </div>
           )}
         </div>
       </div>

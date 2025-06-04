@@ -1,7 +1,7 @@
 import { getCurrentUser } from '@aws-amplify/auth';
 import { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import BouncingText from './animations/BouncingText';
+import AnimatedSpinner from './animations/AnimatedSpinner';
 
 interface PrivateRouteProps {
   children: JSX.Element;
@@ -18,7 +18,7 @@ function PrivateRoute({ children }: PrivateRouteProps) {
   }, []);
 
   if (isAuthenticated === null) {
-    return <BouncingText text="..." />;
+    return <AnimatedSpinner className="spinnerBlack" />;
   }
 
   return isAuthenticated ? (

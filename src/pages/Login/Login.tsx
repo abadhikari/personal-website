@@ -3,7 +3,7 @@ import { signIn } from '@aws-amplify/auth';
 import * as styles from './styles/Login.module.css';
 import * as animationStyles from '../../styles/animations.module.css';
 import LoginForm from './components/LoginForm';
-import BouncingText from '../../components/common/animations/BouncingText';
+import AnimatedSpinner from '../../components/common/animations/AnimatedSpinner';
 import useAuthRedirect from '../../hooks/useRedirect';
 
 /**
@@ -41,7 +41,7 @@ export default function Login() {
   };
 
   if (loading) {
-    return <BouncingText text="..." />;
+    return <AnimatedSpinner className="spinnerBlack" />;
   }
 
   return (

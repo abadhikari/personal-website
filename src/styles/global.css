@@ -80,6 +80,14 @@ a:hover {
   animation: fadeIn 0.3s ease-in-out;
 }
 
+.spinnerWhite {
+  color: white;
+}
+
+.spinnerBlack {
+  color: black;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }

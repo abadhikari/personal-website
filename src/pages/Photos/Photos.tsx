@@ -4,12 +4,12 @@ import * as styles from './styles/Photos.module.css';
 import * as animationStyles from '../../styles/animations.module.css';
 import MediaFeed from './components/media/MediaFeed';
 import InfiniteScroll from './components/InfiniteScroll';
-import BouncingText from '../../components/common/animations/BouncingText';
 import usePhotos from './components/hooks/usePhotos';
 import Modal from './components/modal/Modal';
 import useSearchQuery from './components/hooks/useSearchQuery';
 import useLinkedStackParams from './components/hooks/useLinkedStackUrlParams';
 import useLinkedStackLoader from './components/hooks/useLinkedStackLoader';
+import AnimatedSpinner from '../../components/common/animations/AnimatedSpinner';
 
 /**
  * Renders the Photos page, which fetches and displays a list of media stacks as a feed.
@@ -107,7 +107,7 @@ export default function Photos() {
   }, [stackId, mediaId, navigate]);
 
   if (pageLoading) {
-    return <BouncingText text="..." className="loadingText" />;
+    return <AnimatedSpinner className="spinnerBlack" />;
   }
 
   if (error) {
@@ -170,7 +170,9 @@ export default function Photos() {
       )}
 
       {searchProcessing && (
-        <BouncingText text="..." className="loadingOverlay" />
+        <div className="loadingOverlay">
+          <AnimatedSpinner />
+        </div>
       )}
     </div>
   );

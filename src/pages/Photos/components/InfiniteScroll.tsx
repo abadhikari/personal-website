@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import BouncingText from '../../../components/common/animations/BouncingText';
+import AnimatedSpinner from '../../../components/common/animations/AnimatedSpinner';
 
 interface InfiniteScrollProps {
   fetchMore: () => void;
@@ -39,7 +39,7 @@ export default function InfiniteScroll({
 
   return (
     <div ref={loaderRef}>
-      {isFetching && <BouncingText text="..." className="loadingText" />}
+      {isFetching && <AnimatedSpinner className="spinnerBlack" />}
     </div>
   );
 }
