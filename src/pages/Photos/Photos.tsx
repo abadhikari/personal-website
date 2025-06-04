@@ -10,6 +10,7 @@ import useSearchQuery from './components/hooks/useSearchQuery';
 import useLinkedStackParams from './components/hooks/useLinkedStackUrlParams';
 import useLinkedStackLoader from './components/hooks/useLinkedStackLoader';
 import AnimatedSpinner from '../../components/common/animations/AnimatedSpinner';
+import DigitalRainSpinner from '../../components/common/animations/DigitalRainSpinner';
 
 /**
  * Renders the Photos page, which fetches and displays a list of media stacks as a feed.
@@ -107,7 +108,7 @@ export default function Photos() {
   }, [stackId, mediaId, navigate]);
 
   if (pageLoading) {
-    return <AnimatedSpinner className="spinnerBlack" />;
+    return <DigitalRainSpinner className="spinnerBlack" />;
   }
 
   if (error) {
