@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { signIn } from '@aws-amplify/auth';
-import * as styles from './styles/Login.module.css';
-import * as animationStyles from '../../styles/animations.module.css';
-import LoginForm from './components/LoginForm';
+
 import AnimatedSpinner from '../../components/common/animations/AnimatedSpinner';
 import useAuthRedirect from '../../hooks/useRedirect';
+
+import LoginForm from './components/LoginForm';
+
+import * as animationStyles from '../../styles/animations.module.css';
+import * as styles from './styles/Login.module.css';
 
 /**
  * A login page component that allows users to enter credentials and sign in using AWS Amplify.

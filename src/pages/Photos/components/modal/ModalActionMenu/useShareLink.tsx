@@ -1,7 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import getBaseUrl from '../../../../../utils/getBaseUrl';
+
 import copyToClipboard from '../../../../../utils/copyToClipboard';
+import getBaseUrl from '../../../../../utils/getBaseUrl';
 
 interface UseShareLinkParams {
   stackId: string;

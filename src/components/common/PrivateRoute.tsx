@@ -1,6 +1,7 @@
-import { getCurrentUser } from '@aws-amplify/auth';
 import { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import { getCurrentUser } from '@aws-amplify/auth';
+
 import AnimatedSpinner from './animations/AnimatedSpinner';
 
 interface PrivateRouteProps {

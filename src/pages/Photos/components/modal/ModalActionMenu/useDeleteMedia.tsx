@@ -1,8 +1,9 @@
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
+
+import log from '../../../../../utils/logger';
 import deleteMedia from '../../../api/deleteMedia';
 import { MediaStack } from '../../../types/mediaTypes';
-import log from '../../../../../utils/logger';
 
 interface UseDeleteMediaParams {
   selectedStack: MediaStack;

@@ -1,7 +1,10 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+
 import { MediaStack } from '../../types/mediaTypes';
-import MediaRenderer from './MediaRenderer';
 import ViewType from '../../types/viewType';
+
+import MediaRenderer from './MediaRenderer';
+
 import * as styles from '../../styles/Photos.module.css';
 
 type MediaFeedProps = {

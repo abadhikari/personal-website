@@ -1,6 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 import Logo from '../../Logo/Logo';
+
 import SocialsImage from './SocialsImage';
+
 import * as styles from './styles/FooterLeft.module.css';
 
 export default function FooterLeft() {

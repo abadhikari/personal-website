@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { MediaStack } from '../../types/mediaTypes';
+
 import fetchPhotos from '../../api/fetchPhotos';
+import { MediaStack } from '../../types/mediaTypes';
 
 interface UsePhotosParams {
   setError: React.Dispatch<React.SetStateAction<string | null>>;

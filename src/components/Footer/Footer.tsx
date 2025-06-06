@@ -1,7 +1,8 @@
-import * as styles from './styles/Footer.module.css';
+import FooterBottom from './FooterBottom/FooterBottom';
 import FooterLeft from './FooterLeft/FooterLeft';
 import FooterRight from './FooterRight/FooterRight';
-import FooterBottom from './FooterBottom/FooterBottom';
+
+import * as styles from './styles/Footer.module.css';
 
 export default function Footer() {
   return (

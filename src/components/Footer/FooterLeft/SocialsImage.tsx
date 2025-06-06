@@ -1,5 +1,7 @@
 import { useState } from 'react';
+
 import Link from '../../common/Link';
+
 import * as styles from './styles/FooterLeft.module.css';
 
 interface SocialsImageProps {

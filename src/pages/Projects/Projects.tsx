@@ -1,8 +1,10 @@
-import * as styles from './styles/Projects.module.css';
-import * as animationStyles from '../../styles/animations.module.css';
+import SocialsImage from '../../components/Footer/FooterLeft/SocialsImage';
+
 import ProjectCard from './components/ProjectCard';
 import TechStack from './components/TechStack';
-import SocialsImage from '../../components/Footer/FooterLeft/SocialsImage';
+
+import * as animationStyles from '../../styles/animations.module.css';
+import * as styles from './styles/Projects.module.css';
 
 /**
  * Projects Page Component

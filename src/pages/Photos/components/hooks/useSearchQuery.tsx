@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { MediaStack } from '../../types/mediaTypes';
-import fetchPhotos from '../../api/fetchPhotos';
+
 import retrieveReadableDate from '../../../../utils/retrieveReadableDate';
+import fetchPhotos from '../../api/fetchPhotos';
+import { MediaStack } from '../../types/mediaTypes';
 
 interface UseSearchQueryParams {
   setError: React.Dispatch<React.SetStateAction<string | null>>;

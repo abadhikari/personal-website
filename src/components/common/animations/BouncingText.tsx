@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+
 import * as animationStyles from '../../../styles/animations.module.css';
 
 interface BouncingTextProps {

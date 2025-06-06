@@ -1,11 +1,13 @@
-import { useEffect, useState, useRef } from 'react';
-import * as styles from './styles/Upload.module.css';
-import * as animationStyles from '../../styles/animations.module.css';
+import { useEffect, useRef, useState } from 'react';
+
 import FileInput from './components/FileInput';
 import MediaPreview from './components/MediaPreview';
 import MetadataForm, { ImageMetadata } from './components/MetadataForm';
-import { uploadImage } from './uploadImage';
 import UploadStatus from './components/UploadStatus';
+import { uploadImage } from './uploadImage';
+
+import * as animationStyles from '../../styles/animations.module.css';
+import * as styles from './styles/Upload.module.css';
 
 /**
  * A component for handling the media upload process. It includes functionality for:

@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
+
 import useAuth from '../../../../../auth/useAuth';
-import * as styles from '../../../styles/ModalActionMenu.module.css';
+
 import useShareLink from './useShareLink';
+
+import * as styles from '../../../styles/ModalActionMenu.module.css';
 
 interface ModalActionMenuProps {
   stackId: string;

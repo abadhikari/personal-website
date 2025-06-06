@@ -1,14 +1,17 @@
 import { useMemo, useRef, useState } from 'react';
-import * as styles from './styles/Photos.module.css';
-import InfiniteScroll from './components/InfiniteScroll';
-import usePhotos from './components/hooks/usePhotos';
-import Modal from './components/modal/Modal';
-import useSearchQuery from './components/hooks/useSearchQuery';
-import useLinkedStackParams from './components/hooks/useLinkedStackUrlParams';
-import useLinkedStackLoader from './components/hooks/useLinkedStackLoader';
+
 import AnimatedSpinner from '../../components/common/animations/AnimatedSpinner';
 import DigitalRainSpinner from '../../components/common/animations/DigitalRainSpinner';
+
+import useLinkedStackLoader from './components/hooks/useLinkedStackLoader';
+import useLinkedStackParams from './components/hooks/useLinkedStackUrlParams';
+import usePhotos from './components/hooks/usePhotos';
+import useSearchQuery from './components/hooks/useSearchQuery';
+import InfiniteScroll from './components/InfiniteScroll';
 import PhotosContent from './components/media/PhotosContent';
+import Modal from './components/modal/Modal';
+
+import * as styles from './styles/Photos.module.css';
 
 /**
  * Renders the Photos page, which fetches and displays a list of media stacks as a feed.

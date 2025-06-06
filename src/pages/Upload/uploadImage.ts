@@ -1,9 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
+
+import getApiEndpoint from '../../api/config';
+import getToken from '../../auth/getToken';
+import log from '../../utils/logger';
+
 import { ImageMetadata } from './components/MetadataForm';
 import extractThumbnailFromVideo from './extractThumbnailFromVideo';
-import getToken from '../../auth/getToken';
-import getApiEndpoint from '../../api/config';
-import log from '../../utils/logger';
 
 interface SignedUrlResponse {
   signedUrlsAndKeys: Array<SignedUrlAndKey>;

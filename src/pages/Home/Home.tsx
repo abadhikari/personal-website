@@ -1,5 +1,5 @@
-import * as styles from './styles/Home.module.css';
 import * as animationStyles from '../../styles/animations.module.css';
+import * as styles from './styles/Home.module.css';
 
 export default function Home() {
   return (

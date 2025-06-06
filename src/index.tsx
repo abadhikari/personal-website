@@ -1,5 +1,6 @@
-import { Amplify } from 'aws-amplify';
 import ReactDOM from 'react-dom/client';
+import { Amplify } from 'aws-amplify';
+
 import App from './components/App';
 
 Amplify.configure({

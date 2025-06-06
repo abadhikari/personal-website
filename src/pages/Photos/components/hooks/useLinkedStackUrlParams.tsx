@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 /**
  * Represents URL parameters for loading a shared or linked media stack.

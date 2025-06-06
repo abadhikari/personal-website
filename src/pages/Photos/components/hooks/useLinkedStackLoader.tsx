@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { MediaStack } from '../../types/mediaTypes';
-import fetchSingleStack from '../../api/fetchSingleStack';
+
 import log from '../../../../utils/logger';
+import fetchSingleStack from '../../api/fetchSingleStack';
+import { MediaStack } from '../../types/mediaTypes';
+
 import { LinkedStackUrlParams } from './useLinkedStackUrlParams';
 
 /**

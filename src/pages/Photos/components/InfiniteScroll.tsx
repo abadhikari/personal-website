@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+
 import AnimatedSpinner from '../../../components/common/animations/AnimatedSpinner';
 
 interface InfiniteScrollProps {

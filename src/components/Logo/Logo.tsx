@@ -1,4 +1,5 @@
 import Link from '../common/Link';
+
 import * as styles from './styles/Logo.module.css';
 
 export default function Logo() {

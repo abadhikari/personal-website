@@ -1,6 +1,7 @@
 import Link from '../../components/common/Link';
-import * as styles from './styles/Contact.module.css';
+
 import * as animationStyles from '../../styles/animations.module.css';
+import * as styles from './styles/Contact.module.css';
 
 export default function Contact() {
   return (

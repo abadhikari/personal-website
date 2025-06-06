@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import * as styles from './styles/Navbar.module.css';
 
 /* eslint-disable jsx-a11y/click-events-have-key-events */

@@ -1,8 +1,11 @@
 import React from 'react';
-import MediaFeed from './MediaFeed';
+
 import { MediaStack } from '../../types/mediaTypes';
-import * as styles from '../../styles/Photos.module.css';
+
+import MediaFeed from './MediaFeed';
+
 import * as animationStyles from '../../../../styles/animations.module.css';
+import * as styles from '../../styles/Photos.module.css';
 
 type PhotosContentProps = {
   query: string;

@@ -16,7 +16,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "plugins": ["react", "@typescript-eslint", "prettier", "simple-import-sort"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
@@ -42,7 +42,18 @@
         "optionalDependencies": false,
         "peerDependencies": false
       }
-    ]
+    ],
+    "simple-import-sort/imports": ["error", {
+        "groups": [
+          ["^react", "^@?\\w"],
+          ["^components/", "^utils/", "^hooks/"],
+          ["^\\.\\.(?!.*\\.module\\.css$).*"],
+          ["^\\./(?!.*\\.module\\.css$).*"],
+          ["^.+\\.module\\.css$"],
+          ["^\\u0000"]
+        ]
+      }],
+    "simple-import-sort/exports": "error"
   },
   "settings": {
     "react": {

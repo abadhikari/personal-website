@@ -1,15 +1,18 @@
 import { useState } from 'react';
-import { MediaStack } from '../../types/mediaTypes';
-import MediaRenderer from '../media/MediaRenderer';
-import ModalActionMenu from './ModalActionMenu/ModalActionMenu';
-import ViewType from '../../types/viewType';
+
 import useAuth from '../../../../auth/useAuth';
-import ModalWrapper from './ModalWrapper';
-import useEditStack from './ModalActionMenu/useEditStack';
-import useDeleteMedia from './ModalActionMenu/useDeleteMedia';
-import * as styles from '../../styles/Modal.module.css';
-import retrieveReadableDate from '../../../../utils/retrieveReadableDate';
 import AnimatedSpinner from '../../../../components/common/animations/AnimatedSpinner';
+import retrieveReadableDate from '../../../../utils/retrieveReadableDate';
+import { MediaStack } from '../../types/mediaTypes';
+import ViewType from '../../types/viewType';
+import MediaRenderer from '../media/MediaRenderer';
+
+import ModalActionMenu from './ModalActionMenu/ModalActionMenu';
+import useDeleteMedia from './ModalActionMenu/useDeleteMedia';
+import useEditStack from './ModalActionMenu/useEditStack';
+import ModalWrapper from './ModalWrapper';
+
+import * as styles from '../../styles/Modal.module.css';
 
 interface ModalProps {
   mediaStacks: MediaStack[];

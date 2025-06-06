@@ -1,19 +1,22 @@
-import { Analytics } from '@vercel/analytics/react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import Header from './Header/Header';
-import ScrollToTop from './Header/Navbar/ScrollToTop';
-import Footer from './Footer/Footer';
-import Home from '../pages/Home/Home';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
+
 import About from '../pages/About/About';
-import Projects from '../pages/Projects/Projects';
 import Contact from '../pages/Contact/Contact';
-import Photos from '../pages/Photos/Photos';
-import Upload from '../pages/Upload/Upload';
+import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
-import '../styles/global.css';
+import Photos from '../pages/Photos/Photos';
+import Projects from '../pages/Projects/Projects';
+import Upload from '../pages/Upload/Upload';
+
 import PrivateRoute from './common/PrivateRoute';
 import TrackPageViews from './common/TrackPageViews';
+import Footer from './Footer/Footer';
+import Header from './Header/Header';
+import ScrollToTop from './Header/Navbar/ScrollToTop';
+
+import '../styles/global.css';
 
 export default function App() {
   return (

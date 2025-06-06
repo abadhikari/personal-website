@@ -1,5 +1,6 @@
 import { Media } from '../../types/mediaTypes';
 import ViewType from '../../types/viewType';
+
 import Image from './Image';
 import Video from './Video';
 

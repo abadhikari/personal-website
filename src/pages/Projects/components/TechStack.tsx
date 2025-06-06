@@ -1,4 +1,5 @@
 import SocialsImage from '../../../components/Footer/FooterLeft/SocialsImage';
+
 import * as styles from '../styles/Projects.module.css';
 
 interface TechStackInfo {

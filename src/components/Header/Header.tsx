@@ -1,7 +1,9 @@
-import * as styles from './styles/Header.module.css';
-import Logo from '../Logo/Logo';
-import NavBar from './Navbar/Navbar';
 import SimpleAudioPlayer from '../common/ExtremelySimpleAudioPlayer';
+import Logo from '../Logo/Logo';
+
+import NavBar from './Navbar/Navbar';
+
+import * as styles from './styles/Header.module.css';
 
 export default function Header() {
   return (
