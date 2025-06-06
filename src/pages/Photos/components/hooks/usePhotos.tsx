@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { MediaStack } from '../../types/mediaTypes';
 import fetchPhotos from '../../api/fetchPhotos';
 
 interface UsePhotosParams {
-  stackLimit: number;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
@@ -11,7 +10,6 @@ interface UsePhotosParams {
  * Hook for fetching and managing paginated media stacks.
  *
  * @param {Object} params - Parameters for the hook.
- * @param {number} params.stackLimit - Max number of stacks to fetch per request.
  * @param {Function} params.setError - Setter to update global error state.
  *
  * @returns {Object} Photo feed state and handlers.
@@ -22,11 +20,16 @@ interface UsePhotosParams {
  * @returns {boolean} return.isFetchingMore - Whether the next page of data is currently loading.
  * @returns {boolean} return.pageLoading - Whether the initial page of data is loading.
  */
-export default function usePhotos({ stackLimit, setError }: UsePhotosParams) {
+export default function usePhotos({ setError }: UsePhotosParams) {
   const [pageLoading, setPageLoading] = useState(true);
   const [stacks, setStacks] = useState<MediaStack[]>([]);
   const [lastEvaluatedKey, setLastEvaluatedKey] = useState<string | null>(null);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
+
+  const stackLimit = useMemo(() => {
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    return isMobile ? 10 : 9;
+  }, []);
 
   const fetchPhotoData = async (key: string | null = null) => {
     try {

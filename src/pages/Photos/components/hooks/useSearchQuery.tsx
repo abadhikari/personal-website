@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { MediaStack } from '../../types/mediaTypes';
 import fetchPhotos from '../../api/fetchPhotos';
 import retrieveReadableDate from '../../../../utils/retrieveReadableDate';
@@ -29,12 +29,17 @@ export default function useSearchQuery({
   setError,
   searchInputRef,
 }: UseSearchQueryParams) {
+  const DEFAULT_DEBOUNCE = 100;
+  const FIRST_SEARCH_DEBOUNCE = 300;
+
+  const isFetchingRef = useRef(false);
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
+
   const [searchProcessing, setSearchProcessing] = useState(false);
   const [searchStacks, setSearchStacks] = useState<MediaStack[]>([]);
   const [query, setQuery] = useState('');
   const [submittedQuery, setSubmittedQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
-  const isFetchingRef = useRef(false);
 
   const scrollToInput = (
     ref: React.RefObject<HTMLInputElement>,
@@ -111,14 +116,43 @@ export default function useSearchQuery({
     });
   }, [searchStacks, submittedQuery]);
 
+  const debouncedSearch = (trimmedQuery: string) => {
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
+    }
+
+    const debounceDuration =
+      filteredStacks.length === 0 ? FIRST_SEARCH_DEBOUNCE : DEFAULT_DEBOUNCE;
+
+    debounceTimeout.current = setTimeout(() => {
+      if (trimmedQuery === '') {
+        setIsSearching(false);
+      } else {
+        handleSearchSubmit(trimmedQuery);
+      }
+    }, debounceDuration);
+  };
+
+  const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawQuery = e.target.value;
+    setQuery(rawQuery);
+    debouncedSearch(rawQuery.trim());
+  };
+
+  useEffect(() => {
+    return () => {
+      if (debounceTimeout.current) {
+        clearTimeout(debounceTimeout.current);
+      }
+    };
+  }, []);
+
   return {
     query,
-    setQuery,
-    handleSearchSubmit,
     filteredStacks,
     setSearchStacks,
     isSearching,
-    setIsSearching,
     searchProcessing,
+    handleQueryChange,
   };
 }

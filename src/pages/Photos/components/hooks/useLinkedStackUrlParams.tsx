@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useMemo } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 /**
  * Represents URL parameters for loading a shared or linked media stack.
@@ -18,12 +18,23 @@ export type LinkedStackUrlParams = {
  * @returns {Object} - Object containing stackId and mediaId from URL search params.
  */
 export default function useLinkedStackUrlParams(): LinkedStackUrlParams {
+  const navigate = useNavigate();
+
   const location = useLocation();
 
-  return useMemo(() => {
+  const params = useMemo(() => {
     const searchParams = new URLSearchParams(location.search);
     const stackId = searchParams.get('stackId') || undefined;
     const mediaId = searchParams.get('mediaId') || undefined;
     return { stackId, mediaId };
   }, [location.search]);
+
+  useEffect(() => {
+    if (params.stackId) {
+      // Clean up the URL so it's just /photos
+      navigate('/photos', { replace: true });
+    }
+  }, [params.stackId, params.mediaId, navigate]);
+
+  return params;
 }
