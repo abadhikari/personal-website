@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
 
 import AnimatedSpinner from '../../components/common/animations/AnimatedSpinner';
-import DigitalRainSpinner from '../../components/common/animations/DigitalRainSpinner';
+import GridSpinner from '../../components/common/animations/GridSpinner';
 import ErrorScreen from '../../components/common/Error/ErrorScreen';
 
 import useLinkedStackLoader from './components/hooks/useLinkedStackLoader';
@@ -65,16 +65,14 @@ export default function Photos() {
   };
 
   if (error) {
-    return (
-      <ErrorScreen
-        message={error}
-      />
-    );
+    return <ErrorScreen message={error} />;
   }
 
   return (
     <>
-      {pageLoading && <DigitalRainSpinner className="spinnerBlack" />}
+      {pageLoading && (
+        <GridSpinner width={45} height={45} className="spinner" />
+      )}
 
       <div className={styles.photos}>
         {!pageLoading && (

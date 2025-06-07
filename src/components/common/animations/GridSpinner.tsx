@@ -1,4 +1,6 @@
 interface GridSpinnerProps {
+  width: number;
+  height: number;
   className?: string;
 }
 
@@ -10,7 +12,11 @@ interface GridSpinnerProps {
  * - Fill color inherits from `currentColor`, enabling easy theming via text classes.
  * - Intended for more prominent loading states (e.g., full-page loads).
  */
-export default function GridSpinner({ className }: GridSpinnerProps) {
+export default function GridSpinner({
+  width,
+  height,
+  className,
+}: GridSpinnerProps) {
   const grid = [
     { x: 10, y: 10, delay: '0s' },
     { x: 22, y: 10, delay: '0.1s' },
@@ -26,8 +32,8 @@ export default function GridSpinner({ className }: GridSpinnerProps) {
   return (
     <svg
       className={className}
-      width="60"
-      height="60"
+      width={width}
+      height={height}
       viewBox="0 0 50 50"
       xmlns="http://www.w3.org/2000/svg"
     >

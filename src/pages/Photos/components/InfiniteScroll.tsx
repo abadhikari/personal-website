@@ -40,7 +40,7 @@ export default function InfiniteScroll({
 
   return (
     <div ref={loaderRef}>
-      {isFetching && <AnimatedSpinner className="spinnerBlack" />}
+      {isFetching && <AnimatedSpinner className="spinner" />}
     </div>
   );
 }

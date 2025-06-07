@@ -44,7 +44,7 @@ export default function Login() {
   };
 
   if (loading) {
-    return <AnimatedSpinner className="spinnerBlack" />;
+    return <AnimatedSpinner className="spinner" />;
   }
 
   return (

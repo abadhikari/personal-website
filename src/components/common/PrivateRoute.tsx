@@ -24,7 +24,7 @@ function PrivateRoute({ children }: PrivateRouteProps) {
   }, []);
 
   if (isAuthenticated === null) {
-    return <AnimatedSpinner className="spinnerBlack" />;
+    return <AnimatedSpinner className="spinner" />;
   }
 
   return isAuthenticated ? (
