@@ -38,7 +38,12 @@ export default function Video({ src, viewType, className }: VideoProps) {
   const renderThumbnail = () => {
     return (
       <>
-        <Image src={src} altText="video thumbnail" className={className} />
+        <Image
+          src={src}
+          altText="video thumbnail"
+          className={className}
+          viewType={viewType}
+        />
         <img
           src="./assets/videoIcon.png"
           alt="Video Icon"

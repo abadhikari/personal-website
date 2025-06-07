@@ -28,7 +28,12 @@ export default function MediaRenderer({
       : media.imageUrl.thumbnail;
   if (mediaType.includes('image')) {
     return (
-      <Image src={src} altText={media.alternativeText} className={className} />
+      <Image
+        src={src}
+        viewType={viewType}
+        altText={media.alternativeText}
+        className={className}
+      />
     );
   }
 
