@@ -120,7 +120,7 @@ export default function ModalActionMenu({
               >
                 Share
               </button>
-              {isAuthenticated && (
+              {isAuthenticated() && (
                 <>
                   <button
                     className={styles.dropdownEdit}

@@ -19,18 +19,18 @@ interface ModalWrapperProps {
 export default function ModalWrapper({ onClose, children }: ModalWrapperProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
 
+  const handleClickOutside = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      onClose();
+    }
+  };
+
   useEffect(() => {
     document.body.classList.add('no-scroll');
     return () => {
       document.body.classList.remove('no-scroll');
     };
   }, []);
-
-  const handleClickOutside = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      onClose();
-    }
-  };
 
   return (
     <div

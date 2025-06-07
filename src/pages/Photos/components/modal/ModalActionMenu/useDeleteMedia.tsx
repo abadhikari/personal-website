@@ -39,7 +39,14 @@ export default function useDeleteMedia({
   setIsProcessing,
 }: UseDeleteMediaParams): () => Promise<void> {
   return useCallback(async () => {
+    if (!token) {
+      log.warn('deleteMedia called without a valid token');
+      toast.error("You're not logged in.");
+      return;
+    }
+
     setIsProcessing(true);
+
     try {
       const { mediaId } = selectedStack.media[selectedMediaIndex];
       await deleteMedia({

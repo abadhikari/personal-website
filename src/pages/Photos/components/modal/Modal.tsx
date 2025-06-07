@@ -46,10 +46,12 @@ export default function Modal({
   setStacks,
 }: ModalProps) {
   const [isProcessing, setIsProcessing] = useState(false);
-  const selectedStack = mediaStacks[selectedStackIndex];
   const [focusedMediaIndex] = useState(initialMediaIndex);
-  const focusedMedia = selectedStack.media[focusedMediaIndex];
+
   const { isAuthenticated, token } = useAuth();
+
+  const selectedStack = mediaStacks[selectedStackIndex];
+  const focusedMedia = selectedStack.media[focusedMediaIndex];
 
   const {
     isEditing,
@@ -145,7 +147,7 @@ export default function Modal({
               )}
             </p>
           </div>
-          {isAuthenticated && isEditing && (
+          {isAuthenticated() && isEditing && (
             <div className={styles.editControls}>
               <button
                 type="button"

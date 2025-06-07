@@ -6,6 +6,18 @@ interface SimpleAudioPlayerProps {
   className: string;
 }
 
+/**
+ * `SimpleAudioPlayer` is a minimal React component for playing looping audio with mute toggle.
+ *
+ * It accepts an audio `src`, an initial volume level, and a custom class name for the toggle button.
+ * Audio starts muted by default and can be toggled on/off by clicking the button.
+ *
+ * @param {string} src - Path to the audio file (must be a valid `.mp3` or supported type).
+ * @param {number} initialVolume - A number between 0.0 and 1.0 for initial playback volume.
+ * @param {string} className - CSS class applied to the mute/unmute button.
+ *
+ * @returns A button-controlled looping audio player.
+ */
 export default function SimpleAudioPlayer({
   src,
   initialVolume,

@@ -8,6 +8,11 @@ interface PrivateRouteProps {
   children: JSX.Element;
 }
 
+/**
+ * `PrivateRoute` restricts access to authenticated users.
+ *
+ * Wraps protected routes and redirects unauthenticated users to the login page.
+ */
 function PrivateRoute({ children }: PrivateRouteProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const location = useLocation();

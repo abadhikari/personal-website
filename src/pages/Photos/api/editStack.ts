@@ -1,18 +1,19 @@
 import getApiEndpoint from '../../../api/config';
 import log from '../../../utils/logger';
+import ApiError from '../../../errors/ApiError';
+import AuthError from '../../../errors/AuthError';
 
 interface EditStackParams {
   stackId: string;
   caption?: string | null;
   location?: string | null;
-  token: string | null;
+  token: string;
 }
 
 /**
  * Edits metadata (caption, location) of a stack by stackId using your authenticated API.
  *
  * @param {EditStackParams} params - The stack edit parameters.
- * @returns {Promise<void>} Resolves on success or throws an error on failure.
  */
 export default async function editStack({
   stackId,
@@ -21,7 +22,7 @@ export default async function editStack({
   token,
 }: EditStackParams): Promise<void> {
   if (!token) {
-    throw new Error('Missing authorization token');
+    throw new AuthError('Missing authorization token');
   }
 
   const params = new URLSearchParams({ stackId });
@@ -42,10 +43,14 @@ export default async function editStack({
 
   if (!response.ok) {
     const text = await response.text();
-    throw new Error(
-      `Edit failed: ${response.status} ${response.statusText} - ${text}`
+    throw new ApiError(
+      `PATCH stack failed: ${response.status} ${response.statusText} - ${text}`, response.status, text
     );
   }
 
-  log.info(`Successfully edited stack ${stackId}`);
+  log.info('event=editStack status=success', {
+  stackId,
+  ...(caption != null && { caption }),
+  ...(location != null && { location }),
+});
 }

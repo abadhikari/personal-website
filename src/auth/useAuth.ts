@@ -1,36 +1,51 @@
 import { useEffect, useState } from 'react';
+import { decodeJWT } from '@aws-amplify/auth';
 
 import getToken from './getToken';
 
 /**
- * Custom React hook for checking and tracking the current user's authentication status.
+ * Custom React hook for accessing the current user's authentication state.
  *
- * It exposes:
- * - `isAuthenticated`: a boolean indicating whether the user is logged in
- * - `token`: the raw ID token string, or `null` if unauthenticated
+ * It provides:
+ * - `token`: the raw ID token string (or `null` if unauthenticated or expired)
+ * - `isAuthenticated()`: a function that returns `true` if the token is present and unexpired
  *
- * The check runs once on mount via `useEffect`, and handles fallback gracefully on failure.
- *
- * @returns An object containing the current auth state and token.
+ * @returns An object containing the current token and a function to check authentication status.
  */
 export default function useAuth() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const authToken = await getToken();
-        setIsAuthenticated(!!authToken);
         setToken(authToken ?? null);
       } catch {
-        setIsAuthenticated(false);
         setToken(null);
       }
     };
 
     checkAuth();
   }, []);
+
+  const isAuthenticated = () => {
+    if (!token) {
+      return false;
+    }
+
+    try {
+      const { payload } = decodeJWT(token);
+      const { exp } = payload;
+
+      if (typeof exp !== 'number') {
+        return false;
+      }
+
+      return Date.now() < exp * 1000;
+    } catch {
+      return false;
+    }
+  };
 
   return { isAuthenticated, token };
 }

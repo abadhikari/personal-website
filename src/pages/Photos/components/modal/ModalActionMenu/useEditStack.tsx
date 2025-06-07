@@ -55,6 +55,11 @@ export default function useEditStack({
   }, [stack]);
 
   const saveEdit = useCallback(async () => {
+    if (!token) {
+      log.warn('editStack called without a valid token');
+      toast.error("You're not logged in.");
+      return;
+    }
     setIsProcessing(true);
     try {
       await editStack({
