@@ -1,7 +1,7 @@
 import getApiEndpoint from '../../../api/config';
-import log from '../../../utils/logger';
 import ApiError from '../../../errors/ApiError';
 import AuthError from '../../../errors/AuthError';
+import log from '../../../utils/logger';
 
 interface EditStackParams {
   stackId: string;
@@ -44,13 +44,15 @@ export default async function editStack({
   if (!response.ok) {
     const text = await response.text();
     throw new ApiError(
-      `PATCH stack failed: ${response.status} ${response.statusText} - ${text}`, response.status, text
+      `PATCH stack failed: ${response.status} ${response.statusText} - ${text}`,
+      response.status,
+      text
     );
   }
 
   log.info('event=editStack status=success', {
-  stackId,
-  ...(caption != null && { caption }),
-  ...(location != null && { location }),
-});
+    stackId,
+    ...(caption != null && { caption }),
+    ...(location != null && { location }),
+  });
 }

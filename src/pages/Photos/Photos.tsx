@@ -2,6 +2,7 @@ import { useMemo, useRef, useState } from 'react';
 
 import AnimatedSpinner from '../../components/common/animations/AnimatedSpinner';
 import DigitalRainSpinner from '../../components/common/animations/DigitalRainSpinner';
+import ErrorScreen from '../../components/common/Error/ErrorScreen';
 
 import useLinkedStackLoader from './components/hooks/useLinkedStackLoader';
 import useLinkedStackParams from './components/hooks/useLinkedStackUrlParams';
@@ -42,7 +43,7 @@ export default function Photos() {
     isSearching,
     searchProcessing,
     handleQueryChange,
-  } = useSearchQuery({ setError, searchInputRef });
+  } = useSearchQuery({ searchInputRef });
 
   const { stackId, mediaId } = useLinkedStackParams();
   const { linkedStack, focusedMediaIndex, setLinkedStack } =
@@ -64,7 +65,11 @@ export default function Photos() {
   };
 
   if (error) {
-    return <div className="loadingText">{error}</div>;
+    return (
+      <ErrorScreen
+        message={error}
+      />
+    );
   }
 
   return (

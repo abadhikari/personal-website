@@ -1,6 +1,6 @@
 import getApiEndpoint from '../../../api/config';
-import { MediaStack } from '../types/mediaTypes';
 import ApiError from '../../../errors/ApiError';
+import { MediaStack } from '../types/mediaTypes';
 
 /**
  * Fetches a single stack and its associated media from the API.
@@ -34,6 +34,10 @@ export default async function fetchSingleStack(
     const data = JSON.parse(responseText);
     return data.stackAndMediaData;
   } catch (err) {
-    throw new ApiError('GET stack: failed to parse JSON response', response.status, responseText);
+    throw new ApiError(
+      'GET stack: failed to parse JSON response',
+      response.status,
+      responseText
+    );
   }
 }

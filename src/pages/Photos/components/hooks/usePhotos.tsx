@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import log from '../../../../utils/logger';
 import fetchPhotos from '../../api/fetchPhotos';
 import { MediaStack } from '../../types/mediaTypes';
 
@@ -41,7 +42,8 @@ export default function usePhotos({ setError }: UsePhotosParams) {
       setStacks((prev) => [...prev, ...data.stackAndMediaData]);
       setLastEvaluatedKey(data.lastEvaluatedKey || null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unexpected error.');
+      setError('Failed to load photos. Please refresh or try again later.');
+      log.error('Failed to fetch photos', err);
     }
   };
 

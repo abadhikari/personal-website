@@ -1,7 +1,7 @@
 import getApiEndpoint from '../../../api/config';
-import log from '../../../utils/logger';
 import ApiError from '../../../errors/ApiError';
 import AuthError from '../../../errors/AuthError';
+import log from '../../../utils/logger';
 
 interface DeleteMediaParams {
   stackId: string;
@@ -41,8 +41,15 @@ export default async function deleteMedia({
 
   if (!response.ok) {
     const text = await response.text();
-    throw new ApiError(`DELETE /media failed: ${response.status} ${response.statusText}`, response.status, text);
+    throw new ApiError(
+      `DELETE /media failed: ${response.status} ${response.statusText}`,
+      response.status,
+      text
+    );
   }
-  
-  log.info('event=deleteMedia status=success', { stackId, mediaId: mediaId ?? 'null' });
+
+  log.info('event=deleteMedia status=success', {
+    stackId,
+    mediaId: mediaId ?? 'null',
+  });
 }

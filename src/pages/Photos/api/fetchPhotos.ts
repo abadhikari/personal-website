@@ -1,9 +1,9 @@
 import getApiEndpoint from '../../../api/config';
-import { MediaReadApiResponse } from '../types/mediaTypes';
 import ApiError from '../../../errors/ApiError';
+import { MediaReadApiResponse } from '../types/mediaTypes';
 
 /**
- * Fetches photo stacks from the API with optional parameters for customization.
+ * Fetches media stacks from the API with optional parameters for customization.
  *
  * @param {Object} params - The optional parameters for the API call.
  * @param {number} [params.stackLimit=10] - The maximum number of stacks to fetch.
@@ -38,12 +38,20 @@ export default async function fetchPhotos({
 
   const responseText = await response.text();
   if (!response.ok) {
-    throw new ApiError(`GET stacks: ${response.status} ${response.statusText}`, response.status, responseText);
+    throw new ApiError(
+      `GET stacks: ${response.status} ${response.statusText}`,
+      response.status,
+      responseText
+    );
   }
 
   try {
     return JSON.parse(responseText);
   } catch (err) {
-    throw new ApiError('GET stacks: failed to parse JSON response', response.status, responseText);
+    throw new ApiError(
+      'GET stacks: failed to parse JSON response',
+      response.status,
+      responseText
+    );
   }
 }

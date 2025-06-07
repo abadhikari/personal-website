@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 
+import log from '../../../../utils/logger';
 import retrieveReadableDate from '../../../../utils/retrieveReadableDate';
 import fetchPhotos from '../../api/fetchPhotos';
 import { MediaStack } from '../../types/mediaTypes';
 
 interface UseSearchQueryParams {
-  setError: React.Dispatch<React.SetStateAction<string | null>>;
   searchInputRef: React.RefObject<HTMLInputElement>;
 }
 
@@ -27,11 +28,11 @@ interface UseSearchQueryParams {
  * @returns {boolean} return.searchProcessing - Whether search results are currently loading.
  */
 export default function useSearchQuery({
-  setError,
   searchInputRef,
 }: UseSearchQueryParams) {
   const DEFAULT_DEBOUNCE = 100;
   const FIRST_SEARCH_DEBOUNCE = 300;
+  const STACK_LIMIT = 50;
 
   const isFetchingRef = useRef(false);
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -58,7 +59,6 @@ export default function useSearchQuery({
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
     setSearchProcessing(true);
-    setError(null);
     let allResults: MediaStack[] = [];
     let lastEvaluatedKey: string | null = null;
 
@@ -66,7 +66,7 @@ export default function useSearchQuery({
       do {
         // eslint-disable-next-line no-await-in-loop
         const data = await fetchPhotos({
-          stackLimit: 50,
+          stackLimit: STACK_LIMIT,
           ...(lastEvaluatedKey && { lastEvaluatedKey }),
         });
 
@@ -76,7 +76,8 @@ export default function useSearchQuery({
 
       setSearchStacks(allResults);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unexpected error.');
+      log.error('Failed to search.', { err });
+      toast.error('Failed to search. Please try again later.');
     } finally {
       isFetchingRef.current = false;
       setSearchProcessing(false);
