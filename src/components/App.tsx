@@ -6,6 +6,7 @@ import About from '../pages/About/About';
 import Contact from '../pages/Contact/Contact';
 import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
+import LogoutHandler from '../pages/Logout/LogoutHandler';
 import Photos from '../pages/Photos/Photos';
 import Projects from '../pages/Projects/Projects';
 import Upload from '../pages/Upload/Upload';
@@ -58,6 +59,7 @@ export default function App() {
                 }
               />
               <Route path="/login" element={<Login />} />
+              <Route path="/logout" element={<LogoutHandler />} />
             </Routes>
           </div>
           <Footer />
