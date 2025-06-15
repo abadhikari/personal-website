@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 
+import { isImage, isVideo } from '../../../../utils/file';
+
 interface MediaPreviewProps {
   file: File;
   onCurrentTimeChange: (time: number) => void;
@@ -29,7 +31,7 @@ export default function MediaPreview({
     }
   };
 
-  if (fileType.includes('image')) {
+  if (isImage(fileType)) {
     return (
       <img
         src={mediaPreviewUrl}
@@ -39,7 +41,7 @@ export default function MediaPreview({
     );
   }
 
-  if (fileType.includes('video')) {
+  if (isVideo(fileType)) {
     return (
       // eslint-disable-next-line jsx-a11y/media-has-caption
       <video

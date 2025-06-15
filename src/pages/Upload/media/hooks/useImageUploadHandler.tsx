@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import log from '../../../../utils/logger';
-import { uploadImage } from '../api/uploadImage';
+import uploadImage from '../api/uploadImage';
 import { ImageMetadata } from '../components/MetadataForm';
 
 /**
@@ -28,7 +28,7 @@ export default function useImageUploadHandler({
 }) {
   const [isUploading, setIsUploading] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const SUCCESS_RESET_TIME = 60000;
+  const SUCCESS_RESET_TIME = 3000;
 
   const resetPage = () => {
     window.location.reload();
@@ -54,7 +54,7 @@ export default function useImageUploadHandler({
       toast.success('File uploaded successfully!');
       timerRef.current = setTimeout(resetPage, SUCCESS_RESET_TIME);
     } catch (err) {
-      log.error('Upload failed:', err);
+      log.error('Failed to upload media:', err);
       toast.error('Error uploading file. Please try again.');
     } finally {
       setIsUploading(false);

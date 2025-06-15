@@ -1,3 +1,4 @@
+import { isImage, isVideo } from '../../../../utils/file';
 import { Media } from '../../types/mediaTypes';
 import ViewType from '../../types/viewType';
 
@@ -26,7 +27,7 @@ export default function MediaRenderer({
     viewType === ViewType.MODAL
       ? media.imageUrl.full
       : media.imageUrl.thumbnail;
-  if (mediaType.includes('image')) {
+  if (isImage(mediaType)) {
     return (
       <Image
         src={src}
@@ -37,7 +38,7 @@ export default function MediaRenderer({
     );
   }
 
-  if (mediaType.includes('video')) {
+  if (isVideo(mediaType)) {
     return <Video src={src} viewType={viewType} className={className} />;
   }
   return null;

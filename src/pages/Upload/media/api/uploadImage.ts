@@ -1,174 +1,95 @@
-import { v4 as uuidv4 } from 'uuid';
-
-import getApiEndpoint from '../../../../api/config';
-import getToken from '../../../../auth/getToken';
-import log from '../../../../utils/logger';
+import { isVideo } from '../../../../utils/file';
+import {
+  SignedUrlAndKey,
+  SignedUrlRequestItem,
+} from '../../types/mediaUploadTypes';
 import { ImageMetadata } from '../components/MetadataForm';
 
 import extractThumbnailFromVideo from './extractThumbnailFromVideo';
+import getSignedUrls from './getSignedUrls';
+import saveMetadata from './saveMetadata';
+import uploadToS3 from './uploadToS3';
 
-interface SignedUrlResponse {
-  signedUrlsAndKeys: Array<SignedUrlAndKey>;
-}
-
-interface SignedUrlAndKey {
-  uploadUrl: string;
-  key: string;
+/**
+ * Uploads one or more media files (primary file and optional thumbnail) to S3 using signed URLs.
+ * Maps each uploaded file type to its corresponding S3 key for later metadata persistence.
+ *
+ * @param {SignedUrlAndKey[]} signedUrlsAndKeys - The list of signed URLs and associated metadata from the backend.
+ * @param {File} file - The primary file to upload (e.g., image or video).
+ * @param {File} [thumbnail] - Optional thumbnail file, typically extracted from a video.
+ * @returns {Promise<Record<string, string>>} - A mapping of file types (`primary`, `thumbnail`) to their corresponding S3 keys.
+ * @throws {ApiError} - If any upload fails (e.g., non-200 response from S3).
+ */
+async function uploadMediaFiles(
+  signedUrlsAndKeys: SignedUrlAndKey[],
+  file: File,
+  thumbnail?: File
+): Promise<Record<string, string>> {
+  const uploadsByType: Record<string, string> = {};
+  await Promise.all(
+    signedUrlsAndKeys.map(async ({ type, uploadUrl, key }) => {
+      const fileToUpload = type === 'thumbnail' ? thumbnail : file;
+      if (fileToUpload) {
+        await uploadToS3(uploadUrl, fileToUpload);
+        uploadsByType[type] = key;
+      }
+    })
+  );
+  return uploadsByType;
 }
 
 /**
- * Sends metadata for an uploaded image to the backend for persistence. Generates unique identifiers
- * for the stack and media and sends a POST request to the backend.
+ * Coordinates the full media upload pipeline: generates signed URLs, uploads files to S3,
+ * and saves metadata to the backend.
  *
- * @param {number} uploadTimestamp - The timestamp of the image upload.
- * @param {ImageMetadata} imageMetadata - The metadata for the image, including caption, alt text, and location.
- * @param {string} contentType - The MIME type of the uploaded file.
- * @param {string} fileKey - The unique key for the uploaded file in the S3 bucket.
- * @throws Will throw an error if the metadata write operation fails.
- */
-export async function saveMetadata(
-  uploadTimestamp: number,
-  imageMetadata: ImageMetadata,
-  contentType: string,
-  fileKey: string,
-  thumbnail?: string
-) {
-  const stackId = uuidv4();
-  const mediaId = uuidv4();
-
-  try {
-    const imagePath = {
-      thumbnail: thumbnail || fileKey,
-      full: fileKey,
-    };
-
-    const media = {
-      mediaId,
-      mediaType: contentType,
-      alternativeText: imageMetadata.altText,
-      imagePath,
-    };
-
-    const writeRequest = {
-      stackId,
-      uploadTimestamp,
-      caption: imageMetadata.caption,
-      media: [media],
-      ...(imageMetadata.location && { location: imageMetadata.location }),
-    };
-
-    const token = await getToken();
-    if (!token) {
-      throw new Error('Missing authorization token');
-    }
-
-    const endpoint = getApiEndpoint(`stack`);
-    const writeResponse = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(writeRequest),
-    });
-
-    if (!writeResponse.ok) {
-      throw Error(`Error writing metadata.`);
-    }
-  } catch (error) {
-    log.error('Upload Error: ', error);
-    throw error;
-  }
-}
-
-async function uploadToSignedUrl(signedUrlAndKey: SignedUrlAndKey, file: File) {
-  const { uploadUrl } = signedUrlAndKey;
-  const uploadResponse = await fetch(uploadUrl, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': file.type,
-    },
-    body: file,
-  });
-
-  if (!uploadResponse.ok) {
-    throw new Error(`Error uploading file to S3: ${uploadResponse.statusText}`);
-  }
-}
-
-/**
- * Handles the process of uploading an image file to S3. First, it requests a signed URL from the backend,
- * uploads the file to S3 using the signed URL, and then saves metadata about the file.
+ * If the uploaded file is a video, this function also generates a thumbnail at the provided
+ * timestamp and uploads that as well. The function concludes by persisting relevant metadata
+ * (caption, alt text, etc.) for later retrieval and display.
  *
- * @param {File} file - The image file to be uploaded.
- * @param {ImageMetadata} imageMetadata - The metadata for the image, including caption, alt text, and location.
- * @param {number} videoCurrentTime - the time of the video for the thumbnail.
- * @throws Will throw an error if any step in the upload process fails (e.g., obtaining signed URL, uploading to S3, saving metadata).
+ * @param {File} file - The image or video file to be uploaded.
+ * @param {ImageMetadata} imageMetadata - Metadata associated with the upload (caption, alt text, optional location).
+ * @param {number} videoCurrentTime - Timestamp (in seconds) used to generate a thumbnail from a video file.
+ * @returns {Promise<void>} - Resolves once all operations (upload + metadata save) complete.
+ * @throws {AuthError | ApiError | Error} - If any part of the process fails: token fetch, signed URL request, file upload, or metadata persistence.
  */
-export async function uploadImage(
+export default async function uploadImage(
   file: File,
   imageMetadata: ImageMetadata,
   videoCurrentTime: number
-) {
-  try {
-    const signedUrlRequest = [
-      {
-        fileName: file.name,
-        contentType: file.type,
-      },
-    ];
+): Promise<void> {
+  const signedUrlRequest: SignedUrlRequestItem[] = [
+    {
+      fileName: file.name,
+      contentType: file.type,
+      type: 'primary',
+    },
+  ];
 
-    let thumbnail;
-    if (file.type.includes('video')) {
-      thumbnail = await extractThumbnailFromVideo(file, videoCurrentTime);
-      signedUrlRequest.push({
-        fileName: thumbnail.name,
-        contentType: thumbnail.type,
-      });
-    }
-
-    const token = await getToken();
-    if (!token) {
-      throw new Error('Missing authorization token');
-    }
-
-    const endpoint = getApiEndpoint(`media/upload-url`);
-    const signedUrlResponse = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ filesMetadata: signedUrlRequest }),
+  let thumbnail: File | undefined;
+  if (isVideo(file.type)) {
+    thumbnail = await extractThumbnailFromVideo(file, videoCurrentTime);
+    signedUrlRequest.push({
+      fileName: thumbnail.name,
+      contentType: thumbnail.type,
+      type: 'thumbnail',
     });
-
-    if (!signedUrlResponse.ok) {
-      throw Error(`Error getting signed URL: ${signedUrlResponse.statusText}`);
-    }
-
-    const data =
-      (await signedUrlResponse.json()) as unknown as SignedUrlResponse;
-
-    const { signedUrlsAndKeys } = data;
-
-    if (!signedUrlsAndKeys || signedUrlsAndKeys.length === 0) {
-      throw new Error('No signed URLs returned from the API.');
-    }
-
-    const { key } = signedUrlsAndKeys[0];
-    uploadToSignedUrl(signedUrlsAndKeys[0], file);
-
-    let thumbnailKey;
-    if (thumbnail) {
-      thumbnailKey = signedUrlsAndKeys[1].key;
-      uploadToSignedUrl(signedUrlsAndKeys[1], thumbnail);
-    }
-
-    const uploadTimestamp = Date.now();
-
-    saveMetadata(uploadTimestamp, imageMetadata, file.type, key, thumbnailKey);
-  } catch (error) {
-    log.error('Upload Error: ', error);
-    throw error;
   }
+
+  const signedUrlsAndKeys = await getSignedUrls(signedUrlRequest);
+
+  const uploadsByType = await uploadMediaFiles(
+    signedUrlsAndKeys,
+    file,
+    thumbnail
+  );
+
+  const uploadTimestamp = Date.now();
+
+  await saveMetadata(
+    uploadTimestamp,
+    imageMetadata,
+    file.type,
+    uploadsByType.primary,
+    uploadsByType.thumbnail
+  );
 }
