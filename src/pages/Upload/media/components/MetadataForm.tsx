@@ -6,7 +6,7 @@ export interface ImageMetadata {
 
 interface MetadataFormProps {
   metadata: ImageMetadata;
-  divClassName: string;
+  className: string;
   onMetadataChange: (field: keyof ImageMetadata, value: string) => void;
 }
 
@@ -18,11 +18,11 @@ interface MetadataFormProps {
  */
 export default function MetadataForm({
   metadata,
-  divClassName,
+  className,
   onMetadataChange,
 }: MetadataFormProps) {
   return (
-    <div className={divClassName}>
+    <div className={className}>
       <label htmlFor="caption">
         Caption:
         <input

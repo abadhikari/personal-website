@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import useAuth from '../../../../auth/useAuth';
 import AnimatedSpinner from '../../../../components/common/animations/AnimatedSpinner';
+import ModalWrapper from '../../../../components/common/Modal/ModalWrapper';
 import retrieveReadableDate from '../../../../utils/retrieveReadableDate';
 import { MediaStack } from '../../types/mediaTypes';
 import ViewType from '../../types/viewType';
@@ -10,7 +11,6 @@ import MediaRenderer from '../media/MediaRenderer';
 import ModalActionMenu from './ModalActionMenu/ModalActionMenu';
 import useDeleteMedia from './ModalActionMenu/useDeleteMedia';
 import useEditStack from './ModalActionMenu/useEditStack';
-import ModalWrapper from './ModalWrapper';
 
 import * as styles from '../../styles/Modal.module.css';
 
@@ -173,13 +173,6 @@ export default function Modal({
           )}
         </div>
       </div>
-      <button
-        className={styles.closeModalButton}
-        onClick={onClose}
-        type="button"
-      >
-        ✕
-      </button>
     </ModalWrapper>
   );
 }

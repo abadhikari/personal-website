@@ -3,6 +3,7 @@ import { useRef } from 'react';
 interface MediaPreviewProps {
   file: File;
   onCurrentTimeChange: (time: number) => void;
+  className?: string;
 }
 
 /**
@@ -16,8 +17,9 @@ interface MediaPreviewProps {
 export default function MediaPreview({
   file,
   onCurrentTimeChange,
+  className,
 }: MediaPreviewProps) {
-  const mediaPreviewUrll = URL.createObjectURL(file);
+  const mediaPreviewUrl = URL.createObjectURL(file);
   const fileType = file.type;
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -28,7 +30,13 @@ export default function MediaPreview({
   };
 
   if (fileType.includes('image')) {
-    return <img src={mediaPreviewUrll} alt="Upload preview." />;
+    return (
+      <img
+        src={mediaPreviewUrl}
+        alt="Upload preview."
+        className={className || ''}
+      />
+    );
   }
 
   if (fileType.includes('video')) {
@@ -40,8 +48,9 @@ export default function MediaPreview({
         muted={false}
         controls
         onTimeUpdate={handleTimeUpdate}
+        className={className || ''}
       >
-        <source src={mediaPreviewUrll} type="video/mp4" />
+        <source src={mediaPreviewUrl} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     );

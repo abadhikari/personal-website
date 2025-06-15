@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-import * as animationStyles from '../../../../styles/animations.module.css';
-import * as styles from '../../styles/Modal.module.css';
+import * as animationStyles from '../../../styles/animations.module.css';
+import * as styles from './styles/Modal.module.css';
 
 interface ModalWrapperProps {
   onClose: () => void;
@@ -42,6 +42,13 @@ export default function ModalWrapper({ onClose, children }: ModalWrapperProps) {
       <div ref={modalRef} className={styles.modalContent}>
         {children}
       </div>
+      <button
+        className={styles.closeModalButton}
+        onClick={onClose}
+        type="button"
+      >
+        ✕
+      </button>
     </div>
   );
 }

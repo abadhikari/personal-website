@@ -37,7 +37,6 @@ export default function extractThumbnailFromVideo(
 
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-      // Use canvas.toBlob (async) instead of toDataURL
       canvas.toBlob((blob) => {
         if (!blob) {
           reject(new Error('Failed to convert canvas to Blob.'));

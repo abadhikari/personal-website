@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import getApiEndpoint from '../../api/config';
-import getToken from '../../auth/getToken';
-import log from '../../utils/logger';
+import getApiEndpoint from '../../../../api/config';
+import getToken from '../../../../auth/getToken';
+import log from '../../../../utils/logger';
+import { ImageMetadata } from '../components/MetadataForm';
 
-import { ImageMetadata } from './components/MetadataForm';
 import extractThumbnailFromVideo from './extractThumbnailFromVideo';
 
 interface SignedUrlResponse {
@@ -101,14 +101,12 @@ async function uploadToSignedUrl(signedUrlAndKey: SignedUrlAndKey, file: File) {
  * uploads the file to S3 using the signed URL, and then saves metadata about the file.
  *
  * @param {File} file - The image file to be uploaded.
- * @param {string} userId - The ID of the user uploading the file.
  * @param {ImageMetadata} imageMetadata - The metadata for the image, including caption, alt text, and location.
  * @param {number} videoCurrentTime - the time of the video for the thumbnail.
  * @throws Will throw an error if any step in the upload process fails (e.g., obtaining signed URL, uploading to S3, saving metadata).
  */
 export async function uploadImage(
   file: File,
-  userId: string,
   imageMetadata: ImageMetadata,
   videoCurrentTime: number
 ) {
