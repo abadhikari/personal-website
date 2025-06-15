@@ -24,7 +24,7 @@ export default function MetadataForm({
   return (
     <div className={className}>
       <label htmlFor="caption">
-        Caption:
+        Caption<span className="required">*</span>
         <input
           id="caption"
           type="text"
@@ -33,7 +33,7 @@ export default function MetadataForm({
         />
       </label>
       <label htmlFor="altText">
-        Alt Text:
+        Alt Text<span className="required">*</span>
         <input
           id="altText"
           type="text"

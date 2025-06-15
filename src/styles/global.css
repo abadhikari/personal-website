@@ -84,6 +84,11 @@ a:hover {
   color: #0cafff;
 }
 
+.required {
+  color: red;
+  margin-left: 2px;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
