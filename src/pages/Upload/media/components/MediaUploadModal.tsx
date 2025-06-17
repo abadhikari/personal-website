@@ -63,8 +63,13 @@ export default function MediaUploadModal({
           className={styles.imageMetadata}
           onMetadataChange={handleMetadataChange}
         />
-        <button type="button" className={styles.uploadButton} onClick={upload}>
-          Upload Image
+        <button
+          type="button"
+          className={styles.uploadButton}
+          onClick={upload}
+          disabled={isUploading}
+        >
+          {isUploading ? 'Uploading…' : 'Upload'}
         </button>
         {isUploading && (
           <div className="loadingOverlay">

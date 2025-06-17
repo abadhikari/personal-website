@@ -6,7 +6,7 @@ import {
   SignedUrlAndKey,
   SignedUrlRequestItem,
   SignedUrlResponse,
-} from '../../types/mediaUploadTypes';
+} from '../../types/uploadTypes';
 
 /**
  * Requests pre-signed S3 upload URLs from the backend for the given list of files.

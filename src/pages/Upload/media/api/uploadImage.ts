@@ -1,8 +1,5 @@
 import { isVideo } from '../../../../utils/file';
-import {
-  SignedUrlAndKey,
-  SignedUrlRequestItem,
-} from '../../types/mediaUploadTypes';
+import { SignedUrlAndKey, SignedUrlRequestItem } from '../../types/uploadTypes';
 import { ImageMetadata } from '../components/MetadataForm';
 
 import extractThumbnailFromVideo from './extractThumbnailFromVideo';

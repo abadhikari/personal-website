@@ -30,3 +30,43 @@ export interface SignedUrlAndKey {
   key: string;
   type: string;
 }
+
+/**
+ * Enum representing the type of upload operation.
+ * - `MEDIA`: Uploading photos or videos
+ * - `CONTENT`: Uploading structured content metadata (e.g. venue info)
+ */
+export enum UploadType {
+  MEDIA = 'media',
+  CONTENT = 'content',
+}
+
+/**
+ * Metadata structure for uploading content entries (e.g. restaurants, venues, events).
+ * Used when `UploadType` is `CONTENT`.
+ */
+export interface ContentMetadata {
+  categoryId: number;
+  name: string;
+  address: string;
+  city: string;
+  state?: string;
+  venueId: number;
+  country: string;
+  latitude: number;
+  longitude: number;
+  priceLevel: number;
+  cuisineIds?: number[];
+}
+
+/**
+ * Enum of content categories used to classify structured content.
+ * Matches values stored in the `category_id` field of the backend.
+ */
+export enum ContentCategory {
+  MOVIE = 1,
+  SHOW = 2,
+  BOOK = 3,
+  FOOD_AND_DRINK = 4,
+  ENTERTAINMENT = 5,
+}
