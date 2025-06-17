@@ -13,7 +13,7 @@ import { ContentMetadata } from '../../types/uploadTypes';
 export default function useContentMetadata() {
   const [contentMetadata, setContentMetadata] = useState<ContentMetadata>({
     categoryId: -1,
-    name: '',
+    title: '',
     address: '',
     city: '',
     state: undefined,

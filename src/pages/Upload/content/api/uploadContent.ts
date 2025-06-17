@@ -25,7 +25,7 @@ export default async function uploadContent(
   const writeRequest = {
     category_id: contentMetadata.categoryId,
     payload: {
-      name: contentMetadata.name,
+      title: contentMetadata.title,
       address: contentMetadata.address,
       city: contentMetadata.city,
       state: contentMetadata.state,

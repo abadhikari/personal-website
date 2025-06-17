@@ -25,7 +25,7 @@ export default function useContentUploadHandler({
 }) {
   const [isUploading, setIsUploading] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const SUCCESS_RESET_TIME = 2000;
+  const SUCCESS_RESET_TIME = 4000;
 
   const resetPage = () => {
     window.location.reload();
@@ -37,7 +37,7 @@ export default function useContentUploadHandler({
       return;
     }
 
-    if (!metadata.name.trim()) {
+    if (!metadata.title.trim()) {
       toast.error('Please enter a name.');
       return;
     }

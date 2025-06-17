@@ -31,13 +31,13 @@ export default function ExperienceMetadataForm({
 }: ExperienceMetadataFormProps) {
   return (
     <>
-      <label htmlFor="name">
-        Name<span className="required">*</span>
+      <label htmlFor="title">
+        Title<span className="required">*</span>
         <input
-          id="name"
+          id="title"
           type="text"
-          value={metadata.name}
-          onChange={(e) => onMetadataChange('name', e.target.value)}
+          value={metadata.title}
+          onChange={(e) => onMetadataChange('title', e.target.value)}
         />
       </label>
       <label htmlFor="address">

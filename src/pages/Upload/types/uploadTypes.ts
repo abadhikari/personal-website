@@ -47,7 +47,7 @@ export enum UploadType {
  */
 export interface ContentMetadata {
   categoryId: number;
-  name: string;
+  title: string;
   address: string;
   city: string;
   state?: string;

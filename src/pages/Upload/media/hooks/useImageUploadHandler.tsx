@@ -28,7 +28,7 @@ export default function useImageUploadHandler({
 }) {
   const [isUploading, setIsUploading] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const SUCCESS_RESET_TIME = 2000;
+  const SUCCESS_RESET_TIME = 4000;
 
   const resetPage = () => {
     window.location.reload();
