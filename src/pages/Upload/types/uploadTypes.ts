@@ -39,6 +39,7 @@ export interface SignedUrlAndKey {
 export enum UploadType {
   MEDIA = 'media',
   CONTENT = 'content',
+  REVIEW = 'review',
 }
 
 /**
@@ -70,3 +71,25 @@ export enum ContentCategory {
   FOOD_AND_DRINK = 4,
   ENTERTAINMENT = 5,
 }
+
+/**
+ * Metadata structure for uploading review entries.
+ * Used when `UploadType` is `REVIEW`.
+ */
+export interface ReviewMetadata {
+  contentId: string;
+  rating: number;
+  reviewText: string;
+}
+
+/**
+ * Represents a content item that serves as a base entity for all content types
+ * (e.g., books, movies, shows, experiences, etc.).
+ */
+export type Content = {
+  content_id: string;
+  title: string;
+  category_id: number;
+  parent_id: string | null;
+  created_at: string;
+};

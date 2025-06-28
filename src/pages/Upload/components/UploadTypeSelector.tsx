@@ -39,6 +39,7 @@ export default function UploadTypeSelector({
           </option>
           <option value={UploadType.CONTENT}>🍿 Content</option>
           <option value={UploadType.MEDIA}>🖼️ Media</option>
+          <option value={UploadType.REVIEW}>📝 Review</option>
         </select>
       </label>
     </div>

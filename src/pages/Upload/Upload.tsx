@@ -3,6 +3,7 @@ import { useState } from 'react';
 import UploadTypeSelector from './components/UploadTypeSelector';
 import ContentUploadView from './content/components/ContentUploadView';
 import MediaUploadView from './media/components/MediaUploadView';
+import ReviewUploadView from './review/components/ReviewUploadView';
 import { UploadType } from './types/uploadTypes';
 
 /**
@@ -22,6 +23,8 @@ export default function Upload() {
         return <ContentUploadView />;
       case UploadType.MEDIA:
         return <MediaUploadView />;
+      case UploadType.REVIEW:
+        return <ReviewUploadView />;
       default:
         return <UploadTypeSelector onSelect={setUploadType} />;
     }

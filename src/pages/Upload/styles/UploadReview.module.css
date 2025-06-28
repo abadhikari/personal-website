@@ -1,0 +1,146 @@
+.uploadDetails {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: black;
+  overflow-wrap: break-word;
+}
+
+.reviewMetadataForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.reviewMetadataForm select {
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.reviewMetadataForm textArea {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.searchDropdown {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-left: 0;
+  margin-top: 0;
+  max-height: 240px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.searchItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.2s ease;
+}
+
+.searchItem:hover,
+.searchItem.highlighted {
+  background-color: #f0f4ff;
+}
+
+.searchItemIcon {
+  margin-right: 10px;
+  color: #555;
+}
+
+.searchEmpty {
+  padding: 10px 12px;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.loading {
+  display: flex;
+  top: 0.5rem;
+  right: 0.5rem;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: white;
+}
+
+.searchInput {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 0;
+  font-size: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  border-color: #0070f3;
+  box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
+}
+
+.rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.starRow {
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.starShell {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.fullBtn {
+  position: absolute;
+  inset: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.fullBtn:focus-visible {
+  outline: 2px solid #0070f3;
+  outline-offset: 2px;
+}
