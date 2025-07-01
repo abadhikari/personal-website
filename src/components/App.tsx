@@ -9,6 +9,7 @@ import Login from '../pages/Login/Login';
 import LogoutHandler from '../pages/Logout/LogoutHandler';
 import Photos from '../pages/Photos/Photos';
 import Projects from '../pages/Projects/Projects';
+import Reviews from '../pages/Reviews/Reviews';
 import Upload from '../pages/Upload/Upload';
 
 import PrivateRoute from './common/PrivateRoute';
@@ -50,6 +51,7 @@ export default function App() {
               <Route path="/projects" element={<Projects />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/photos" element={<Photos />} />
+              <Route path="/reviews" element={<Reviews />} />
               <Route
                 path="/upload"
                 element={

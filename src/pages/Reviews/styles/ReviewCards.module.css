@@ -1,0 +1,30 @@
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 20px;
+}
+
+.title h3 {
+  margin: 0;
+}
+
+.location {
+  margin-left: auto;
+  font-size: .8rem;
+  font-style: italic;
+}
+
+.tags {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.date {
+  text-align: right;
+  font-style: italic;
+}

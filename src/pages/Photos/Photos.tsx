@@ -3,12 +3,12 @@ import { useMemo, useRef, useState } from 'react';
 import AnimatedSpinner from '../../components/common/animations/AnimatedSpinner';
 import GridSpinner from '../../components/common/animations/GridSpinner';
 import ErrorScreen from '../../components/common/Error/ErrorScreen';
+import InfiniteScroll from '../../components/common/InfiniteScroll';
 
 import useLinkedStackLoader from './components/hooks/useLinkedStackLoader';
 import useLinkedStackParams from './components/hooks/useLinkedStackUrlParams';
 import usePhotos from './components/hooks/usePhotos';
 import useSearchQuery from './components/hooks/useSearchQuery';
-import InfiniteScroll from './components/InfiniteScroll';
 import PhotosContent from './components/media/PhotosContent';
 import Modal from './components/modal/Modal';
 
