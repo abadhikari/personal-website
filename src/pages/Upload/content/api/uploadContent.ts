@@ -3,41 +3,40 @@ import getToken from '../../../../auth/getToken';
 import ApiError from '../../../../errors/ApiError';
 import AuthError from '../../../../errors/AuthError';
 import log from '../../../../utils/logger';
-import { ContentMetadata } from '../../types/uploadTypes';
+import {
+  ContentCategory,
+  EntertainmentPayload,
+  FoodAndDrinkPayload,
+} from '../../types/uploadTypes';
+import {
+  EntertainmentInput,
+  FoodAndDrinkInput,
+  UploadableContent,
+} from '../../validation/schemas';
+
+type WriteRequest =
+  | {
+      category_id: ContentCategory.FOOD_AND_DRINK;
+      payload: FoodAndDrinkPayload;
+    }
+  | {
+      category_id: ContentCategory.ENTERTAINMENT;
+      payload: EntertainmentPayload;
+    };
 
 /**
- * Uploads structured content metadata to the backend.
+ * Sends a structured write request to the backend's content API.
  *
- * Constructs a POST request to the `/content` API endpoint with a payload
- * representing venue-related metadata (e.g. restaurants, events).
- * Requires a valid authentication token.
+ * @param {WriteRequest} writeRequest - The content metadata and category to be uploaded
  *
- * @param {ContentMetadata} contentMetadata - The metadata to upload
+ * @throws {AuthError} If no valid token is found
+ * @throws {ApiError} If the API returns a non-2xx response
  *
- * @throws {AuthError} If the authentication token is missing
- * @throws {ApiError} If the server responds with a non-2xx status
- *
- * @returns {Promise<void>} Resolves when the content is successfully uploaded
+ * @returns {Promise<void>} Resolves on successful upload
  */
-export default async function uploadContent(
-  contentMetadata: ContentMetadata
+export async function postToContentApi(
+  writeRequest: WriteRequest
 ): Promise<void> {
-  const writeRequest = {
-    category_id: contentMetadata.categoryId,
-    payload: {
-      title: contentMetadata.title,
-      address: contentMetadata.address,
-      city: contentMetadata.city,
-      state: contentMetadata.state,
-      venue_id: contentMetadata.venueId,
-      country: contentMetadata.country,
-      latitude: contentMetadata.latitude,
-      longitude: contentMetadata.longitude,
-      price_level: contentMetadata.priceLevel,
-      cuisine_ids: contentMetadata.cuisineIds,
-    },
-  };
-
   const token = await getToken();
   if (!token) {
     throw new AuthError('Missing authorization token');
@@ -65,4 +64,89 @@ export default async function uploadContent(
   log.info('event=writeContent status=success', {
     writeRequest,
   });
+}
+
+/**
+ * Uploads a Food & Drink content entry to the backend.
+ *
+ * Constructs the payload from `FoodAndDrinkInput` and routes it through
+ * the content API.
+ *
+ * @param {FoodAndDrinkInput} input - Validated form data for a food-related venue
+ *
+ * @returns {Promise<void>} Resolves when the content is uploaded
+ */
+export async function uploadFoodAndDrinkContent(
+  input: FoodAndDrinkInput
+): Promise<void> {
+  const payload = {
+    title: input.title,
+    address: input.address,
+    city: input.city,
+    state: input.state,
+    venue_id: input.venueId,
+    country: input.country,
+    latitude: input.latitude,
+    longitude: input.longitude,
+    price_level: input.priceLevel,
+    cuisine_ids: input.cuisineIds,
+  };
+
+  const request = { category_id: input.categoryId, payload };
+  return postToContentApi(request);
+}
+
+/**
+ * Uploads an Entertainment content entry to the backend.
+ *
+ * Constructs the payload from `EntertainmentInput` and routes it through
+ * the content API.
+ *
+ * @param {EntertainmentInput} input - Validated form data for an entertainment venue
+ *
+ * @returns {Promise<void>} Resolves when the content is uploaded
+ */
+export async function uploadEntertainmentInput(
+  input: EntertainmentInput
+): Promise<void> {
+  const payload = {
+    title: input.title,
+    address: input.address,
+    city: input.city,
+    state: input.state,
+    venue_id: input.venueId,
+    country: input.country,
+    latitude: input.latitude,
+    longitude: input.longitude,
+    price_level: input.priceLevel,
+  };
+
+  const request = { category_id: input.categoryId, payload };
+  return postToContentApi(request);
+}
+
+/**
+ * Delegates upload to the correct function based on content category.
+ *
+ * This is the main entry point for submitting content from the frontend form.
+ *
+ * @param {UploadableContent} data - Validated form data for any supported category
+ *
+ * @returns {Promise<void>} Resolves on successful upload
+ *
+ * @throws {Error} If an unsupported content category is provided
+ */
+export default async function uploadContent(
+  data: UploadableContent
+): Promise<void> {
+  switch (data.categoryId) {
+    case ContentCategory.FOOD_AND_DRINK:
+      return uploadFoodAndDrinkContent(data);
+    case ContentCategory.ENTERTAINMENT:
+      return uploadEntertainmentInput(data);
+    default:
+      throw new Error(
+        `Unhandled content category: ${(data satisfies never) ? 'never' : JSON.stringify(data)}`
+      );
+  }
 }

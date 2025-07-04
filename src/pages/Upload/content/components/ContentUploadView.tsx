@@ -1,50 +1,55 @@
+import { useState } from 'react';
+
 import AnimatedSpinner from '../../../../components/common/animations/AnimatedSpinner';
-import useContentMetadata from '../hooks/useContentMetadata';
+import { ContentCategory } from '../../types/uploadTypes';
 import useContentUploadHandler from '../hooks/useContentUploadHandler';
 
-import MetadataForm from './MetadataForm/MetadataForm';
+import FormRouter from './MetadataForm/FormRouter';
 
 import * as animationStyles from '../../../../styles/animations.module.css';
 import * as styles from '../../styles/UploadContent.module.css';
 
 /**
- * Renders the UI for uploading structured content entries (e.g. restaurants, venues).
+ * ContentUploadView is the main UI for submitting new structured content entries
+ * (e.g. restaurants, venues, events).
  *
  * Features:
- * - Displays a metadata form for structured input
- * - Tracks metadata state via `useContentMetadata`
- * - Triggers content upload via `useContentUploadHandler`
- * - Shows a loading spinner while uploading
+ * - Category selection dropdown (Food & Drink, Entertainment)
+ * - Dynamically routed form via `FormRouter` based on selected category
+ * - Form submission logic via `useContentUploadHandler`
+ * - Upload state handling with loading spinner
  *
- * @returns {JSX.Element} The content upload form UI
+ * State:
+ * - `categoryId` tracks the selected content category (-1 means none selected)
+ *
+ * @returns {JSX.Element} A fully interactive content upload form with category routing
  */
 export default function ContentUploadView() {
-  const { contentMetadata, handleMetadataChange } = useContentMetadata();
-  const { isUploading, upload } = useContentUploadHandler({
-    metadata: contentMetadata,
-  });
-
-  const isCategorySelected = contentMetadata.categoryId !== -1;
+  const [categoryId, setCategoryId] = useState<ContentCategory | -1>(-1);
+  const { isUploading, upload } = useContentUploadHandler();
 
   return (
     <>
       <div className={`${styles.upload} ${animationStyles.fadeInUp}`}>
         <h1>Upload Content</h1>
         <div className={styles.uploadDetails}>
-          <MetadataForm
-            metadata={contentMetadata}
-            onMetadataChange={handleMetadataChange}
-          />
-          {isCategorySelected && (
-            <button
-              type="button"
-              className={styles.uploadButton}
-              onClick={upload}
-              disabled={isUploading}
-            >
-              {isUploading ? 'Uploading…' : 'Upload'}
-            </button>
-          )}
+          <div className={styles.contentMetadata}>
+            <label htmlFor="categoryId">
+              Category<span className="required">*</span>
+              <select
+                id="categoryId"
+                value={categoryId}
+                onChange={(e) =>
+                  setCategoryId(Number(e.target.value) as ContentCategory)
+                }
+              >
+                <option value={-1}>-- Select a category --</option>
+                <option value={4}>Food &amp; Drink</option>
+                <option value={5}>Entertainment</option>
+              </select>
+            </label>
+            <FormRouter categoryId={categoryId} onSubmit={upload} />
+          </div>
         </div>
       </div>
       {isUploading && (

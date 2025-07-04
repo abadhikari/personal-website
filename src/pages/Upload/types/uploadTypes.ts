@@ -43,24 +43,6 @@ export enum UploadType {
 }
 
 /**
- * Metadata structure for uploading content entries (e.g. restaurants, venues, events).
- * Used when `UploadType` is `CONTENT`.
- */
-export interface ContentMetadata {
-  categoryId: number;
-  title: string;
-  address: string;
-  city: string;
-  state?: string;
-  venueId: number;
-  country: string;
-  latitude: number;
-  longitude: number;
-  priceLevel: number;
-  cuisineIds?: number[];
-}
-
-/**
  * Enum of content categories used to classify structured content.
  * Matches values stored in the `category_id` field of the backend.
  */
@@ -93,3 +75,33 @@ export type Content = {
   parent_id: string | null;
   created_at: string;
 };
+
+/**
+ * Metadata structure for uploading experience-based content entries
+ * such as restaurants, venues, and events. Common across all experience types.
+ */
+export type BaseExperiencePayload = {
+  title: string;
+  address: string;
+  city: string;
+  state?: string;
+  venue_id: number;
+  country: string;
+  latitude: number;
+  longitude: number;
+  price_level: number;
+};
+
+/**
+ * Payload structure for food and drink entries (e.g. restaurants, cafes).
+ * Extends the base experience with optional cuisine tags.
+ */
+export type FoodAndDrinkPayload = BaseExperiencePayload & {
+  cuisine_ids?: number[];
+};
+
+/**
+ * Payload structure for entertainment content entries (e.g. museums, concerts).
+ * Inherits all fields from BaseExperiencePayload without additional fields.
+ */
+export type EntertainmentPayload = BaseExperiencePayload;
