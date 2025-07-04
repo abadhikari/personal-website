@@ -1,12 +1,14 @@
 import toTitleCaseFromSnake from '../../../../utils/toTitleCaseFromSnake';
-import { Review } from '../../types/reviewTypes';
+import { Category, Review } from '../../types/reviewTypes';
 
+import CategoryEmoji from './ExperienceEmoji';
 import SymbolScore from './SymbolScore';
+import TruncatedText from './TruncatedText';
 
 import * as styles from '../../styles/ReviewCards.module.css';
 
 interface EntertainmentCardProps {
-  review: Extract<Review, { categoryId: 5 }>;
+  review: Extract<Review, { categoryId: Category.Entertainment }>;
 }
 
 /**
@@ -19,6 +21,7 @@ export default function EntertainmentCard({ review }: EntertainmentCardProps) {
   return (
     <div>
       <div className={styles.title}>
+        <CategoryEmoji venue={venue} />
         <h3>{title}</h3>
         <span className={styles.location}>
           {city}, {country}
@@ -36,9 +39,12 @@ export default function EntertainmentCard({ review }: EntertainmentCardProps) {
           </p>
         )}
         <span>{' • '}</span>
-        <span>{toTitleCaseFromSnake(venue)}</span>
+
+        <div className={styles.tagPills}>
+          <span className={styles.pill}>{toTitleCaseFromSnake(venue)}</span>
+        </div>
       </div>
-      <p>{reviewText}</p>
+      <TruncatedText text={reviewText} />
       <p className={styles.date}>
         <small>{new Date(createdAt).toLocaleDateString()}</small>
       </p>

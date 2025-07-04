@@ -1,13 +1,39 @@
 /**
- * Enum-like type representing the category of a review.
- *
- * - 1 = Movie
- * - 2 = Show
- * - 3 = Book
- * - 4 = Food/Drink
- * - 5 = Entertainment
+ * Represents the primary category type of a review.
  */
-export type CategoryId = 1 | 2 | 3 | 4 | 5;
+export enum Category {
+  Movie = 1,
+  Show,
+  Book,
+  FoodAndDrink,
+  Entertainment,
+}
+
+/**
+ * Enum representing specific types of venues for experiences.
+ * Used primarily to associate an experience with a real-world location type.
+ */
+export enum Venue {
+  Restaurant = 'restaurant',
+  Cafe = 'cafe',
+  FoodTruck = 'food_truck',
+  StreetFood = 'street_food',
+  Bakery = 'bakery',
+  Brewery = 'brewery',
+  FastFood = 'fast_food',
+  Deli = 'deli',
+  JazzClub = 'jazz_club',
+  Karaoke = 'karaoke',
+  Arcade = 'arcade',
+  ComedyClub = 'comedy_club',
+  LiveMusic = 'live_music',
+  Theater = 'theater',
+  Bar = 'bar',
+  Museum = 'museum',
+  Nightclub = 'nightclub',
+  Garden = 'garden',
+  HotSpring = 'hot_spring',
+}
 
 /**
  * Interface representing additional metadata for a food and drink-type review.
@@ -21,7 +47,7 @@ export type CategoryId = 1 | 2 | 3 | 4 | 5;
  * @property {number} latitude - Latitude coordinate of the location.
  * @property {number} longitude - Longitude coordinate of the location.
  * @property {number} [priceLevel] - Optional price level (e.g. 1 = cheap, 5 = luxury).
- * @property {string} venue - Name of the venue hosting the experience.
+ * @property {Venue} venue - Name of the venue hosting the experience.
  * @property {string[]} cuisines - List of cuisines or food styles featured.
  */
 export interface FoodAndDrinkSub {
@@ -33,7 +59,7 @@ export interface FoodAndDrinkSub {
   latitude: number;
   longitude: number;
   priceLevel?: number;
-  venue: string;
+  venue: Venue;
   cuisines: string[];
 }
 
@@ -49,7 +75,7 @@ export interface FoodAndDrinkSub {
  * @property {number} latitude - Latitude coordinate of the location.
  * @property {number} longitude - Longitude coordinate of the location.
  * @property {number} [priceLevel] - Optional price level (e.g. 1 = cheap, 5 = luxury).
- * @property {string} venue - Name of the venue hosting the experience.
+ * @property {Venue} venue - Name of the venue hosting the experience.
  */
 export interface EntertainmentSub {
   title: string;
@@ -60,7 +86,7 @@ export interface EntertainmentSub {
   latitude: number;
   longitude: number;
   priceLevel?: number;
-  venue: string;
+  venue: Venue;
 }
 
 /**
@@ -142,7 +168,7 @@ export interface ReviewHeader {
   rating: number;
   reviewText: string;
   createdAt: string;
-  categoryId: CategoryId;
+  categoryId: Category;
 }
 
 /**
@@ -156,11 +182,17 @@ export interface ReviewHeader {
  * - For unsupported or missing subcontent, it may be a generic Record or null
  */
 export type Review =
-  | (ReviewHeader & { categoryId: 1; subcontent: MovieSub })
-  | (ReviewHeader & { categoryId: 2; subcontent: ShowSub })
-  | (ReviewHeader & { categoryId: 3; subcontent: BookSub })
-  | (ReviewHeader & { categoryId: 4; subcontent: FoodAndDrinkSub })
-  | (ReviewHeader & { categoryId: 5; subcontent: EntertainmentSub })
+  | (ReviewHeader & { categoryId: Category.Movie; subcontent: MovieSub })
+  | (ReviewHeader & { categoryId: Category.Show; subcontent: ShowSub })
+  | (ReviewHeader & { categoryId: Category.Book; subcontent: BookSub })
+  | (ReviewHeader & {
+      categoryId: Category.FoodAndDrink;
+      subcontent: FoodAndDrinkSub;
+    })
+  | (ReviewHeader & {
+      categoryId: Category.Entertainment;
+      subcontent: EntertainmentSub;
+    })
   | (ReviewHeader & { subcontent: Record<string, unknown> | null });
 
 /**

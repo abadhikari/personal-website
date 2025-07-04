@@ -1,30 +1,29 @@
 import toTitleCaseFromSnake from '../../../../utils/toTitleCaseFromSnake';
 import { Category, Review } from '../../types/reviewTypes';
 
-import CategoryEmoji from './ExperienceEmoji';
 import SymbolScore from './SymbolScore';
 import TruncatedText from './TruncatedText';
 
 import * as styles from '../../styles/ReviewCards.module.css';
 
-interface FoodAndDrinkCardProps {
-  review: Extract<Review, { categoryId: Category.FoodAndDrink }>;
+interface BookCardProps {
+  review: Extract<Review, { categoryId: Category.Book }>;
 }
 
 /**
- * Card for rendering food and drink review card.
+ * Card for rendering book review card.
  */
-export default function FoodAndDrinkCard({ review }: FoodAndDrinkCardProps) {
+export default function BookCard({ review }: BookCardProps) {
   const { rating, reviewText, createdAt, subcontent } = review;
-  const { title, venue, city, country, cuisines, priceLevel } = subcontent;
+  const { pages, title, author, yearPublished, genres } = subcontent;
 
   return (
     <div>
       <div className={styles.title}>
-        <CategoryEmoji venue={venue} />
+        <span className={styles.categoryEmoji}>📚</span>
         <h3>{title}</h3>
-        <span className={styles.location}>
-          {city}, {country}
+        <span className={styles.author}>
+          by {author} {yearPublished ? `(${yearPublished})` : ''}
         </span>
       </div>
       {rating && (
@@ -33,19 +32,18 @@ export default function FoodAndDrinkCard({ review }: FoodAndDrinkCardProps) {
         </p>
       )}
       <div className={styles.tags}>
-        {priceLevel && (
-          <p>
-            <SymbolScore score={priceLevel} symbol="$" max={5} size={0.8} />
-          </p>
+        {pages && (
+          <>
+            <span>{toTitleCaseFromSnake(`${pages}`)} pages</span>
+            <span>{' • '}</span>
+          </>
         )}
-
         <div className={styles.tagPills}>
-          <span>{' • '}</span>
-          <span className={styles.pill}>
-            {cuisines.map(toTitleCaseFromSnake).join(', ')}
-          </span>
-          <span>{' • '}</span>
-          <span className={styles.pill}>{toTitleCaseFromSnake(venue)}</span>
+          {genres.map((g) => (
+            <span key={g} className={styles.pill}>
+              {toTitleCaseFromSnake(g)}
+            </span>
+          ))}
         </div>
       </div>
       <TruncatedText text={reviewText} />

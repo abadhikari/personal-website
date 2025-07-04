@@ -1,5 +1,6 @@
 import { Review } from '../types/reviewTypes';
 
+import BookCard from './cards/BookCard';
 import EntertainmentCard from './cards/EntertainmentCard';
 import FoodAndDrinkCard from './cards/FoodAndDrinkCard';
 
@@ -17,6 +18,8 @@ export default function ReviewRenderer({ review }: ReviewRendererProps) {
   const { categoryId } = review;
 
   switch (categoryId) {
+    case 3:
+      return <BookCard review={review as Extract<Review, { categoryId: 3 }>} />;
     case 4:
       return (
         <FoodAndDrinkCard

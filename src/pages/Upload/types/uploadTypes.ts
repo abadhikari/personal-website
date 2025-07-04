@@ -106,6 +106,9 @@ export type FoodAndDrinkPayload = BaseExperiencePayload & {
  */
 export type EntertainmentPayload = BaseExperiencePayload;
 
+/**
+ * Payload structure for book content entries.
+ */
 export type BookPayload = {
   title: string;
   author: string;
