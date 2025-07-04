@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import log from '../../../utils/logger';
 import fetchReviews from '../api/fetchPhotos';
@@ -28,15 +28,10 @@ export default function useReview({ setError }: UseReviewsParams) {
   const [cursor, setCursor] = useState<string | null>(null);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
 
-  const reviewLimit = useMemo(() => {
-    const isMobile = window.matchMedia('(max-width: 900px)').matches;
-    return isMobile ? 9 : 5;
-  }, []);
-
   const fetchReviewData = async (cursorKey: string | null = null) => {
     try {
       const data = await fetchReviews({
-        limit: reviewLimit,
+        limit: 10,
         ...(cursorKey && { cursor: cursorKey }),
       });
       setReviews((prev) => [...prev, ...data.results]);

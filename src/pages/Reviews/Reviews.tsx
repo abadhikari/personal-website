@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import GridSpinner from '../../components/common/animations/GridSpinner';
+import LinePulseSpinner from '../../components/common/animations/LinePulseSpinner';
 import ErrorScreen from '../../components/common/Error/ErrorScreen';
 import InfiniteScroll from '../../components/common/InfiniteScroll';
 
@@ -27,7 +27,7 @@ export default function Reviews() {
   return (
     <>
       {pageLoading && (
-        <GridSpinner width={45} height={45} className="spinner" />
+        <LinePulseSpinner width={45} height={45} className="spinner" />
       )}
 
       <div className={styles.reviews}>
