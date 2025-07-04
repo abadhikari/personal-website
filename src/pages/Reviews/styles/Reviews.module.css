@@ -57,6 +57,36 @@
   font-weight: bold;
 }
 
+.fab {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 1000;
+
+  background-color: #ffffff;
+  color: #222;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 1.5rem;
+  line-height: 1;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.fab:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.fab:active {
+  transform: scale(0.97);
+}
+
 @media (max-width: 900px) {
   .reviewsContainer {
     width: 100%;

@@ -1,4 +1,5 @@
 import { Review } from '../types/reviewTypes';
+import ViewType from '../types/viewType';
 
 import BookCard from './cards/BookCard';
 import EntertainmentCard from './cards/EntertainmentCard';
@@ -6,6 +7,7 @@ import FoodAndDrinkCard from './cards/FoodAndDrinkCard';
 
 interface ReviewRendererProps {
   review: Review;
+  viewType: ViewType;
 }
 
 /**
@@ -14,7 +16,10 @@ interface ReviewRendererProps {
  * @param {Review} review - Review with subcontent depending on category.
  * @returns The appropriate card component or null.
  */
-export default function ReviewRenderer({ review }: ReviewRendererProps) {
+export default function ReviewRenderer({
+  review,
+  viewType,
+}: ReviewRendererProps) {
   const { categoryId } = review;
 
   switch (categoryId) {
@@ -24,12 +29,14 @@ export default function ReviewRenderer({ review }: ReviewRendererProps) {
       return (
         <FoodAndDrinkCard
           review={review as Extract<Review, { categoryId: 4 }>}
+          viewType={viewType}
         />
       );
     case 5:
       return (
         <EntertainmentCard
           review={review as Extract<Review, { categoryId: 5 }>}
+          viewType={viewType}
         />
       );
     default:

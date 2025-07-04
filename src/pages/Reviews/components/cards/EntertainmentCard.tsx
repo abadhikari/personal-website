@@ -1,5 +1,6 @@
 import toTitleCaseFromSnake from '../../../../utils/toTitleCaseFromSnake';
 import { Category, Review } from '../../types/reviewTypes';
+import ViewType from '../../types/viewType';
 
 import CategoryEmoji from './ExperienceEmoji';
 import SymbolScore from './SymbolScore';
@@ -9,24 +10,35 @@ import * as styles from '../../styles/ReviewCards.module.css';
 
 interface EntertainmentCardProps {
   review: Extract<Review, { categoryId: Category.Entertainment }>;
+  viewType: ViewType;
 }
 
 /**
  * Card for rendering entertainment experience review card.
  */
-export default function EntertainmentCard({ review }: EntertainmentCardProps) {
+export default function EntertainmentCard({
+  review,
+  viewType,
+}: EntertainmentCardProps) {
   const { rating, reviewText, createdAt, subcontent } = review;
-  const { title, venue, city, country, priceLevel } = subcontent;
+  const { address, title, venue, city, country, priceLevel } = subcontent;
 
   return (
-    <div>
+    <div className={`${viewType === ViewType.MAP ? styles.mapPanelCard : ''}`}>
       <div className={styles.title}>
         <CategoryEmoji venue={venue} />
         <h3>{title}</h3>
-        <span className={styles.location}>
-          {city}, {country}
-        </span>
+        {viewType === ViewType.FEED && (
+          <span className={styles.location}>
+            {city}, {country}
+          </span>
+        )}
       </div>
+      {viewType === ViewType.MAP && (
+        <span className={styles.location}>
+          {address}, {city}, {country}
+        </span>
+      )}
       {rating && (
         <p>
           <SymbolScore score={rating} symbol="⭐️" max={5} size={1.3} />
@@ -44,7 +56,12 @@ export default function EntertainmentCard({ review }: EntertainmentCardProps) {
           <span className={styles.pill}>{toTitleCaseFromSnake(venue)}</span>
         </div>
       </div>
-      <TruncatedText text={reviewText} />
+
+      {viewType === ViewType.MAP ? (
+        <p>{reviewText}</p>
+      ) : (
+        <TruncatedText text={reviewText} />
+      )}
       <p className={styles.date}>
         <small>{new Date(createdAt).toLocaleDateString()}</small>
       </p>

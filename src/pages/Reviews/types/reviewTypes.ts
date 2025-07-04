@@ -89,6 +89,8 @@ export interface EntertainmentSub {
   venue: Venue;
 }
 
+export type GeoReview = EntertainmentSub | FoodAndDrinkSub;
+
 /**
  * Interface representing additional metadata for a book-type review.
  *

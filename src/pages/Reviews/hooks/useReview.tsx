@@ -3,9 +3,11 @@ import { useCallback, useEffect, useState } from 'react';
 import log from '../../../utils/logger';
 import fetchReviews from '../api/fetchPhotos';
 import { Review } from '../types/reviewTypes';
+import ViewType from '../types/viewType';
 
 interface UseReviewsParams {
   setError: React.Dispatch<React.SetStateAction<string | null>>;
+  view: ViewType;
 }
 
 /**
@@ -22,16 +24,20 @@ interface UseReviewsParams {
  * @returns {boolean} return.isFetchingMore - Whether the next page of data is currently loading.
  * @returns {boolean} return.pageLoading - Whether the initial page of data is loading.
  */
-export default function useReview({ setError }: UseReviewsParams) {
+export default function useReview({ setError, view }: UseReviewsParams) {
   const [pageLoading, setPageLoading] = useState(true);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [cursor, setCursor] = useState<string | null>(null);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
+  const [hasFetchedForMap, setHasFetchedForMap] = useState(false);
 
-  const fetchReviewData = async (cursorKey: string | null = null) => {
+  const fetchReviewData = async (
+    cursorKey: string | null = null,
+    limit: number = 10
+  ) => {
     try {
       const data = await fetchReviews({
-        limit: 10,
+        limit,
         ...(cursorKey && { cursor: cursorKey }),
       });
       setReviews((prev) => [...prev, ...data.results]);
@@ -39,6 +45,8 @@ export default function useReview({ setError }: UseReviewsParams) {
     } catch (err) {
       setError('Failed to load reviews. Please refresh or try again later.');
       log.error('Failed to fetch reviews', err);
+    } finally {
+      setPageLoading(false);
     }
   };
 
@@ -53,8 +61,21 @@ export default function useReview({ setError }: UseReviewsParams) {
   }, [cursor, isFetchingMore]);
 
   useEffect(() => {
-    fetchReviewData().finally(() => setPageLoading(false));
+    if (view !== ViewType.MAP) {
+      fetchReviewData();
+    }
   }, []);
+
+  useEffect(() => {
+    if (view === ViewType.MAP && !hasFetchedForMap) {
+      setReviews([]);
+      setCursor(null);
+      fetchReviewData(null, 1000).finally(() => {
+        setPageLoading(false);
+        setHasFetchedForMap(true);
+      });
+    }
+  }, [view, hasFetchedForMap]);
 
   return {
     reviews,

@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { Review } from '../types/reviewTypes';
+import ViewType from '../types/viewType';
 
 import ReviewRenderer from './ReviewRenderer';
 
@@ -50,7 +51,7 @@ export default function ReviewsFeed({ reviews, onClick }: ReviewFeedProps) {
               }
             }}
           >
-            <ReviewRenderer review={review} />
+            <ReviewRenderer review={review} viewType={ViewType.FEED} />
           </motion.div>
         ))}
       </AnimatePresence>
