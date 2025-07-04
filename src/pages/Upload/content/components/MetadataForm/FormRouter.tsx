@@ -1,15 +1,13 @@
 import { ContentCategory } from '../../../types/uploadTypes';
-import {
-  EntertainmentInput,
-  FoodAndDrinkInput,
-} from '../../../validation/schemas';
+import { UploadableContent } from '../../../validation/schemas';
 
+import BookForm from './BookForm';
 import EntertainmentForm from './EntertainmentForm';
 import FoodAndDrinkForm from './FoodAndDrinkForm';
 
 type RouterProps = {
   categoryId: ContentCategory | -1;
-  onSubmit: (data: FoodAndDrinkInput | EntertainmentInput) => void;
+  onSubmit: (data: UploadableContent) => void;
 };
 
 /**
@@ -29,6 +27,8 @@ export default function FormRouter({ categoryId, onSubmit }: RouterProps) {
       return <FoodAndDrinkForm onSubmit={onSubmit} />;
     case ContentCategory.ENTERTAINMENT:
       return <EntertainmentForm onSubmit={onSubmit} />;
+    case ContentCategory.BOOK:
+      return <BookForm onSubmit={onSubmit} />;
     default:
       return null;
   }

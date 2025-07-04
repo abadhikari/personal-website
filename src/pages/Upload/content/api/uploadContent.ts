@@ -4,11 +4,13 @@ import ApiError from '../../../../errors/ApiError';
 import AuthError from '../../../../errors/AuthError';
 import log from '../../../../utils/logger';
 import {
+  BookPayload,
   ContentCategory,
   EntertainmentPayload,
   FoodAndDrinkPayload,
 } from '../../types/uploadTypes';
 import {
+  BookInput,
   EntertainmentInput,
   FoodAndDrinkInput,
   UploadableContent,
@@ -18,6 +20,10 @@ type WriteRequest =
   | {
       category_id: ContentCategory.FOOD_AND_DRINK;
       payload: FoodAndDrinkPayload;
+    }
+  | {
+      category_id: ContentCategory.BOOK;
+      payload: BookPayload;
     }
   | {
       category_id: ContentCategory.ENTERTAINMENT;
@@ -126,6 +132,26 @@ export async function uploadEntertainmentInput(
 }
 
 /**
+ * Uploads a Book content entry to the backend.
+ *
+ * @param {BookInput} input - Validated form data for a book
+ * @returns {Promise<void>} Resolves when the content is uploaded
+ */
+export async function uploadBookInput(input: BookInput): Promise<void> {
+  const payload = {
+    title: input.title,
+    author: input.author,
+    pages: input.pages,
+    year_published: input.yearPublished,
+    isbn: input.isbn,
+    genres: input.genres,
+  };
+
+  const request = { category_id: input.categoryId, payload };
+  return postToContentApi(request);
+}
+
+/**
  * Delegates upload to the correct function based on content category.
  *
  * This is the main entry point for submitting content from the frontend form.
@@ -144,6 +170,8 @@ export default async function uploadContent(
       return uploadFoodAndDrinkContent(data);
     case ContentCategory.ENTERTAINMENT:
       return uploadEntertainmentInput(data);
+    case ContentCategory.BOOK:
+      return uploadBookInput(data);
     default:
       throw new Error(
         `Unhandled content category: ${(data satisfies never) ? 'never' : JSON.stringify(data)}`

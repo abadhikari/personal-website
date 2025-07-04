@@ -105,3 +105,12 @@ export type FoodAndDrinkPayload = BaseExperiencePayload & {
  * Inherits all fields from BaseExperiencePayload without additional fields.
  */
 export type EntertainmentPayload = BaseExperiencePayload;
+
+export type BookPayload = {
+  title: string;
+  author: string;
+  pages: number;
+  year_published: number;
+  isbn?: string;
+  genres: number[];
+};

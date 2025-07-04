@@ -44,6 +44,7 @@ export default function ContentUploadView() {
                 }
               >
                 <option value={-1}>-- Select a category --</option>
+                <option value={3}>Book</option>
                 <option value={4}>Food &amp; Drink</option>
                 <option value={5}>Entertainment</option>
               </select>
