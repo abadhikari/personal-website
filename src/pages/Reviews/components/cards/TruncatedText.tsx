@@ -32,30 +32,36 @@ export default function TruncatedText({
   const [expanded, setExpanded] = useState(false);
   const isTruncated = text.length > maxLength;
 
-  const visibleText = text.slice(0, maxLength);
-  const hiddenText = text.slice(maxLength);
+  const truncatedIndex = text.lastIndexOf(' ', maxLength);
+  const visibleText = text.slice(
+    0,
+    truncatedIndex > 0 ? truncatedIndex : maxLength
+  );
+  const hiddenText = text.slice(visibleText.length);
 
   return (
     <>
       <p>
-        {visibleText}
-        {isTruncated && !expanded && ' ...'}
-
-        <AnimatePresence mode="wait">
-          {isTruncated && expanded && (
-            <motion.span
-              key="expanded"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              style={{ display: 'inline-block', overflow: 'hidden' }}
-            >
-              {hiddenText}
-            </motion.span>
-          )}
-        </AnimatePresence>
+        <span>
+          {visibleText}
+          {isTruncated && !expanded && '...'}
+          <AnimatePresence mode="wait">
+            {isTruncated && expanded && (
+              <motion.span
+                key="expanded"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                style={{ display: 'inline' }}
+              >
+                {hiddenText}
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </span>
       </p>
+
       {isTruncated && (
         <button
           type="button"
