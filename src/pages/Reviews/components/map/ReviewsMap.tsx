@@ -18,7 +18,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
  * @param {Review} r - The review to check.
  * @returns {boolean} - True if the review contains latitude and longitude.
  */
-const hasGeo = (
+const hasGeolocation = (
   r: Review
 ): r is Review & { subcontent: { latitude: number; longitude: number } } =>
   !!r.subcontent &&
@@ -62,7 +62,7 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
     markersRef.current = [];
 
     // Add markers
-    reviews.filter(hasGeo).forEach((r) => {
+    reviews.filter(hasGeolocation).forEach((r) => {
       const { latitude, longitude } = r.subcontent;
 
       const marker = new maplibregl.Marker({
@@ -73,13 +73,10 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
 
       marker.getElement().addEventListener('click', () => {
         setSelected(r);
-
-        // Adjust the latitude marker to slightly above on the screen
-        const offsetLatitude = latitude - 0.005;
-
         mapRef.current!.flyTo({
-          center: [longitude, offsetLatitude],
+          center: [longitude, latitude],
           zoom: 13,
+          offset: [0, -100],
         });
       });
 

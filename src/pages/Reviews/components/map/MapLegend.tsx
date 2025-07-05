@@ -22,11 +22,11 @@ export const getColorByRating = (rating: number) => {
  * Each item includes a color and descriptive label.
  */
 const legendItems = [
-  { color: getColorByRating(5), label: '5 – Transcendent' },
-  { color: getColorByRating(4), label: '4 – Amazing' },
-  { color: getColorByRating(3), label: '3 – Solid' },
-  { color: getColorByRating(2), label: '2 – Eh' },
-  { color: getColorByRating(1), label: '1 – Trash' },
+  { color: getColorByRating(5), label: 'Transcendent' },
+  { color: getColorByRating(4), label: 'Amazing' },
+  { color: getColorByRating(3), label: 'Solid' },
+  { color: getColorByRating(2), label: 'Eh' },
+  { color: getColorByRating(1), label: 'Trash' },
 ];
 
 /**
