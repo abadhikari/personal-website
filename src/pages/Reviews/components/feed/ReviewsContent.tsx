@@ -1,9 +1,9 @@
-import { Review } from '../types/reviewTypes';
+import { Review } from '../../types/reviewTypes';
 
 import ReviewsFeed from './ReviewsFeed';
 
-import * as animationStyles from '../../../styles/animations.module.css';
-import * as styles from '../styles/Reviews.module.css';
+import * as animationStyles from '../../../../styles/animations.module.css';
+import * as styles from '../../styles/Reviews.module.css';
 
 type ReviewsContentProps = {
   reviews: Review[];

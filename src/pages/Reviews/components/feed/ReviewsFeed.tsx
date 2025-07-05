@@ -1,11 +1,10 @@
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { Review } from '../types/reviewTypes';
-import ViewType from '../types/viewType';
+import { Review } from '../../types/reviewTypes';
+import ViewType from '../../types/viewType';
+import ReviewRenderer from '../ReviewRenderer';
 
-import ReviewRenderer from './ReviewRenderer';
-
-import * as styles from '../styles/Reviews.module.css';
+import * as styles from '../../styles/Reviews.module.css';
 
 type ReviewFeedProps = {
   reviews: Review[];

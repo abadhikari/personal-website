@@ -4,8 +4,8 @@ import LinePulseSpinner from '../../components/common/animations/LinePulseSpinne
 import ErrorScreen from '../../components/common/Error/ErrorScreen';
 import InfiniteScroll from '../../components/common/InfiniteScroll';
 
-import ReviewsContent from './components/ReviewsContent';
-import ReviewsMapContent from './components/ReviewsMapContent';
+import ReviewsContent from './components/feed/ReviewsContent';
+import ReviewsMapContent from './components/map/ReviewsMapContent';
 import useReview from './hooks/useReview';
 import ViewType from './types/viewType';
 

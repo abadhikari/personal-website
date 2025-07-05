@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import maplibregl, { Map as MapLibre } from 'maplibre-gl';
 
-import { GeoReview, Review } from '../types/reviewTypes';
-import ViewType from '../types/viewType';
+import { GeoReview, Review } from '../../types/reviewTypes';
+import ViewType from '../../types/viewType';
+import ReviewRenderer from '../ReviewRenderer';
 
-import ReviewRenderer from './ReviewRenderer';
+import MapLegend, { getColorByRating } from './MapLegend';
 
-import * as styles from '../styles/ReviewsMap.module.css';
+import * as styles from '../../styles/ReviewsMap.module.css';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
@@ -63,7 +64,9 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
     reviews.filter(hasGeo).forEach((r) => {
       const { latitude, longitude } = r.subcontent;
 
-      const marker = new maplibregl.Marker()
+      const marker = new maplibregl.Marker({
+        color: getColorByRating(r.rating),
+      })
         .setLngLat([longitude, latitude])
         .addTo(mapRef.current!);
 
@@ -94,6 +97,8 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
   return (
     <div className={styles.mapWrapper}>
       <div ref={containerRef} className={styles.mapContainer} />
+
+      <MapLegend />
 
       {selected && (
         <aside className={styles.sidePanel}>
