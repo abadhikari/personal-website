@@ -63,7 +63,7 @@
   right: 1.25rem;
   z-index: 1000;
 
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.85);
   color: #222;
   border: none;
   border-radius: 50%;

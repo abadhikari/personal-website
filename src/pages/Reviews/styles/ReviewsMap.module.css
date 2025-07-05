@@ -75,14 +75,14 @@
 .legend {
   all: unset;
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  top: 1.25rem;
+  left: 1.25rem;
   background: rgba(255, 255, 255, 0.8);
   padding: 0.5rem;
   border-radius: 0.5rem;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
   z-index: 10;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   cursor: pointer;
   user-select: none;
   transition: all 0.5s ease;
@@ -99,8 +99,8 @@
 }
 
 .legendColor {
-  width: 12px;
-  height: 12px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
 }
 
@@ -144,5 +144,10 @@
   .legend {
     top: 0.5rem;
     left: 0.5rem;
+  }
+
+  .legendColor {
+    width: 12px;
+    height: 12px;
   }
 }

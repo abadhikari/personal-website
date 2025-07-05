@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import LinePulseSpinner from '../../components/common/animations/LinePulseSpinner';
 import ErrorScreen from '../../components/common/Error/ErrorScreen';
@@ -33,6 +33,11 @@ export default function Reviews() {
   if (error) {
     return <ErrorScreen message={error} />;
   }
+
+  // Scroll to the top when view is changed (toggled)
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [view]);
 
   const toggleView = () =>
     setView((v) => (v === ViewType.FEED ? ViewType.MAP : ViewType.FEED));
