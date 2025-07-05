@@ -5,6 +5,7 @@ import { GeoReview, Review } from '../../types/reviewTypes';
 import ViewType from '../../types/viewType';
 import ReviewRenderer from '../ReviewRenderer';
 
+import MapControls from './MapControls';
 import MapLegend, { getColorByRating } from './MapLegend';
 
 import * as styles from '../../styles/ReviewsMap.module.css';
@@ -99,6 +100,7 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
       <div ref={containerRef} className={styles.mapContainer} />
 
       <MapLegend />
+      <MapControls mapRef={mapRef} />
 
       {selected && (
         <aside className={styles.sidePanel}>

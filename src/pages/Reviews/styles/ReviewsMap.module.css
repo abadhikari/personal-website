@@ -59,7 +59,7 @@
 .closeBtn {
   position: absolute;
   top: 0.75rem;
-  right: 0.75rem;
+  left: 0.75rem;
   border: none;
   background: none;
   font-size: 1.5rem;
@@ -123,6 +123,67 @@
   gap: 4px;
 }
 
+.mapControls {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 1000;
+}
+
+.mapButton {
+  width: 35px;
+  height: 35px;
+  background-color: white;
+  border: none;
+  padding: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.mapButton:hover {
+  background-color: #f2f2f2;
+}
+
+.mapZoomButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.zoomButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  color: black;
+}
+
+.locateButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.locateButton:hover {
+  background-color: #f2f2f2;
+}
+
 @media (max-width: 900px) {
   .sidePanel {
     position: fixed;
@@ -149,5 +210,10 @@
   .legendColor {
     width: 12px;
     height: 12px;
+  }
+
+  .mapControls {
+    top: 0.5rem;
+    right: 0.5rem;
   }
 }
