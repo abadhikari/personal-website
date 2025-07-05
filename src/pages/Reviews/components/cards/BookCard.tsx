@@ -34,13 +34,11 @@ export default function BookCard({ review }: BookCardProps) {
             <span>{' • '}</span>
           </>
         )}
-        <div className={styles.tagPills}>
-          {genres.map((g) => (
-            <span key={g} className={styles.pill}>
-              {toTitleCaseFromSnake(g)}
-            </span>
-          ))}
-        </div>
+        {genres.map((g) => (
+          <span key={g} className={styles.pill}>
+            {toTitleCaseFromSnake(g)}
+          </span>
+        ))}
       </div>
       <TruncatedText text={reviewText} />
       <p className={styles.date}>

@@ -48,10 +48,7 @@ export default function EntertainmentCard({
           </p>
         )}
         <span>{' • '}</span>
-
-        <div className={styles.tagPills}>
-          <span className={styles.pill}>{toTitleCaseFromSnake(venue)}</span>
-        </div>
+        <span className={styles.pill}>{toTitleCaseFromSnake(venue)}</span>
       </div>
 
       {viewType === ViewType.MAP ? (

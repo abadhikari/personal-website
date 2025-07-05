@@ -49,14 +49,12 @@ export default function FoodAndDrinkCard({
           </p>
         )}
 
-        <div className={styles.tagPills}>
-          <span>{' • '}</span>
-          <span className={styles.pill}>
-            {cuisines.map(toTitleCaseFromSnake).join(', ')}
-          </span>
-          <span>{' • '}</span>
-          <span className={styles.pill}>{toTitleCaseFromSnake(venue)}</span>
-        </div>
+        <span>{' • '}</span>
+        <span className={styles.pill}>
+          {cuisines.map(toTitleCaseFromSnake).join(', ')}
+        </span>
+        <span>{' • '}</span>
+        <span className={styles.pill}>{toTitleCaseFromSnake(venue)}</span>
       </div>
       {viewType === ViewType.MAP ? (
         <p>{reviewText}</p>
