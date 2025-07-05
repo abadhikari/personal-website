@@ -2,6 +2,8 @@ import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { LngLatLike, type Map, Marker } from 'maplibre-gl';
 
+import { isMobile } from '../../../../utils/deviceType';
+
 import LocateIcon from './LocateIcon';
 
 import * as styles from '../../styles/ReviewsMap.module.css';
@@ -37,6 +39,21 @@ export default function MapControls({ mapRef }: MapControlsProps) {
     if (currentZoom !== undefined) {
       mapRef.current?.zoomTo(currentZoom - 1);
     }
+  }, [mapRef]);
+
+  const zoomOutToGlobeView = useCallback(() => {
+    const center: LngLatLike | undefined = isMobile() ? [-40, 25] : [0, 20];
+    const zoom = isMobile() ? 0.7 : 1.5;
+    if (!mapRef.current) return;
+    mapRef.current.flyTo({
+      center,
+      zoom,
+      bearing: 0,
+      pitch: 0,
+      speed: 0.8,
+      curve: 1.5,
+      essential: true,
+    });
   }, [mapRef]);
 
   /**
@@ -110,6 +127,14 @@ export default function MapControls({ mapRef }: MapControlsProps) {
           −
         </button>
       </div>
+      <button
+        type="button"
+        onClick={zoomOutToGlobeView}
+        className={`${styles.mapButton} ${styles.globeButton}`}
+        title="Global View"
+      >
+        🌎
+      </button>
     </div>
   );
 }

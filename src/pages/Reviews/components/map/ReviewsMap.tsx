@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import maplibregl, { Map as MapLibre } from 'maplibre-gl';
 
+import { isMobile } from '../../../../utils/deviceType';
 import { GeoReview, Review } from '../../types/reviewTypes';
 import ViewType from '../../types/viewType';
 import ReviewRenderer from '../ReviewRenderer';
@@ -58,35 +59,38 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
     if (!mapRef.current) return;
 
     // Clear previous
-    markersRef.current.forEach((m) => m.remove());
+    markersRef.current.forEach((marker) => marker.remove());
     markersRef.current = [];
 
     // Add markers
-    reviews.filter(hasGeolocation).forEach((r) => {
-      const { latitude, longitude } = r.subcontent;
+    reviews.filter(hasGeolocation).forEach((review) => {
+      const { latitude, longitude } = review.subcontent;
+
+      const isSelected = selected?.reviewId === review.reviewId;
 
       const marker = new maplibregl.Marker({
-        color: getColorByRating(r.rating),
+        color: getColorByRating(review.rating),
+        scale: isSelected ? 1.2 : 1,
       })
         .setLngLat([longitude, latitude])
         .addTo(mapRef.current!);
 
       marker.getElement().addEventListener('click', () => {
-        setSelected(r);
+        setSelected(review);
         mapRef.current!.flyTo({
           center: [longitude, latitude],
-          zoom: 13,
+          zoom: isMobile() ? 12.5 : 13.5,
           offset: [0, -100],
         });
       });
 
       markersRef.current.push(marker);
     });
-  }, [reviews]);
+  }, [reviews, selected]);
 
   useEffect(
     () => () => {
-      markersRef.current.forEach((m) => m.remove());
+      markersRef.current.forEach((marker) => marker.remove());
       mapRef.current?.remove();
     },
     []
