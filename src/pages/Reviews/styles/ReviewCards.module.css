@@ -81,6 +81,16 @@
   justify-content: center;
 }
 
+.mapPanelCard .tooltipWrapper {
+  justify-content: center;
+}
+
+.tooltipWrapper {
+  display: flex;
+  justify-content: left;
+  width: 100%;
+}
+
 .tooltipContainer {
   position: relative;
   display: inline-block;

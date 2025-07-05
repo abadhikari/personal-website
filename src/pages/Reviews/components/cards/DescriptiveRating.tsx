@@ -30,18 +30,20 @@ export default function DescriptiveRating({ rating }: DescriptiveRatingProps) {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div
-      className={styles.tooltipContainer}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onTouchStart={() => setHovered((h) => !h)}
-    >
-      <SymbolScore score={rating} symbol="⭐️" max={5} size={1.3} />
-      {hovered && (
-        <div className={styles.tooltip}>
-          {ratingDescriptions[rating] || 'Unknown rating'}
-        </div>
-      )}
+    <div className={styles.tooltipWrapper}>
+      <div
+        className={styles.tooltipContainer}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onTouchStart={() => setHovered((h) => !h)}
+      >
+        <SymbolScore score={rating} symbol="⭐️" max={5} size={1.3} />
+        {hovered && (
+          <div className={styles.tooltip}>
+            {ratingDescriptions[rating] || 'Unknown rating'}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
