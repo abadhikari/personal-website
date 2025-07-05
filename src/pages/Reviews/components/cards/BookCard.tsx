@@ -1,7 +1,7 @@
 import toTitleCaseFromSnake from '../../../../utils/toTitleCaseFromSnake';
 import { Category, Review } from '../../types/reviewTypes';
 
-import SymbolScore from './SymbolScore';
+import DescriptiveRating from './DescriptiveRating';
 import TruncatedText from './TruncatedText';
 
 import * as styles from '../../styles/ReviewCards.module.css';
@@ -26,11 +26,7 @@ export default function BookCard({ review }: BookCardProps) {
           by {author} {yearPublished ? `(${yearPublished})` : ''}
         </span>
       </div>
-      {rating && (
-        <p>
-          <SymbolScore score={rating} symbol="⭐️" max={5} size={1.3} />
-        </p>
-      )}
+      <DescriptiveRating rating={rating} />
       <div className={styles.tags}>
         {pages && (
           <>

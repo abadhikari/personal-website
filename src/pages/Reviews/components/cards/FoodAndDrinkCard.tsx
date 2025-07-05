@@ -2,6 +2,7 @@ import toTitleCaseFromSnake from '../../../../utils/toTitleCaseFromSnake';
 import { Category, Review } from '../../types/reviewTypes';
 import ViewType from '../../types/viewType';
 
+import DescriptiveRating from './DescriptiveRating';
 import CategoryEmoji from './ExperienceEmoji';
 import SymbolScore from './SymbolScore';
 import TruncatedText from './TruncatedText';
@@ -40,11 +41,7 @@ export default function FoodAndDrinkCard({
           {address}, {city}, {country}
         </span>
       )}
-      {rating && (
-        <p>
-          <SymbolScore score={rating} symbol="⭐️" max={5} size={1.3} />
-        </p>
-      )}
+      <DescriptiveRating rating={rating} />
       <div className={styles.tags}>
         {priceLevel && (
           <p>
