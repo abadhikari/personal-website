@@ -30,14 +30,13 @@ export default function TruncatedText({
   maxLength = 250,
 }: TruncatedTextProps) {
   const [expanded, setExpanded] = useState(false);
+  const isTruncated = text.length > maxLength;
 
   const truncatedIndex = text.lastIndexOf(' ', maxLength);
-  const visibleText = text.slice(
-    0,
-    truncatedIndex >= 0 ? truncatedIndex : maxLength
-  );
+  const visibleText = isTruncated
+    ? text.slice(0, truncatedIndex >= 0 ? truncatedIndex : maxLength)
+    : text;
   const hiddenText = text.slice(visibleText.length);
-  const isTruncated = hiddenText.length > 0;
 
   return (
     <>
