@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import useAuth from '../../../../../auth/useAuth';
+import useCloseOnOutsideClick from '../../../../../hooks/useCloseOnOutsideClick';
 
 import useShareLink from './useShareLink';
 
@@ -56,18 +57,9 @@ export default function ModalActionMenu({
   });
 
   // Close menu when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setMenuState(ModalActionMenuStates.Closed);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  useCloseOnOutsideClick(dropdownRef, () =>
+    setMenuState(ModalActionMenuStates.Closed)
+  );
 
   return (
     <div className={styles.modalActionMenu}>

@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import useCloseOnOutsideClick from '../../../hooks/useCloseOnOutsideClick';
 
 import * as styles from './styles/Navbar.module.css';
 
@@ -7,6 +9,8 @@ import * as styles from './styles/Navbar.module.css';
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const toggleDropdownMenu = () => {
     setIsOpen(!isOpen);
@@ -20,8 +24,11 @@ export default function NavBar() {
     return isOpen ? '\u2715' : '\u2630';
   };
 
+  // Close nav when clicking outside
+  useCloseOnOutsideClick(dropdownRef, closeDropdownMenu);
+
   return (
-    <nav className={styles.navbar}>
+    <nav className={styles.navbar} ref={dropdownRef}>
       <div className={styles.hamburger} onClick={toggleDropdownMenu}>
         {getHamburgerIcon()}
       </div>
