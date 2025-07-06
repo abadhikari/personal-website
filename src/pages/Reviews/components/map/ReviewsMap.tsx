@@ -80,9 +80,11 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
 
       marker.getElement().addEventListener('click', () => {
         setSelected(review);
+        const targetZoom = isMobile() ? 12.5 : 13.5;
+        const currentZoom = mapRef.current!.getZoom();
         mapRef.current!.flyTo({
           center: [longitude, latitude],
-          zoom: isMobile() ? 12.5 : 13.5,
+          zoom: currentZoom > targetZoom ? currentZoom : targetZoom,
           offset: [0, -100],
         });
       });

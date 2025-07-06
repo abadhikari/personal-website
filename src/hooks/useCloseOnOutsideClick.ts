@@ -13,13 +13,18 @@ export default function useCloseOnOutsideClick(
   onClickOutside: () => void
 ) {
   useEffect(() => {
-    function handleClick(event: MouseEvent) {
+    function handler(event: MouseEvent | TouchEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
         onClickOutside();
       }
     }
 
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
+    document.addEventListener('mousedown', handler);
+    document.addEventListener('touchstart', handler);
+
+    return () => {
+      document.removeEventListener('mousedown', handler);
+      document.removeEventListener('touchstart', handler);
+    };
   }, [ref, onClickOutside]);
 }
