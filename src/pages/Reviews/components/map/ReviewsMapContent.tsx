@@ -10,11 +10,11 @@ type ReviewsMapContentProps = {
 };
 
 /**
- * ReviewsMapContent wraps the ReviewsMap component in layout and animation containers.
- * It ensures full-width display and fade-in animation for the map panel.
+ * Displays a full-width animated map of reviews.
  *
- * @param {ReviewsMapContentProps} props - Component props.
- * @param {Review[]} props.reviews - The array of reviews to display on the map.
+ * @param {Object} props - Component props.
+ * @param {Review[]} props.reviews - List of reviews to render as map markers.
+ * @returns {JSX.Element} The animated and styled map section.
  */
 export default function ReviewsMapContent({ reviews }: ReviewsMapContentProps) {
   return (

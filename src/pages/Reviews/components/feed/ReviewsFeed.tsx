@@ -8,19 +8,20 @@ import * as styles from '../../styles/Reviews.module.css';
 
 type ReviewFeedProps = {
   reviews: Review[];
-  onClick: (index: number) => void;
 };
 
 /**
- * Component for rendering a feed of reviews.
+ * Component that renders the list of reviews with animations.
  *
- * @param {Object} props - Props passed to the component.
- * @param {Review[]} props.reviews - Array of reviews to render.
- * @param {Function} props.onClick - Handler for selecting a review (by index).
+ * If there are no reviews, it displays a fallback message. Otherwise,
+ * it renders each review with motion animations inside a scrollable feed.
  *
- * @returns {JSX.Element} A list of animated review entries or a "No reviews found" message.
+ * @component
+ * @param {Object} props - Component props.
+ * @param {Review[]} props.reviews - The array of review entries to display.
+ * @returns {JSX.Element} Animated list of reviews or an empty state.
  */
-export default function ReviewsFeed({ reviews, onClick }: ReviewFeedProps) {
+export default function ReviewsFeed({ reviews }: ReviewFeedProps) {
   const hasNoReviews = reviews.length === 0;
 
   return hasNoReviews ? (
@@ -28,7 +29,7 @@ export default function ReviewsFeed({ reviews, onClick }: ReviewFeedProps) {
   ) : (
     <div className={styles.feedContainer}>
       <AnimatePresence>
-        {reviews.map((review, index) => (
+        {reviews.map((review) => (
           <motion.div
             layout
             initial={{ opacity: 0, y: 20 }}
@@ -40,15 +41,8 @@ export default function ReviewsFeed({ reviews, onClick }: ReviewFeedProps) {
             }}
             key={review.reviewId}
             className={styles.feedItem}
-            onClick={() => onClick(index)}
             role="button"
             tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                onClick(index);
-              }
-            }}
           >
             <ReviewRenderer review={review} viewType={ViewType.FEED} />
           </motion.div>

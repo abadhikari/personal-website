@@ -5,6 +5,7 @@ import { isMobile } from '../../../../utils/deviceType';
 import { GeoReview, Review } from '../../types/reviewTypes';
 import ViewType from '../../types/viewType';
 import ReviewRenderer from '../ReviewRenderer';
+import SearchBar from '../search/SearchBar';
 
 import MapControls from './MapControls';
 import MapLegend, { getColorByRating } from './MapLegend';
@@ -26,7 +27,9 @@ const hasGeolocation = (
   typeof (r.subcontent as GeoReview).latitude === 'number' &&
   typeof (r.subcontent as GeoReview).longitude === 'number';
 
-type ReviewsMapProps = { reviews: Review[] };
+type ReviewsMapProps = {
+  reviews: Review[];
+};
 
 /**
  * ReviewsMap component renders a MapLibre map populated with review markers.
@@ -99,7 +102,7 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
   return (
     <div className={styles.mapWrapper}>
       <div ref={containerRef} className={styles.mapContainer} />
-
+      <SearchBar viewType={ViewType.MAP} />
       <MapLegend />
       <MapControls mapRef={mapRef} />
 

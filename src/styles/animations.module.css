@@ -16,7 +16,7 @@
 .fadeInUp {
   transition: color 0.3s ease;
   opacity: 0;
-  animation: fadeInUp 3s ease forwards;
+  animation: fadeInUp 1.5s ease forwards;
 }
 
 /*

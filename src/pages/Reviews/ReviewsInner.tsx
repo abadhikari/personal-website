@@ -1,0 +1,80 @@
+import { useEffect, useState } from 'react';
+
+import LinePulseSpinner from '../../components/common/animations/LinePulseSpinner';
+import ErrorScreen from '../../components/common/Error/ErrorScreen';
+import InfiniteScroll from '../../components/common/InfiniteScroll';
+
+import ReviewsContent from './components/feed/ReviewsContent';
+import ReviewsMapContent from './components/map/ReviewsMapContent';
+import { useSearch } from './contexts/SearchContext';
+import useReview from './hooks/useReview';
+import ViewType from './types/viewType';
+
+import * as styles from './styles/Reviews.module.css';
+
+/**
+ * ReviewsInner is the core logic component for the Reviews page.
+ * It manages UI state (feed vs. map view), error handling, loading state, and search results.
+ *
+ * Behavior:
+ * - Toggles between:
+ *   - Feed view (`ReviewsContent` + `InfiniteScroll` for pagination).
+ *   - Map view (`ReviewsMapContent`).
+ * - Displays a floating action button to switch views.
+ *
+ * @returns {JSX.Element} A dynamic interface for browsing reviews via list or map.
+ */
+export default function ReviewsInner() {
+  const [error, setError] = useState<string | null>(null);
+  const [view, setView] = useState<ViewType>(ViewType.FEED);
+
+  const { reviews, cursor, fetchMoreReviews, isFetchingMore, pageLoading } =
+    useReview({ setError, view });
+
+  const { isSearching, searchResults, clearSearch } = useSearch();
+
+  const selectedReviews = isSearching ? searchResults : reviews;
+
+  if (error) {
+    return <ErrorScreen message={error} />;
+  }
+
+  // Scroll to the top when view is changed (toggled)
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [view]);
+
+  const toggleView = () => {
+    clearSearch();
+    setView((v) => (v === ViewType.FEED ? ViewType.MAP : ViewType.FEED));
+  };
+
+  return (
+    <>
+      {pageLoading && (
+        <LinePulseSpinner width={45} height={45} className="spinner" />
+      )}
+
+      {!pageLoading && (
+        <div className={styles.reviews}>
+          <button type="button" onClick={toggleView} className={styles.fab}>
+            {view === ViewType.FEED ? '🗺️' : '📃'}
+          </button>
+          {view === ViewType.FEED ? (
+            <>
+              <ReviewsContent reviews={selectedReviews} />
+              {cursor && !isSearching && (
+                <InfiniteScroll
+                  fetchMore={fetchMoreReviews}
+                  isFetching={isFetchingMore}
+                />
+              )}
+            </>
+          ) : (
+            <ReviewsMapContent reviews={selectedReviews} />
+          )}
+        </div>
+      )}
+    </>
+  );
+}

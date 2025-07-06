@@ -33,11 +33,13 @@ export default function useReview({ setError, view }: UseReviewsParams) {
 
   const fetchReviewData = async (
     cursorKey: string | null = null,
+    search?: string,
     limit: number = 10
   ) => {
     try {
       const data = await fetchReviews({
         limit,
+        search,
         ...(cursorKey && { cursor: cursorKey }),
       });
       setReviews((prev) => [...prev, ...data.results]);
@@ -70,7 +72,7 @@ export default function useReview({ setError, view }: UseReviewsParams) {
     if (view === ViewType.MAP && !hasFetchedForMap) {
       setReviews([]);
       setCursor(null);
-      fetchReviewData(null, 1000).finally(() => {
+      fetchReviewData(null, undefined, 1000).finally(() => {
         setPageLoading(false);
         setHasFetchedForMap(true);
       });
@@ -79,7 +81,6 @@ export default function useReview({ setError, view }: UseReviewsParams) {
 
   return {
     reviews,
-    setReviews,
     cursor,
     fetchMoreReviews,
     isFetchingMore,
