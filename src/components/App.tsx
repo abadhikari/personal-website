@@ -10,6 +10,7 @@ import LogoutHandler from '../pages/Logout/LogoutHandler';
 import Photos from '../pages/Photos/Photos';
 import Projects from '../pages/Projects/Projects';
 import Reviews from '../pages/Reviews/Reviews';
+import ViewType from '../pages/Reviews/types/viewType';
 import Upload from '../pages/Upload/Upload';
 
 import PrivateRoute from './common/PrivateRoute';
@@ -51,7 +52,14 @@ export default function App() {
               <Route path="/projects" element={<Projects />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/photos" element={<Photos />} />
-              <Route path="/reviews" element={<Reviews />} />
+              <Route
+                path="/reviews"
+                element={<Reviews key="feed" view={ViewType.FEED} />}
+              />
+              <Route
+                path="/map"
+                element={<Reviews key="map" view={ViewType.MAP} />}
+              />
               <Route
                 path="/upload"
                 element={

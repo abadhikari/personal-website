@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 
 import log from '../../../../utils/logger';
 import retrieveReadableDate from '../../../../utils/retrieveReadableDate';
+import scrollToElement from '../../../../utils/scrollToInput';
 import fetchPhotos from '../../api/fetchPhotos';
 import { MediaStack } from '../../types/mediaTypes';
 
@@ -43,18 +44,6 @@ export default function useSearchQuery({
   const [submittedQuery, setSubmittedQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
 
-  const scrollToInput = (
-    ref: React.RefObject<HTMLInputElement>,
-    delay: number
-  ) => {
-    setTimeout(() => {
-      ref.current?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    }, delay);
-  };
-
   const fetchSearchResults = async () => {
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
@@ -90,7 +79,7 @@ export default function useSearchQuery({
     if (searchStacks.length === 0) {
       await fetchSearchResults();
     }
-    scrollToInput(searchInputRef, 100);
+    scrollToElement(searchInputRef, 100);
   };
 
   const filteredStacks = useMemo(() => {

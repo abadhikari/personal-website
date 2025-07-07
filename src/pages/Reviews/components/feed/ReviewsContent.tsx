@@ -26,7 +26,7 @@ export default function ReviewsContent({ reviews }: ReviewsContentProps) {
       <div className="divider" />
       <p>Reviews of places, food, and media I&apos;ve experienced.</p>
 
-      <SearchBar viewType={ViewType.FEED} />
+      <SearchBar reviews={reviews} viewType={ViewType.FEED} />
 
       <ReviewsFeed reviews={reviews} />
     </div>

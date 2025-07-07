@@ -20,6 +20,9 @@ export default function FooterRight() {
           <Link to="/reviews">Reviews</Link>
         </li>
         <li>
+          <Link to="/map">Map</Link>
+        </li>
+        <li>
           <Link to="/projects">Projects</Link>
         </li>
         <li>

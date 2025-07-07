@@ -2,6 +2,7 @@ import toTitleCaseFromSnake from '../../../../utils/toTitleCaseFromSnake';
 import { Category, Review } from '../../types/reviewTypes';
 
 import DescriptiveRating from './DescriptiveRating';
+import ExperienceEmoji from './ExperienceEmoji';
 import TruncatedText from './TruncatedText';
 
 import * as styles from '../../styles/ReviewCards.module.css';
@@ -20,7 +21,7 @@ export default function BookCard({ review }: BookCardProps) {
   return (
     <div>
       <div className={styles.title}>
-        <span className={styles.categoryEmoji}>📚</span>
+        <ExperienceEmoji review={review} className={styles.categoryEmoji} />
         <h3>{title}</h3>
         <span className={styles.author}>
           by {author} {yearPublished ? `(${yearPublished})` : ''}

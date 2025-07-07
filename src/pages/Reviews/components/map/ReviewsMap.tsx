@@ -42,8 +42,11 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibre | null>(null);
   const markersRef = useRef<maplibregl.Marker[]>([]);
+  const autoSelectRef = useRef(true);
 
   const [selected, setSelected] = useState<Review | null>(null);
+
+  const reviewsWithGeolocation = reviews.filter(hasGeolocation);
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
@@ -58,6 +61,33 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
     });
   }, []);
 
+  const handleMarkerClick = (review: Review) => {
+    setSelected(review);
+    const { latitude, longitude } = review.subcontent as GeoReview;
+    const targetZoom = isMobile() ? 12.5 : 13.5;
+    const currentZoom = mapRef.current!.getZoom();
+    mapRef.current!.flyTo({
+      center: [longitude, latitude],
+      zoom: currentZoom > targetZoom ? currentZoom : targetZoom,
+      offset: [0, -100],
+    });
+  };
+
+  useEffect(() => {
+    if (
+      reviewsWithGeolocation.length === 1 &&
+      !selected &&
+      autoSelectRef.current
+    ) {
+      handleMarkerClick(reviewsWithGeolocation[0]);
+      autoSelectRef.current = false;
+    }
+  }, [reviewsWithGeolocation, selected]);
+
+  useEffect(() => {
+    autoSelectRef.current = true;
+  }, [reviews]);
+
   useEffect(() => {
     if (!mapRef.current) return;
 
@@ -66,7 +96,7 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
     markersRef.current = [];
 
     // Add markers
-    reviews.filter(hasGeolocation).forEach((review) => {
+    reviewsWithGeolocation.forEach((review) => {
       const { latitude, longitude } = review.subcontent;
 
       const isSelected = selected?.reviewId === review.reviewId;
@@ -78,16 +108,9 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
         .setLngLat([longitude, latitude])
         .addTo(mapRef.current!);
 
-      marker.getElement().addEventListener('click', () => {
-        setSelected(review);
-        const targetZoom = isMobile() ? 12.5 : 13.5;
-        const currentZoom = mapRef.current!.getZoom();
-        mapRef.current!.flyTo({
-          center: [longitude, latitude],
-          zoom: currentZoom > targetZoom ? currentZoom : targetZoom,
-          offset: [0, -100],
-        });
-      });
+      marker
+        .getElement()
+        .addEventListener('click', () => handleMarkerClick(review));
 
       markersRef.current.push(marker);
     });
@@ -104,7 +127,8 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
   return (
     <div className={styles.mapWrapper}>
       <div ref={containerRef} className={styles.mapContainer} />
-      <SearchBar viewType={ViewType.MAP} />
+
+      <SearchBar reviews={reviewsWithGeolocation} viewType={ViewType.MAP} />
       <MapLegend />
       <MapControls mapRef={mapRef} />
 
@@ -113,7 +137,10 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
           <button
             type="button"
             className={styles.closeBtn}
-            onClick={() => setSelected(null)}
+            onClick={() => {
+              setSelected(null);
+              autoSelectRef.current = false;
+            }}
             aria-label="Close panel"
           >
             ×

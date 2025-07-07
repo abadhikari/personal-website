@@ -3,7 +3,7 @@ import { Category, Review } from '../../types/reviewTypes';
 import ViewType from '../../types/viewType';
 
 import DescriptiveRating from './DescriptiveRating';
-import CategoryEmoji from './ExperienceEmoji';
+import ExperienceEmoji from './ExperienceEmoji';
 import SymbolScore from './SymbolScore';
 import TruncatedText from './TruncatedText';
 
@@ -28,7 +28,7 @@ export default function FoodAndDrinkCard({
   return (
     <div className={`${viewType === ViewType.MAP ? styles.mapPanelCard : ''}`}>
       <div className={styles.title}>
-        <CategoryEmoji venue={venue} />
+        <ExperienceEmoji review={review} className={styles.categoryEmoji} />
         <h3>{title}</h3>
         {viewType === ViewType.FEED && (
           <span className={styles.location}>

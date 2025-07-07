@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import LinePulseSpinner from '../../components/common/animations/LinePulseSpinner';
 import ErrorScreen from '../../components/common/Error/ErrorScreen';
@@ -12,6 +13,10 @@ import ViewType from './types/viewType';
 
 import * as styles from './styles/Reviews.module.css';
 
+interface ReviewsInnerProps {
+  view: ViewType;
+}
+
 /**
  * ReviewsInner is the core logic component for the Reviews page.
  * It manages UI state (feed vs. map view), error handling, loading state, and search results.
@@ -24,14 +29,15 @@ import * as styles from './styles/Reviews.module.css';
  *
  * @returns {JSX.Element} A dynamic interface for browsing reviews via list or map.
  */
-export default function ReviewsInner() {
+export default function ReviewsInner({ view }: ReviewsInnerProps) {
   const [error, setError] = useState<string | null>(null);
-  const [view, setView] = useState<ViewType>(ViewType.FEED);
 
   const { reviews, cursor, fetchMoreReviews, isFetchingMore, pageLoading } =
     useReview({ setError, view });
 
   const { isSearching, searchResults, clearSearch } = useSearch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const selectedReviews = isSearching ? searchResults : reviews;
 
@@ -46,7 +52,8 @@ export default function ReviewsInner() {
 
   const toggleView = () => {
     clearSearch();
-    setView((v) => (v === ViewType.FEED ? ViewType.MAP : ViewType.FEED));
+    const isMapView = location.pathname === '/map';
+    navigate(isMapView ? '/reviews' : '/map');
   };
 
   return (

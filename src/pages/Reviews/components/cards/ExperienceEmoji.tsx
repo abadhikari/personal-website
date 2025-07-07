@@ -1,30 +1,42 @@
-import { Venue } from '../../types/reviewTypes';
-
-import * as styles from '../../styles/ReviewCards.module.css';
+import { Category, Review, Venue } from '../../types/reviewTypes';
 
 interface ExperienceEmojiProps {
-  venue: Venue;
+  review: Review;
+  className: string;
 }
+
+function isExperienceReview(
+  review: Review
+): review is Review & { subcontent: { venue: Venue } } {
+  return (
+    review.subcontent != null &&
+    'venue' in review.subcontent &&
+    typeof review.subcontent.venue === 'string'
+  );
+}
+
+const emojiMap: Record<string, string> = {
+  [Category.Book]: '📚',
+  [Category.Movie]: '🍿',
+  [Category.Show]: '📺',
+  [`${Category.FoodAndDrink}:${Venue.Restaurant}`]: '🍽️',
+  [`${Category.FoodAndDrink}:${Venue.Bar}`]: '🍺',
+  [`${Category.Entertainment}:${Venue.JazzClub}`]: '🎷',
+};
 
 /**
  * Renders an appropriate emoji representing the type of experience based on its venue.
  * Used for quick visual categorization of experience-type reviews.
  */
-export default function ExperienceEmoji({ venue }: ExperienceEmojiProps) {
-  let emoji = '';
-  switch (venue) {
-    case Venue.Restaurant:
-      emoji = '🍽️';
-      break;
-    case Venue.Bar:
-      emoji = '🍺';
-      break;
-    case Venue.JazzClub:
-      emoji = '🎷';
-      break;
-    default:
-      emoji = '❓';
-  }
+export default function ExperienceEmoji({
+  review,
+  className,
+}: ExperienceEmojiProps) {
+  const category = review.categoryId;
+  const venue = isExperienceReview(review) ? review.subcontent.venue : null;
 
-  return <span className={styles.categoryEmoji}>{emoji}</span>;
+  const key = venue ? `${category}:${venue}` : `${category}`;
+  const emoji = emojiMap[key] || '❓';
+
+  return <span className={className}>{emoji}</span>;
 }

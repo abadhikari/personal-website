@@ -106,8 +106,7 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
         clearTimeout(debounceTimeout.current);
       }
 
-      const debounceDuration = 300;
-
+      const debounceDuration = searchParams.query === '' ? 0 : 300;
       debounceTimeout.current = setTimeout(async () => {
         await handleSearch(searchParams);
         resolve();

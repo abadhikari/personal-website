@@ -1,5 +1,10 @@
 import { SearchProvider } from './contexts/SearchContext';
 import ReviewsInner from './ReviewsInner';
+import ViewType from './types/viewType';
+
+interface ReviewsProps {
+  view: ViewType;
+}
 
 /**
  * Reviews is the top-level page component for displaying user-generated reviews.
@@ -14,10 +19,10 @@ import ReviewsInner from './ReviewsInner';
  *
  * @returns {JSX.Element} A toggleable reviews interface with feed and map views.
  */
-export default function Reviews() {
+export default function Reviews({ view }: ReviewsProps) {
   return (
     <SearchProvider>
-      <ReviewsInner />
+      <ReviewsInner view={view} />
     </SearchProvider>
   );
 }

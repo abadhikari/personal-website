@@ -1,7 +1,8 @@
 .searchBarContainer {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 0.5rem;
   width: 80%;
   border-radius: 6px;
 }
@@ -12,23 +13,29 @@
 }
 
 .searchBarContainerMap {
+  display: flex;
   position: fixed;
+  flex-direction: column;
   top: 1rem;
   left: 0; right: 0;
   margin: 0 auto;
   z-index: 10;
   width: 80%;
-  display: flex;
   justify-content: center;
+  align-items: center;
   border-radius: 6px;
 
   opacity: 0;
   animation: fadeInDown 2s ease forwards;
 }
 
-.searchInput {
-  display: flex;
+.searchInputWrapper {
+  position: relative;
   width: 50%;
+}
+
+.searchInput {
+  width: 100%;
   padding: 10px;
   margin-bottom: 0;
   font-size: 16px;
@@ -51,6 +58,40 @@
   animation: pulse 1s infinite;
 }
 
+.searchDropdown {
+  position: absolute;
+  flex-direction: column;
+  width: 100%;
+  padding-left: 0;
+  margin-top: 0;
+  max-height: 240px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 99;
+}
+
+.searchItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.2s ease;
+}
+
+.searchItem:hover,
+.searchItem.highlighted {
+  background-color: #f0f4ff;
+}
+
+.searchItemIcon {
+  margin-right: 10px;
+  color: #555;
+}
+
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 rgba(0, 112, 243, 0.4);
@@ -64,10 +105,11 @@
 }
 
 @media (max-width: 900px) {
-  .searchbarContainer {
+  .searchBarContainer {
     width: 100%;
   }
-  .searchInput {
+
+  .searchInputWrapper {
     width: 80%;
   }
 }
