@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import EarthSpinner from '../../components/common/animations/EarthSpinner';
 import LinePulseSpinner from '../../components/common/animations/LinePulseSpinner';
 import ErrorScreen from '../../components/common/Error/ErrorScreen';
 import InfiniteScroll from '../../components/common/InfiniteScroll';
@@ -58,9 +59,12 @@ export default function ReviewsInner({ view }: ReviewsInnerProps) {
 
   return (
     <>
-      {pageLoading && (
-        <LinePulseSpinner width={45} height={45} className="spinner" />
-      )}
+      {pageLoading &&
+        (view === ViewType.FEED ? (
+          <LinePulseSpinner width={45} height={45} className="spinner" />
+        ) : (
+          <EarthSpinner width={55} height={55} className="spinner" />
+        ))}
 
       {!pageLoading && (
         <div className={styles.reviews}>
