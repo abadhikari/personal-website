@@ -20,7 +20,8 @@ interface SearchBarProps {
  */
 export default function SearchBar({ viewType }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { searchQuery, setSearchQuery, onSearch } = useSearch();
+  const { searchQuery, setSearchQuery, isSendingSearch, onSearch } =
+    useSearch();
 
   /**
    * Unfocuses the input element to dismiss mobile keyboard or reset focus state.
@@ -58,7 +59,7 @@ export default function SearchBar({ viewType }: SearchBarProps) {
     >
       <input
         ref={inputRef}
-        className={styles.searchInput}
+        className={`${styles.searchInput} ${isSendingSearch ? styles.searching : ''}`}
         value={searchQuery}
         onChange={(e) => handleChange(e)}
         onKeyDown={handleKeyDown}

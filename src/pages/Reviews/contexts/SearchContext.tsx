@@ -10,6 +10,7 @@ import {
   useCallback,
   useContext,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import toast from 'react-hot-toast';
@@ -23,6 +24,7 @@ type SearchContextType = {
   setSearchQuery: (q: string) => void;
   searchResults: Review[];
   isSearching: boolean;
+  isSendingSearch: boolean;
   onSearch: (params: { query: string }) => Promise<void>;
   clearSearch: () => void;
 };
@@ -55,6 +57,10 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Review[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [isSendingSearch, setIsSendingSearch] = useState(false);
+
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
+  const isFetchingRef = useRef(false);
 
   const clearSearch = useCallback(() => {
     setSearchResults([]);
@@ -68,22 +74,45 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
    *
    * @param {SearchParams} params - Object containing the raw query string.
    */
-  const onSearch = useCallback(async ({ query }: SearchParams) => {
-    const trimmed = query.trim();
+  const handleSearch = useCallback(async ({ query }: SearchParams) => {
+    if (isFetchingRef.current) return;
+    isFetchingRef.current = true;
+
     setSearchQuery(query);
-    if (!trimmed) {
-      clearSearch();
-      return;
-    }
 
     try {
+      setIsSendingSearch(true);
+      const trimmed = query.trim();
+      if (!trimmed) {
+        clearSearch();
+        return;
+      }
+
       const data = await fetchReviews({ limit: 1000, search: trimmed });
       setSearchResults(data.results);
       setIsSearching(true);
     } catch (err) {
       toast.error('Search failed. Try again later.');
       log.error('Search error', err);
+    } finally {
+      setIsSendingSearch(false);
+      isFetchingRef.current = false;
     }
+  }, []);
+
+  const onSearch = useCallback((searchParams: SearchParams): Promise<void> => {
+    return new Promise((resolve) => {
+      if (debounceTimeout.current) {
+        clearTimeout(debounceTimeout.current);
+      }
+
+      const debounceDuration = 300;
+
+      debounceTimeout.current = setTimeout(async () => {
+        await handleSearch(searchParams);
+        resolve();
+      }, debounceDuration);
+    });
   }, []);
 
   const value = useMemo(
@@ -92,10 +121,18 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
       setSearchQuery,
       searchResults,
       isSearching,
+      isSendingSearch,
       onSearch,
       clearSearch,
     }),
-    [searchQuery, searchResults, isSearching, onSearch, clearSearch]
+    [
+      searchQuery,
+      searchResults,
+      isSearching,
+      isSendingSearch,
+      onSearch,
+      clearSearch,
+    ]
   );
 
   return (
