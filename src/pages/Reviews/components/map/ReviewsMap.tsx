@@ -74,11 +74,15 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
   };
 
   useEffect(() => {
-    if (
-      reviewsWithGeolocation.length === 1 &&
-      !selected &&
-      autoSelectRef.current
-    ) {
+    const hasSingleResult = reviewsWithGeolocation.length === 1;
+    const selectedId = selected?.reviewId;
+
+    const shouldAutoSelect =
+      hasSingleResult &&
+      autoSelectRef.current &&
+      (!selectedId || !(reviewsWithGeolocation[0].reviewId === selectedId));
+
+    if (shouldAutoSelect) {
       handleMarkerClick(reviewsWithGeolocation[0]);
       autoSelectRef.current = false;
     }
