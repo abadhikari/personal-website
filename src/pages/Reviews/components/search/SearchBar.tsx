@@ -57,6 +57,10 @@ export default function SearchBar({ reviews, viewType }: SearchBarProps) {
     setShowDropdown(isInputFocused && filteredReviews.length > 0);
   }, [filteredReviews]);
 
+  useEffect(() => {
+    setHighlightedIndex(-1);
+  }, [searchQuery]);
+
   const onAutoCompleteSelect = (title: string) => {
     setSearchQuery(title);
     onSearch({ query: title });
@@ -69,7 +73,7 @@ export default function SearchBar({ reviews, viewType }: SearchBarProps) {
       filteredReviews.length
     );
     if (e.key === 'Enter') {
-      if (showDropdown && highlightedIndex >= 0) {
+      if (filteredReviews.length > 0 && highlightedIndex >= 0) {
         const selectedReview = filteredReviews[highlightedIndex];
         if (selectedReview) {
           const title = getTitleFromSubcontent(selectedReview);
