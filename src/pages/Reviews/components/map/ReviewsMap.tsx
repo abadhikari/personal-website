@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import maplibregl, { Map as MapLibre } from 'maplibre-gl';
 
 import { isMobile } from '../../../../utils/deviceType';
@@ -74,17 +74,22 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
    *
    * @param {Review} review - The review to select and zoom into.
    */
-  const handleMarkerClick = (review: Review) => {
-    setSelected(review);
-    const { latitude, longitude } = review.subcontent as GeoReview;
-    const targetZoom = isMobile() ? 12.5 : 13.5;
-    const currentZoom = mapRef.current!.getZoom();
-    mapRef.current!.flyTo({
-      center: [longitude, latitude],
-      zoom: currentZoom > targetZoom ? currentZoom : targetZoom,
-      offset: [0, -100],
-    });
-  };
+  const handleMarkerClick = useCallback(
+    (review: Review) => {
+      if (selected?.reviewId === review.reviewId) return;
+
+      setSelected(review);
+      const { latitude, longitude } = review.subcontent as GeoReview;
+      const targetZoom = isMobile() ? 12.5 : 13.5;
+      const currentZoom = mapRef.current!.getZoom();
+      mapRef.current!.flyTo({
+        center: [longitude, latitude],
+        zoom: currentZoom > targetZoom ? currentZoom : targetZoom,
+        offset: [0, -100],
+      });
+    },
+    [selected]
+  );
 
   /**
    * Clears the selected review and marks the deselection as manual
@@ -100,7 +105,7 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
    * Removes any existing markers before redrawing.
    * Highlights the currently selected review.
    */
-  const placeMarkers = () => {
+  const placeMarkers = useCallback(() => {
     if (!mapRef.current) return;
 
     // Clear previous
@@ -126,7 +131,7 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
 
       markersRef.current.push(marker);
     });
-  };
+  }, [handleMarkerClick, reviewsWithGeolocation, selected]);
 
   /**
    * Auto-selects the only available review if:
@@ -141,7 +146,7 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
     const shouldAutoSelect =
       hasSingleResult &&
       !selectionWasManual &&
-      (!selectedId || !(reviewsWithGeolocation[0].reviewId === selectedId));
+      reviewsWithGeolocation[0].reviewId !== selectedId;
 
     if (shouldAutoSelect) {
       handleMarkerClick(reviewsWithGeolocation[0]);
@@ -150,7 +155,7 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
 
   useEffect(() => {
     placeMarkers();
-  }, [reviews, selected]);
+  }, [placeMarkers]);
 
   return (
     <div className={styles.mapWrapper}>
