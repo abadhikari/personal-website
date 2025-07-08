@@ -73,6 +73,11 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
     });
   };
 
+  const handleSidePanelClose = () => {
+    setSelected(null);
+    autoSelectRef.current = false;
+  };
+
   useEffect(() => {
     const hasSingleResult = reviewsWithGeolocation.length === 1;
     const selectedId = selected?.reviewId;
@@ -141,10 +146,7 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
           <button
             type="button"
             className={styles.closeBtn}
-            onClick={() => {
-              setSelected(null);
-              autoSelectRef.current = false;
-            }}
+            onClick={() => handleSidePanelClose()}
             aria-label="Close panel"
           >
             ×

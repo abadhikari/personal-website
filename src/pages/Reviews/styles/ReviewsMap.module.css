@@ -1,5 +1,6 @@
 .fullWidthMapSection {
   width: 100vw;
+  height: calc(100vh - 60px);
 }
 
 .reviewsMapContainer {
@@ -18,7 +19,7 @@
 .mapWrapper {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -208,7 +209,7 @@
     left: 5px;
     top: auto;
     width: calc(100% - 10px);
-    height: 380px;
+    height: 320px;
     box-shadow: 0 -4px 12px rgba(0 0 0 / 0.15);
 
     animation: slideInUp 0.3s ease-out forwards;

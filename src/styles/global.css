@@ -12,7 +12,7 @@ html {
 
 .mainContent {
   margin: 60px auto 0 auto;
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
   color: #f7f0e6;
   display: flex;
   width: 100%;
