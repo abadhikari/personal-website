@@ -47,6 +47,8 @@
   transition: border 0.2s ease, box-shadow 0.2s ease;
   outline: none;
   box-sizing: border-box;
+  touch-action: none;
+  pointer-events: auto;
 }
 
 .searchInput:focus {
