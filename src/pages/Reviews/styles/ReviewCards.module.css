@@ -80,9 +80,8 @@
 }
 
 .tooltipWrapper {
-  display: flex;
+  display: inline-flex;
   justify-content: left;
-  width: 100%;
 }
 
 .tooltipContainer {

@@ -2,9 +2,9 @@ import toTitleCaseFromSnake from '../../../../utils/toTitleCaseFromSnake';
 import { Category, Review } from '../../types/reviewTypes';
 import ViewType from '../../types/viewType';
 
+import DescriptivePriceLevel from './DescriptivePriceLevel';
 import DescriptiveRating from './DescriptiveRating';
 import ExperienceEmoji from './ExperienceEmoji';
-import SymbolScore from './SymbolScore';
 import TruncatedText from './TruncatedText';
 
 import * as styles from '../../styles/ReviewCards.module.css';
@@ -43,11 +43,7 @@ export default function FoodAndDrinkCard({
       )}
       <DescriptiveRating rating={rating} />
       <div className={styles.tags}>
-        {priceLevel && (
-          <p>
-            <SymbolScore score={priceLevel} symbol="$" max={5} size={0.8} />
-          </p>
-        )}
+        {priceLevel && <DescriptivePriceLevel priceLevel={priceLevel} />}
 
         <span>{' • '}</span>
         <span className={styles.pill}>
