@@ -2,11 +2,18 @@ import { z } from 'zod';
 
 import { ContentCategory } from '../types/uploadTypes';
 
+const optionalEmptyToUndefinedString = () =>
+  z
+    .string()
+    .trim()
+    .transform((val) => (val === '' ? undefined : val))
+    .optional();
+
 const BaseExperience = z.object({
   title: z.string().min(1, 'Title is required'),
   address: z.string().min(1, 'Address is required'),
   city: z.string().min(1, 'City is required'),
-  state: z.string().optional(),
+  state: optionalEmptyToUndefinedString(),
   country: z.string().min(1, 'Country is required'),
   latitude: z.number({ invalid_type_error: 'Latitude required' }),
   longitude: z.number({ invalid_type_error: 'Longitude required' }),
@@ -33,14 +40,10 @@ export const BookSchema = z.object({
     .int()
     .min(0, 'Invalid year')
     .max(new Date().getFullYear(), 'Year cannot be in the future'),
-  isbn: z
-    .string()
-    .trim()
-    .optional()
-    .refine(
-      (val) => !val || /^[\d-]+$/.test(val),
-      'ISBN must be numeric or hyphenated'
-    ),
+  isbn: optionalEmptyToUndefinedString().refine(
+    (val) => !val || /^[\d-]+$/.test(val),
+    'ISBN must be numeric or hyphenated'
+  ),
   genres: z.array(z.number().int()).min(1, 'Select at least one genre'),
 });
 
