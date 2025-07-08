@@ -11,6 +11,7 @@ import * as styles from '../../styles/ReviewSearch.module.css';
 interface SearchBarProps {
   reviews: Review[];
   viewType: ViewType;
+  setSelectionWasManual?: (b: boolean) => void;
 }
 
 const MAX_AUTOCOMPLETE_RESULTS = 5;
@@ -24,14 +25,23 @@ const MAX_AUTOCOMPLETE_RESULTS = 5;
  *
  * @returns {JSX.Element} A styled search input box.
  */
-export default function SearchBar({ reviews, viewType }: SearchBarProps) {
+export default function SearchBar({
+  reviews,
+  viewType,
+  setSelectionWasManual,
+}: SearchBarProps) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const { searchQuery, setSearchQuery, isSendingSearch, onSearch } =
-    useSearch();
+  const {
+    searchQuery,
+    setSearchQuery,
+    isSendingSearch,
+    onSearch,
+    clearSearch,
+  } = useSearch();
 
   /**
    * Unfocuses the input element to dismiss mobile keyboard or reset focus state.
@@ -39,6 +49,14 @@ export default function SearchBar({ reviews, viewType }: SearchBarProps) {
   const unfocusFromInput = () => {
     if (inputRef.current) {
       inputRef.current.blur();
+    }
+  };
+
+  const handleSearchTriggeredSideEffects = () => {
+    // If present, sets the "manual selection" flag to false to indicate this selection
+    // was triggered by search (e.g. dropdown, hitting enter).
+    if (setSelectionWasManual) {
+      setSelectionWasManual(false);
     }
   };
 
@@ -53,20 +71,35 @@ export default function SearchBar({ reviews, viewType }: SearchBarProps) {
       .slice(0, MAX_AUTOCOMPLETE_RESULTS);
   }, [searchQuery, reviews]);
 
+  /**
+   * Shows or hides dropdown based on input focus and availability of filtered results.
+   */
   useEffect(() => {
     setShowDropdown(isInputFocused && filteredReviews.length > 0);
   }, [filteredReviews]);
 
+  /**
+   * Resets dropdown highlight index when the search query changes.
+   */
   useEffect(() => {
     setHighlightedIndex(-1);
   }, [searchQuery]);
 
-  const onAutoCompleteSelect = (title: string) => {
+  /**
+   * Handles logic when a dropdown item is selected via click or keyboard.
+   * Updates query, triggers search, and optionally flags the selection as not manual.
+   */
+  const onDropDownSelect = (title: string) => {
     setSearchQuery(title);
     onSearch({ query: title });
+    handleSearchTriggeredSideEffects();
     if (inputRef.current) inputRef.current.blur();
   };
 
+  /**
+   * Keyboard navigation logic: handles up/down arrows, enter key selection from dropdown,
+   * and default search submission if no dropdown item is selected.
+   */
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const totalResults = Math.min(
       MAX_AUTOCOMPLETE_RESULTS,
@@ -77,10 +110,11 @@ export default function SearchBar({ reviews, viewType }: SearchBarProps) {
         const selectedReview = filteredReviews[highlightedIndex];
         if (selectedReview) {
           const title = getTitleFromSubcontent(selectedReview);
-          onAutoCompleteSelect(title);
+          onDropDownSelect(title);
         }
       } else {
         onSearch({ query: searchQuery });
+        handleSearchTriggeredSideEffects();
       }
       unfocusFromInput();
     } else if (e.key === 'ArrowDown') {
@@ -94,13 +128,16 @@ export default function SearchBar({ reviews, viewType }: SearchBarProps) {
     }
   };
 
+  /**
+   * Handles search input changes and clears search state if input is emptied.
+   */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setSearchQuery(value);
 
     const trimmed = value.trim();
     if (trimmed === '') {
-      onSearch({ query: '' });
+      clearSearch();
     }
   };
 
@@ -128,7 +165,7 @@ export default function SearchBar({ reviews, viewType }: SearchBarProps) {
           showDropdown={showDropdown}
           highlightedIndex={highlightedIndex}
           reviews={filteredReviews}
-          onSelect={onAutoCompleteSelect}
+          onSelect={onDropDownSelect}
         />
       </div>
     </div>

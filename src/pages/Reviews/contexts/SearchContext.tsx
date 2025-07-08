@@ -78,16 +78,9 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
     if (isFetchingRef.current) return;
     isFetchingRef.current = true;
 
-    setSearchQuery(query);
-
     try {
       setIsSendingSearch(true);
       const trimmed = query.trim();
-      if (!trimmed) {
-        clearSearch();
-        return;
-      }
-
       const data = await fetchReviews({ limit: 1000, search: trimmed });
       setSearchResults(data.results);
       setIsSearching(true);

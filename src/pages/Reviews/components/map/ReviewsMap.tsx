@@ -42,14 +42,17 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibre | null>(null);
   const markersRef = useRef<maplibregl.Marker[]>([]);
-  const autoSelectRef = useRef(true);
 
+  const [selectionWasManual, setSelectionWasManual] = useState(false);
   const [selected, setSelected] = useState<Review | null>(null);
 
+  /**
+   * Filters reviews to only those with valid latitude and longitude.
+   */
   const reviewsWithGeolocation = reviews.filter(hasGeolocation);
 
   useEffect(() => {
-    if (!containerRef.current || mapRef.current) return;
+    if (!containerRef.current || mapRef.current) return undefined;
 
     // Set default center to Manhattan
     mapRef.current = new maplibregl.Map({
@@ -59,8 +62,18 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
       zoom: 11.5,
       attributionControl: false,
     });
+
+    return () => {
+      markersRef.current.forEach((marker) => marker.remove());
+      mapRef.current?.remove();
+    };
   }, []);
 
+  /**
+   * Handles clicking on a marker: updates selection and animates map view to the location.
+   *
+   * @param {Review} review - The review to select and zoom into.
+   */
   const handleMarkerClick = (review: Review) => {
     setSelected(review);
     const { latitude, longitude } = review.subcontent as GeoReview;
@@ -73,31 +86,21 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
     });
   };
 
+  /**
+   * Clears the selected review and marks the deselection as manual
+   * (e.g., user intentionally closed the side panel).
+   */
   const handleSidePanelClose = () => {
     setSelected(null);
-    autoSelectRef.current = false;
+    setSelectionWasManual(true);
   };
 
-  useEffect(() => {
-    const hasSingleResult = reviewsWithGeolocation.length === 1;
-    const selectedId = selected?.reviewId;
-
-    const shouldAutoSelect =
-      hasSingleResult &&
-      autoSelectRef.current &&
-      (!selectedId || !(reviewsWithGeolocation[0].reviewId === selectedId));
-
-    if (shouldAutoSelect) {
-      handleMarkerClick(reviewsWithGeolocation[0]);
-      autoSelectRef.current = false;
-    }
-  }, [reviewsWithGeolocation, selected]);
-
-  useEffect(() => {
-    autoSelectRef.current = true;
-  }, [reviews]);
-
-  useEffect(() => {
+  /**
+   * Adds map markers for all geolocated reviews.
+   * Removes any existing markers before redrawing.
+   * Highlights the currently selected review.
+   */
+  const placeMarkers = () => {
     if (!mapRef.current) return;
 
     // Clear previous
@@ -123,21 +126,41 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
 
       markersRef.current.push(marker);
     });
-  }, [reviews, selected]);
+  };
 
-  useEffect(
-    () => () => {
-      markersRef.current.forEach((marker) => marker.remove());
-      mapRef.current?.remove();
-    },
-    []
-  );
+  /**
+   * Auto-selects the only available review if:
+   * - there's exactly one result
+   * - nothing is currently selected or selected result differs
+   * - the selection wasn't manually cleared
+   */
+  useEffect(() => {
+    const hasSingleResult = reviewsWithGeolocation.length === 1;
+    const selectedId = selected?.reviewId;
+
+    const shouldAutoSelect =
+      hasSingleResult &&
+      !selectionWasManual &&
+      (!selectedId || !(reviewsWithGeolocation[0].reviewId === selectedId));
+
+    if (shouldAutoSelect) {
+      handleMarkerClick(reviewsWithGeolocation[0]);
+    }
+  }, [reviewsWithGeolocation, selected]);
+
+  useEffect(() => {
+    placeMarkers();
+  }, [reviews, selected]);
 
   return (
     <div className={styles.mapWrapper}>
       <div ref={containerRef} className={styles.mapContainer} />
 
-      <SearchBar reviews={reviewsWithGeolocation} viewType={ViewType.MAP} />
+      <SearchBar
+        reviews={reviewsWithGeolocation}
+        viewType={ViewType.MAP}
+        setSelectionWasManual={setSelectionWasManual}
+      />
       <MapLegend />
       <MapControls mapRef={mapRef} />
 
