@@ -35,9 +35,9 @@ export default function ReviewsFeed({ reviews }: ReviewFeedProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              layout: { duration: 0.15, ease: 'easeOut' },
-              opacity: { duration: 0.1, ease: 'easeOut' },
-              y: { duration: 0.1, ease: 'easeOut' },
+              layout: { duration: 0.4, ease: 'easeOut' },
+              opacity: { duration: 0.3, ease: 'easeOut' },
+              y: { duration: 0.3, ease: 'easeOut' },
             }}
             key={review.reviewId}
             className={styles.feedItem}
