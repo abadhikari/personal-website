@@ -1,8 +1,4 @@
-import { useState } from 'react';
-
-import SymbolScore from './SymbolScore';
-
-import * as styles from '../../styles/ReviewCards.module.css';
+import DescriptiveSymbolScore from './DescriptiveSymbolScore';
 
 const priceLevelDescriptions: Record<number, string> = {
   5: `I think I'm in debt now.`,
@@ -29,23 +25,13 @@ interface DescriptivePriceLevelProps {
 export default function DescriptivePriceLevel({
   priceLevel,
 }: DescriptivePriceLevelProps) {
-  const [hovered, setHovered] = useState(false);
-
   return (
-    <div className={styles.tooltipWrapper}>
-      <div
-        className={styles.tooltipContainer}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onTouchStart={() => setHovered((h) => !h)}
-      >
-        <SymbolScore score={priceLevel} symbol="$" max={5} size={0.8} />
-        {hovered && (
-          <div className={styles.tooltip}>
-            {priceLevelDescriptions[priceLevel] || 'Unknown price level'}
-          </div>
-        )}
-      </div>
-    </div>
+    <DescriptiveSymbolScore
+      score={priceLevel}
+      max={5}
+      symbol="$"
+      size={0.8}
+      descriptions={priceLevelDescriptions}
+    />
   );
 }

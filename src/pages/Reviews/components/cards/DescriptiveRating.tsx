@@ -1,8 +1,4 @@
-import { useState } from 'react';
-
-import SymbolScore from './SymbolScore';
-
-import * as styles from '../../styles/ReviewCards.module.css';
+import DescriptiveSymbolScore from './DescriptiveSymbolScore';
 
 const ratingDescriptions: Record<number, string> = {
   5: 'Transcendent – one of the best experiences I’ve had. Possibly life changing.',
@@ -27,23 +23,13 @@ interface DescriptiveRatingProps {
  * @param {number} props.rating - A number from 1 to 5 representing the rating score.
  */
 export default function DescriptiveRating({ rating }: DescriptiveRatingProps) {
-  const [hovered, setHovered] = useState(false);
-
   return (
-    <div className={styles.tooltipWrapper}>
-      <div
-        className={styles.tooltipContainer}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onTouchStart={() => setHovered((h) => !h)}
-      >
-        <SymbolScore score={rating} symbol="⭐️" max={5} size={1.3} />
-        {hovered && (
-          <div className={styles.tooltip}>
-            {ratingDescriptions[rating] || 'Unknown rating'}
-          </div>
-        )}
-      </div>
-    </div>
+    <DescriptiveSymbolScore
+      score={rating}
+      max={5}
+      symbol="⭐️"
+      size={1.3}
+      descriptions={ratingDescriptions}
+    />
   );
 }

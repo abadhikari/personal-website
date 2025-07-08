@@ -80,7 +80,7 @@
 }
 
 .tooltipWrapper {
-  display: inline-flex;
+  display: flex;
   justify-content: left;
 }
 
