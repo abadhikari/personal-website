@@ -1,28 +1,24 @@
 /**
- * Converts a string into a slugified format suitable for URLs.
+ * Converts a string into a URL-safe slugified format.
  *
- * Lowercases the input, trims whitespace, removes non-word characters
- * (excluding spaces and hyphens), and replaces remaining spaces with hyphens.
+ * Lowercases the input and trims whitespace before encoding it.
+ * This ensures that all special characters (e.g., `'`, `&`, `?`) are safely represented in URLs.
  *
  * @param {string} input - The input string to convert.
- * @returns {string} The slugified string (e.g., "Blue Bottle Coffee" → "blue-bottle-coffee").
+ * @returns {string} The encoded, slug-like string (e.g., "S'mac & Cheese" → "s%27mac%20%26%20cheese").
  */
 export function toSlug(input: string): string {
-  return input
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-');
+  return encodeURIComponent(input.trim().toLowerCase());
 }
 
 /**
- * Converts a slugified string back to a readable format by replacing hyphens with spaces.
+ * Decodes a slugified string back to a human-readable format.
  *
- * Does not reintroduce capitalization or punctuation — purely structural reversal.
+ * This reverses `toSlug` and restores original characters, though casing and punctuation may not match exactly.
  *
- * @param {string} slug - The slug to convert (e.g., "blue-bottle-coffee").
- * @returns {string} The readable string (e.g., "blue bottle coffee").
+ * @param {string} slug - The encoded slug to decode (e.g., "s%27mac%20%26%20cheese").
+ * @returns {string} The decoded string (e.g., "s'mac & cheese").
  */
 export function fromSlug(slug: string): string {
-  return slug.replace(/-/g, ' ');
+  return decodeURIComponent(slug);
 }

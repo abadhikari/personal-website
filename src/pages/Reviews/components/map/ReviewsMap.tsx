@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import maplibregl, { Map as MapLibre, PointLike } from 'maplibre-gl';
+import maplibregl, { Map as MapLibre } from 'maplibre-gl';
 
 import { isMobile } from '../../../../utils/deviceType';
 import { GeoReview, Review } from '../../types/reviewTypes';
@@ -91,13 +91,10 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
       const nextZoom = currentZoom > targetZoom ? currentZoom : targetZoom;
 
       if (animate) {
-        const offset: PointLike | undefined = isMobile()
-          ? [0, -100]
-          : undefined;
         mapRef.current!.flyTo({
           center: [longitude, latitude],
           zoom: nextZoom,
-          offset,
+          ...(isMobile() && { offset: [0, -100] }),
           speed: 1.5,
         });
       } else {
