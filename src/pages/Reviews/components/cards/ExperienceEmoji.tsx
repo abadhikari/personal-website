@@ -23,6 +23,7 @@ const emojiMap: Record<string, string> = {
   [`${Category.FoodAndDrink}:${Venue.Bar}`]: '🍺',
   [`${Category.Entertainment}:${Venue.JazzClub}`]: '🎷',
   [`${Category.Entertainment}:${Venue.Bar}`]: '🍺',
+  [`${Category.Entertainment}:${Venue.Museum}`]: '🏛️',
 };
 
 /**
