@@ -50,7 +50,7 @@ export default function MapControls({ mapRef }: MapControlsProps) {
       zoom,
       bearing: 0,
       pitch: 0,
-      speed: 0.8,
+      speed: 2,
       curve: 1.5,
       essential: true,
     });

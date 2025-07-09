@@ -5,6 +5,7 @@ import ViewType from '../../types/viewType';
 import DescriptivePriceLevel from './DescriptivePriceLevel';
 import DescriptiveRating from './DescriptiveRating';
 import ExperienceEmoji from './ExperienceEmoji';
+import MapLinkedTitle from './MapLinkedTitle';
 import TruncatedText from './TruncatedText';
 
 import * as styles from '../../styles/ReviewCards.module.css';
@@ -29,7 +30,9 @@ export default function FoodAndDrinkCard({
     <div className={`${viewType === ViewType.MAP ? styles.mapPanelCard : ''}`}>
       <div className={styles.title}>
         <ExperienceEmoji review={review} className={styles.categoryEmoji} />
-        <h3>{title}</h3>
+        <h3>
+          <MapLinkedTitle title={title} className={styles.mapLinkedTitle} />
+        </h3>
         {viewType === ViewType.FEED && (
           <span className={styles.location}>
             {city}, {country}

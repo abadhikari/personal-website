@@ -9,6 +9,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -17,6 +18,7 @@ import toast from 'react-hot-toast';
 
 import log from '../../../utils/logger';
 import fetchReviews from '../api/fetchReviews';
+import useSearchQueryParameter from '../hooks/useSearchQueryParameter';
 import { Review } from '../types/reviewTypes';
 
 type SearchContextType = {
@@ -62,6 +64,8 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
   const isFetchingRef = useRef(false);
 
+  const searchQueryParameter = useSearchQueryParameter();
+
   const clearSearch = useCallback(() => {
     setSearchResults([]);
     setIsSearching(false);
@@ -99,13 +103,20 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
         clearTimeout(debounceTimeout.current);
       }
 
-      const debounceDuration = searchParams.query === '' ? 0 : 300;
+      const debounceDuration = 300;
       debounceTimeout.current = setTimeout(async () => {
         await handleSearch(searchParams);
         resolve();
       }, debounceDuration);
     });
   }, []);
+
+  useEffect(() => {
+    if (searchQueryParameter) {
+      setSearchQuery(searchQueryParameter);
+      onSearch({ query: searchQueryParameter });
+    }
+  }, [searchQueryParameter]);
 
   const value = useMemo(
     () => ({

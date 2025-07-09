@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import maplibregl, { Map as MapLibre } from 'maplibre-gl';
+import maplibregl, { Map as MapLibre, PointLike } from 'maplibre-gl';
 
 import { isMobile } from '../../../../utils/deviceType';
 import { GeoReview, Review } from '../../types/reviewTypes';
@@ -29,6 +29,10 @@ const hasGeolocation = (
 
 type ReviewsMapProps = {
   reviews: Review[];
+};
+
+type MarkerClickOptions = {
+  animate?: boolean;
 };
 
 /**
@@ -75,18 +79,36 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
    * @param {Review} review - The review to select and zoom into.
    */
   const handleMarkerClick = useCallback(
-    (review: Review) => {
+    (review: Review, options: MarkerClickOptions = {}) => {
+      const { animate = true } = options;
+
       if (selected?.reviewId === review.reviewId) return;
 
       setSelected(review);
       const { latitude, longitude } = review.subcontent as GeoReview;
       const targetZoom = isMobile() ? 12.5 : 13.5;
       const currentZoom = mapRef.current!.getZoom();
-      mapRef.current!.flyTo({
-        center: [longitude, latitude],
-        zoom: currentZoom > targetZoom ? currentZoom : targetZoom,
-        offset: [0, -100],
-      });
+      const nextZoom = currentZoom > targetZoom ? currentZoom : targetZoom;
+
+      if (animate) {
+        const offset: PointLike | undefined = isMobile()
+          ? [0, -100]
+          : undefined;
+        mapRef.current!.flyTo({
+          center: [longitude, latitude],
+          zoom: nextZoom,
+          offset,
+          speed: 1.5,
+        });
+      } else {
+        mapRef.current!.jumpTo({
+          center: [longitude, latitude],
+          zoom: nextZoom,
+        });
+        if (isMobile()) {
+          mapRef.current?.panBy([0, 100], { duration: 0 });
+        }
+      }
     },
     [selected]
   );
@@ -149,7 +171,7 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
       reviewsWithGeolocation[0].reviewId !== selectedId;
 
     if (shouldAutoSelect) {
-      handleMarkerClick(reviewsWithGeolocation[0]);
+      handleMarkerClick(reviewsWithGeolocation[0], { animate: false });
     }
   }, [reviewsWithGeolocation, selected]);
 

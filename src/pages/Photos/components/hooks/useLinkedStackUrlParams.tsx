@@ -34,7 +34,7 @@ export default function useLinkedStackUrlParams(): LinkedStackUrlParams {
       // Clean up the URL so it's just /photos
       navigate('/photos', { replace: true });
     }
-  }, [params.stackId, params.mediaId, navigate]);
+  }, [params.stackId, navigate]);
 
   return params;
 }
