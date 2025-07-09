@@ -22,7 +22,8 @@ export default function EntertainmentCard({
   viewType,
 }: EntertainmentCardProps) {
   const { rating, reviewText, createdAt, subcontent } = review;
-  const { address, title, venue, city, country, priceLevel } = subcontent;
+  const { address, title, venue, city, country, priceLevel, genres } =
+    subcontent;
 
   return (
     <div className={`${viewType === ViewType.MAP ? styles.mapPanelCard : ''}`}>
@@ -44,6 +45,14 @@ export default function EntertainmentCard({
       <div className={styles.tags}>
         {priceLevel && <DescriptivePriceLevel priceLevel={priceLevel} />}
         <span>{' • '}</span>
+        {genres.length > 0 && (
+          <>
+            <span className={styles.pill}>
+              {genres.map(toTitleCaseFromSnake).join(', ')}
+            </span>
+            <span>{' • '}</span>
+          </>
+        )}
         <span className={styles.pill}>{toTitleCaseFromSnake(venue)}</span>
       </div>
 

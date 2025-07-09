@@ -16,7 +16,7 @@ import {
 import toast from 'react-hot-toast';
 
 import log from '../../../utils/logger';
-import fetchReviews from '../api/fetchPhotos';
+import fetchReviews from '../api/fetchReviews';
 import { Review } from '../types/reviewTypes';
 
 type SearchContextType = {

@@ -22,7 +22,7 @@ export default function FoodAndDrinkCard({
   viewType,
 }: FoodAndDrinkCardProps) {
   const { rating, reviewText, createdAt, subcontent } = review;
-  const { address, title, venue, city, country, cuisines, priceLevel } =
+  const { address, title, venue, city, country, cuisines, priceLevel, dishes } =
     subcontent;
 
   return (
@@ -43,13 +43,32 @@ export default function FoodAndDrinkCard({
       )}
       <DescriptiveRating rating={rating} />
       <div className={styles.tags}>
-        {priceLevel && <DescriptivePriceLevel priceLevel={priceLevel} />}
-
-        <span>{' • '}</span>
-        <span className={styles.pill}>
-          {cuisines.map(toTitleCaseFromSnake).join(', ')}
-        </span>
-        <span>{' • '}</span>
+        {priceLevel && (
+          <>
+            <DescriptivePriceLevel priceLevel={priceLevel} />
+            <span>{' • '}</span>
+          </>
+        )}
+        {dishes.length > 0 && (
+          <>
+            {dishes.map((dish) => (
+              <span key={dish} className={styles.pill}>
+                {toTitleCaseFromSnake(dish)}
+              </span>
+            ))}
+            <span>{' • '}</span>
+          </>
+        )}
+        {cuisines.length > 0 && (
+          <>
+            {cuisines.map((cuisine) => (
+              <span key={cuisine} className={styles.pill}>
+                {toTitleCaseFromSnake(cuisine)}
+              </span>
+            ))}
+            <span>{' • '}</span>
+          </>
+        )}
         <span className={styles.pill}>{toTitleCaseFromSnake(venue)}</span>
       </div>
       {viewType === ViewType.MAP ? (

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import log from '../../../utils/logger';
-import fetchReviews from '../api/fetchPhotos';
+import fetchReviews from '../api/fetchReviews';
 import { Review } from '../types/reviewTypes';
 import ViewType from '../types/viewType';
 

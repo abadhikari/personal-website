@@ -49,6 +49,7 @@ export enum Venue {
  * @property {number} [priceLevel] - Optional price level (e.g. 1 = cheap, 5 = luxury).
  * @property {Venue} venue - Name of the venue hosting the experience.
  * @property {string[]} cuisines - List of cuisines or food styles featured.
+ * @property {string[]} dishes - List of dishes featured.
  */
 export interface FoodAndDrinkSub {
   title: string;
@@ -61,6 +62,7 @@ export interface FoodAndDrinkSub {
   priceLevel?: number;
   venue: Venue;
   cuisines: string[];
+  dishes: string[];
 }
 
 /**
@@ -87,6 +89,7 @@ export interface EntertainmentSub {
   longitude: number;
   priceLevel?: number;
   venue: Venue;
+  genres: string[];
 }
 
 export type GeoReview = EntertainmentSub | FoodAndDrinkSub;
