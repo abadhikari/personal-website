@@ -23,7 +23,7 @@ export default function EntertainmentCard({
   viewType,
 }: EntertainmentCardProps) {
   const { rating, reviewText, createdAt, subcontent } = review;
-  const { address, title, venue, city, country, priceLevel, genres } =
+  const { address, title, venue, city, state, country, priceLevel, genres } =
     subcontent;
 
   return (
@@ -31,7 +31,11 @@ export default function EntertainmentCard({
       <div className={styles.title}>
         <ExperienceEmoji review={review} className={styles.categoryEmoji} />
         <h3>
-          <MapLinkedTitle title={title} className={styles.mapLinkedTitle} />
+          {viewType === ViewType.FEED ? (
+            <MapLinkedTitle title={title} className={styles.mapLinkedTitle} />
+          ) : (
+            title
+          )}
         </h3>
         {viewType === ViewType.FEED && (
           <span className={styles.location}>
@@ -41,7 +45,7 @@ export default function EntertainmentCard({
       </div>
       {viewType === ViewType.MAP && (
         <span className={styles.location}>
-          {address}, {city}, {country}
+          {[address, city, state, country].filter(Boolean).join(', ')}
         </span>
       )}
       <DescriptiveRating rating={rating} />

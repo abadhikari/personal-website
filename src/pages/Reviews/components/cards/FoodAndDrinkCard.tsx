@@ -23,15 +23,28 @@ export default function FoodAndDrinkCard({
   viewType,
 }: FoodAndDrinkCardProps) {
   const { rating, reviewText, createdAt, subcontent } = review;
-  const { address, title, venue, city, country, cuisines, priceLevel, dishes } =
-    subcontent;
+  const {
+    address,
+    title,
+    venue,
+    city,
+    state,
+    country,
+    cuisines,
+    priceLevel,
+    dishes,
+  } = subcontent;
 
   return (
     <div className={`${viewType === ViewType.MAP ? styles.mapPanelCard : ''}`}>
       <div className={styles.title}>
         <ExperienceEmoji review={review} className={styles.categoryEmoji} />
         <h3>
-          <MapLinkedTitle title={title} className={styles.mapLinkedTitle} />
+          {viewType === ViewType.FEED ? (
+            <MapLinkedTitle title={title} className={styles.mapLinkedTitle} />
+          ) : (
+            title
+          )}
         </h3>
         {viewType === ViewType.FEED && (
           <span className={styles.location}>
@@ -41,7 +54,7 @@ export default function FoodAndDrinkCard({
       </div>
       {viewType === ViewType.MAP && (
         <span className={styles.location}>
-          {address}, {city}, {country}
+          {[address, city, state, country].filter(Boolean).join(', ')}
         </span>
       )}
       <DescriptiveRating rating={rating} />
