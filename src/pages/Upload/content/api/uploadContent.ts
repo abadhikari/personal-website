@@ -126,6 +126,7 @@ export async function uploadEntertainmentInput(
     latitude: input.latitude,
     longitude: input.longitude,
     priceLevel: input.priceLevel,
+    genreIds: input.genreIds,
   };
 
   const request = { categoryId: input.categoryId, payload };
