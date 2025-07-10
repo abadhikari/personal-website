@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
+import AuthError from '../../../../errors/AuthError';
 import log from '../../../../utils/logger';
 import { ReviewMetadata } from '../../types/uploadTypes';
 import uploadReview from '../api/uploadReview';
@@ -52,7 +53,11 @@ export default function useReviewUploadHandler(metadata: ReviewMetadata) {
       timerRef.current = setTimeout(resetPage, SUCCESS_RESET_TIME);
     } catch (err) {
       log.error('Failed to upload review:', err);
-      toast.error('Error submitting review. Please try again.');
+      if (err instanceof AuthError) {
+        toast.error('Please sign in to submit a review.');
+      } else {
+        toast.error('Error submitting review. Please try again.');
+      }
     } finally {
       setIsUploading(false);
     }

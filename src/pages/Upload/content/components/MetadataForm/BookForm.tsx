@@ -7,6 +7,35 @@ import { BookInput, BookSchema } from '../../../validation/schemas';
 
 import * as styles from '../../../styles/UploadContent.module.css';
 
+const BOOK_GENRES: { id: number; name: string }[] = [
+  { id: 1, name: 'Action' },
+  { id: 2, name: 'Adventure' },
+  { id: 3, name: 'Animation' },
+  { id: 4, name: 'Comedy' },
+  { id: 5, name: 'Crime' },
+  { id: 6, name: 'Documentary' },
+  { id: 7, name: 'Drama' },
+  { id: 8, name: 'Fantasy' },
+  { id: 9, name: 'Horror' },
+  { id: 10, name: 'Mystery' },
+  { id: 11, name: 'Romance' },
+  { id: 12, name: 'Sci-Fi' },
+  { id: 13, name: 'Thriller' },
+  { id: 14, name: 'Western' },
+  { id: 15, name: 'Musical' },
+  { id: 16, name: 'Biography' },
+  { id: 17, name: 'Family' },
+  { id: 18, name: 'Sport' },
+  { id: 19, name: 'War' },
+  { id: 20, name: 'History' },
+  { id: 21, name: 'Psychological Thriller' },
+  { id: 22, name: 'Anime' },
+  { id: 23, name: 'Manga' },
+  { id: 24, name: 'Art' },
+  { id: 25, name: 'Science' },
+  { id: 26, name: 'Classic' },
+];
+
 /**
  * Form component for submitting metadata related to books.
  *
@@ -30,7 +59,7 @@ export default function BookForm({
     resolver: zodResolver(BookSchema),
     defaultValues: {
       categoryId: ContentCategory.BOOK,
-      genres: [],
+      genreIds: [],
     },
   });
 
@@ -80,7 +109,7 @@ export default function BookForm({
       <label htmlFor="genreIds">
         Genres<span className="required">*</span>
         <Controller
-          name="genres"
+          name="genreIds"
           control={control}
           render={({ field }) => (
             <select
@@ -95,36 +124,15 @@ export default function BookForm({
                 field.onChange(selected);
               }}
             >
-              <option value={1}>Action</option>
-              <option value={2}>Adventure</option>
-              <option value={3}>Animation</option>
-              <option value={4}>Comedy</option>
-              <option value={5}>Crime</option>
-              <option value={6}>Documentary</option>
-              <option value={7}>Drama</option>
-              <option value={8}>Fantasy</option>
-              <option value={9}>Horror</option>
-              <option value={10}>Mystery</option>
-              <option value={11}>Romance</option>
-              <option value={12}>Sci-Fi</option>
-              <option value={13}>Thriller</option>
-              <option value={14}>Western</option>
-              <option value={15}>Musical</option>
-              <option value={16}>Biography</option>
-              <option value={17}>Family</option>
-              <option value={18}>Sport</option>
-              <option value={19}>War</option>
-              <option value={20}>History</option>
-              <option value={21}>Psychological Thriller</option>
-              <option value={22}>Anime</option>
-              <option value={23}>Manga</option>
-              <option value={24}>Art</option>
-              <option value={25}>Science</option>
-              <option value={26}>Classic</option>
+              {BOOK_GENRES.map(({ id, name }) => (
+                <option key={id} value={id}>
+                  {name}
+                </option>
+              ))}
             </select>
           )}
         />
-        {err('genres') && <p>{err('genres')}</p>}
+        {err('genreIds') && <p>{err('genreIds')}</p>}
       </label>
 
       <button

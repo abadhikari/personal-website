@@ -24,10 +24,12 @@ const BaseExperience = z.object({
 export const FoodAndDrinkSchema = BaseExperience.extend({
   categoryId: z.literal(ContentCategory.FOOD_AND_DRINK),
   cuisineIds: z.array(z.number().int()).optional(),
+  dishIds: z.array(z.number().int()).optional(),
 });
 
 export const EntertainmentSchema = BaseExperience.extend({
   categoryId: z.literal(ContentCategory.ENTERTAINMENT),
+  genreIds: z.array(z.number().int()).optional(),
 });
 
 export const BookSchema = z.object({
@@ -44,7 +46,7 @@ export const BookSchema = z.object({
     (val) => !val || /^[\d-]+$/.test(val),
     'ISBN must be numeric or hyphenated'
   ),
-  genres: z.array(z.number().int()).min(1, 'Select at least one genre'),
+  genreIds: z.array(z.number().int()).min(1, 'Select at least one genre'),
 });
 
 export const AnyContentSchema = z.discriminatedUnion('categoryId', [

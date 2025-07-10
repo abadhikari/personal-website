@@ -18,15 +18,15 @@ import {
 
 type WriteRequest =
   | {
-      category_id: ContentCategory.FOOD_AND_DRINK;
+      categoryId: ContentCategory.FOOD_AND_DRINK;
       payload: FoodAndDrinkPayload;
     }
   | {
-      category_id: ContentCategory.BOOK;
+      categoryId: ContentCategory.BOOK;
       payload: BookPayload;
     }
   | {
-      category_id: ContentCategory.ENTERTAINMENT;
+      categoryId: ContentCategory.ENTERTAINMENT;
       payload: EntertainmentPayload;
     };
 
@@ -90,15 +90,16 @@ export async function uploadFoodAndDrinkContent(
     address: input.address,
     city: input.city,
     state: input.state,
-    venue_id: input.venueId,
+    venueId: input.venueId,
     country: input.country,
     latitude: input.latitude,
     longitude: input.longitude,
-    price_level: input.priceLevel,
-    cuisine_ids: input.cuisineIds,
+    priceLevel: input.priceLevel,
+    cuisineIds: input.cuisineIds,
+    dishIds: input.dishIds,
   };
 
-  const request = { category_id: input.categoryId, payload };
+  const request = { categoryId: input.categoryId, payload };
   return postToContentApi(request);
 }
 
@@ -120,14 +121,14 @@ export async function uploadEntertainmentInput(
     address: input.address,
     city: input.city,
     state: input.state,
-    venue_id: input.venueId,
+    venueId: input.venueId,
     country: input.country,
     latitude: input.latitude,
     longitude: input.longitude,
-    price_level: input.priceLevel,
+    priceLevel: input.priceLevel,
   };
 
-  const request = { category_id: input.categoryId, payload };
+  const request = { categoryId: input.categoryId, payload };
   return postToContentApi(request);
 }
 
@@ -142,12 +143,12 @@ export async function uploadBookInput(input: BookInput): Promise<void> {
     title: input.title,
     author: input.author,
     pages: input.pages,
-    year_published: input.yearPublished,
+    yearPublished: input.yearPublished,
     isbn: input.isbn,
-    genres: input.genres,
+    genreIds: input.genreIds,
   };
 
-  const request = { category_id: input.categoryId, payload };
+  const request = { categoryId: input.categoryId, payload };
   return postToContentApi(request);
 }
 

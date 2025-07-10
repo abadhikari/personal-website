@@ -12,6 +12,28 @@ type Props<T extends FieldValues> = {
   errors: FieldErrors<T>;
 };
 
+export const VENUES: { id: number; name: string }[] = [
+  { id: 1, name: 'Restaurant' },
+  { id: 2, name: 'Cafe' },
+  { id: 3, name: 'Food Truck' },
+  { id: 4, name: 'Street Food' },
+  { id: 5, name: 'Bakery' },
+  { id: 6, name: 'Brewery' },
+  { id: 7, name: 'Fast Food' },
+  { id: 8, name: 'Deli' },
+  { id: 9, name: 'Jazz Club' },
+  { id: 10, name: 'Karaoke' },
+  { id: 11, name: 'Arcade' },
+  { id: 12, name: 'Comedy Club' },
+  { id: 13, name: 'Live Music' },
+  { id: 14, name: 'Theater' },
+  { id: 15, name: 'Bar' },
+  { id: 16, name: 'Museum' },
+  { id: 17, name: 'Nightclub' },
+  { id: 18, name: 'Garden' },
+  { id: 19, name: 'Hot Spring' },
+];
+
 /**
  * Reusable form field component for content types based on shared "experience" metadata.
  *
@@ -74,7 +96,7 @@ export default function ExperienceFields<T extends FieldValues>({
       </label>
 
       <label htmlFor="longitude">
-        Longitude<span className="required">*</span>*
+        Longitude<span className="required">*</span>
         <input
           id="longitude"
           type="number"
@@ -91,25 +113,11 @@ export default function ExperienceFields<T extends FieldValues>({
           {...register('venueId' as Path<T>, { valueAsNumber: true })}
         >
           <option value={-1}>-- Select --</option>
-          <option value={1}>Restaurant</option>
-          <option value={2}>Cafe</option>
-          <option value={3}>Food Truck</option>
-          <option value={4}>Street Food</option>
-          <option value={5}>Bakery</option>
-          <option value={6}>Brewery</option>
-          <option value={7}>Fast Food</option>
-          <option value={8}>Deli</option>
-          <option value={9}>Jazz Club</option>
-          <option value={10}>Karaoke</option>
-          <option value={11}>Arcade</option>
-          <option value={12}>Comedy Club</option>
-          <option value={13}>Live Music</option>
-          <option value={14}>Theater</option>
-          <option value={15}>Bar</option>
-          <option value={16}>Museum</option>
-          <option value={17}>Nightclub</option>
-          <option value={18}>Garden</option>
-          <option value={19}>Hot Spring</option>
+          {VENUES.map(({ id, name }) => (
+            <option key={id} value={id}>
+              {name}
+            </option>
+          ))}
         </select>
         {err('venueId') && <p>{err('venueId')}</p>}
       </label>

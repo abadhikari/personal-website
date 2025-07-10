@@ -85,11 +85,12 @@ export type BaseExperiencePayload = {
   address: string;
   city: string;
   state?: string;
-  venue_id: number;
+  venueId: number;
   country: string;
   latitude: number;
   longitude: number;
-  price_level: number;
+  priceLevel: number;
+  genreIds?: number[];
 };
 
 /**
@@ -97,7 +98,8 @@ export type BaseExperiencePayload = {
  * Extends the base experience with optional cuisine tags.
  */
 export type FoodAndDrinkPayload = BaseExperiencePayload & {
-  cuisine_ids?: number[];
+  cuisineIds?: number[];
+  dishIds?: number[];
 };
 
 /**
@@ -113,7 +115,7 @@ export type BookPayload = {
   title: string;
   author: string;
   pages: number;
-  year_published: number;
+  yearPublished: number;
   isbn?: string;
-  genres: number[];
+  genreIds: number[];
 };

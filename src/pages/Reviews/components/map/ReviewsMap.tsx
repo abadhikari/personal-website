@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import maplibregl, { Map as MapLibre } from 'maplibre-gl';
 
 import { isMobile } from '../../../../utils/deviceType';
+import { useSearch } from '../../contexts/SearchContext';
 import { GeoReview, Review } from '../../types/reviewTypes';
 import ViewType from '../../types/viewType';
 import ReviewRenderer from '../ReviewRenderer';
@@ -49,6 +50,8 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
 
   const [selectionWasManual, setSelectionWasManual] = useState(false);
   const [selected, setSelected] = useState<Review | null>(null);
+
+  const { clearSearch } = useSearch();
 
   /**
    * Filters reviews to only those with valid latitude and longitude.
@@ -117,6 +120,9 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
   const handleSidePanelClose = () => {
     setSelected(null);
     setSelectionWasManual(true);
+    if (reviewsWithGeolocation.length === 1) {
+      clearSearch();
+    }
   };
 
   /**
