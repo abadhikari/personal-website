@@ -53,7 +53,16 @@
           ["^\\u0000"]
         ]
       }],
-    "simple-import-sort/exports": "error"
+    "simple-import-sort/exports": "error",
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "labelComponents": ["label"],
+        "controlComponents": ["LookupSearch"],
+        "assert": "either",
+        "depth": 3
+      }
+    ]
   },
   "settings": {
     "react": {

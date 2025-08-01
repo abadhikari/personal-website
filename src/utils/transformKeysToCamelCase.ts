@@ -4,7 +4,7 @@
  * @param {string} str - The snake_case string to convert.
  * @returns {string} The converted camelCase string.
  */
-function snakeToCamel(str: string): string {
+function snakeToCamelCase(str: string): string {
   return str.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
 }
 
@@ -17,15 +17,15 @@ function snakeToCamel(str: string): string {
  * @param {unknown} obj - The input object or array to transform.
  * @returns {unknown} A new object or array with camelCased keys.
  */
-export default function transformKeysToCamel(obj: unknown): unknown {
+export default function transformKeysToCamelCase(obj: unknown): unknown {
   if (Array.isArray(obj)) {
-    return obj.map(transformKeysToCamel);
+    return obj.map(transformKeysToCamelCase);
   }
   if (obj && typeof obj === 'object') {
     return Object.fromEntries(
       Object.entries(obj as Record<string, unknown>).map(([k, v]) => [
-        snakeToCamel(k),
-        transformKeysToCamel(v),
+        snakeToCamelCase(k),
+        transformKeysToCamelCase(v),
       ])
     );
   }

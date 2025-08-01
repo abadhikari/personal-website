@@ -119,3 +119,24 @@ export type BookPayload = {
   isbn?: string;
   genreIds: number[];
 };
+
+/**
+ * Minimal lookup record used for normalized reference data
+ * (e.g., cuisines, genres, dishes). Typically joins to a review
+ * or item via the `id`.
+ */
+export type Lookup = {
+  id: string;
+  name: string;
+};
+
+/**
+ * Supported lookup namespaces. Use to disambiguate how a `Lookup`
+ * should be interpreted and where it’s sourced from.
+ */
+export enum LookupType {
+  CUISINE = 'cuisine',
+  MEDIA_GENRE = 'media_genre',
+  DISH = 'dish',
+  EXPERIENCE_GENRE = 'experience_genre',
+}

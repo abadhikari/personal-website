@@ -1,6 +1,6 @@
 import getApiEndpoint from '../../../api/config';
 import ApiError from '../../../errors/ApiError';
-import transformKeysToCamel from '../../../utils/transformKeysToCamel';
+import transformKeysToCamelCase from '../../../utils/transformKeysToCamelCase';
 import { ReviewsReadApiResponse } from '../types/reviewTypes';
 
 /**
@@ -45,7 +45,7 @@ export default async function fetchReviews({
   }
 
   try {
-    return transformKeysToCamel(
+    return transformKeysToCamelCase(
       JSON.parse(responseText)
     ) as ReviewsReadApiResponse;
   } catch (err) {
