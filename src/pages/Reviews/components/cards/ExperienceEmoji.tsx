@@ -21,6 +21,7 @@ const emojiMap: Record<string, string> = {
   [Category.Show]: '📺',
   [`${Category.FoodAndDrink}:${Venue.Restaurant}`]: '🍽️',
   [`${Category.FoodAndDrink}:${Venue.Bar}`]: '🍺',
+  [`${Category.FoodAndDrink}:${Venue.FastFood}`]: '🍔',
   [`${Category.Entertainment}:${Venue.JazzClub}`]: '🎷',
   [`${Category.Entertainment}:${Venue.Bar}`]: '🍺',
   [`${Category.Entertainment}:${Venue.Museum}`]: '🏛️',
