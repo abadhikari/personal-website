@@ -17,6 +17,7 @@ jobs:
       URLS: |
         /v1/reviews?limit=10
         /v1/stacks?stackLimit=10&startTimestamp=0&endTimestamp=9999999999999
+      VERBOSE: 1
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
