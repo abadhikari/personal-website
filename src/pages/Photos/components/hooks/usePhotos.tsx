@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { isMobile } from '../../../../utils/deviceType';
 import log from '../../../../utils/logger';
 import fetchPhotos from '../../api/fetchPhotos';
 import { MediaStack } from '../../types/mediaTypes';
@@ -29,9 +28,7 @@ export default function usePhotos({ setError }: UsePhotosParams) {
   const [lastEvaluatedKey, setLastEvaluatedKey] = useState<string | null>(null);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
 
-  const stackLimit = useMemo(() => {
-    return isMobile() ? 10 : 9;
-  }, []);
+  const stackLimit = 10;
 
   const fetchPhotoData = async (key: string | null = null) => {
     try {

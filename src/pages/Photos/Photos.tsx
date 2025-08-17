@@ -4,6 +4,7 @@ import AnimatedSpinner from '../../components/common/animations/AnimatedSpinner'
 import GridSpinner from '../../components/common/animations/GridSpinner';
 import ErrorScreen from '../../components/common/Error/ErrorScreen';
 import InfiniteScroll from '../../components/common/InfiniteScroll';
+import { isMobile } from '../../utils/deviceType';
 
 import useLinkedStackLoader from './components/hooks/useLinkedStackLoader';
 import useLinkedStackParams from './components/hooks/useLinkedStackUrlParams';
@@ -54,7 +55,18 @@ export default function Photos() {
     [isSearching, filteredStacks, stacks]
   );
 
-  const setVisibleStacks = isSearching ? setSearchStacks : setStacks;
+  const setMediaStacks = isSearching ? setSearchStacks : setStacks;
+
+  const hasMoreStacksToFetch = Boolean(lastEvaluatedKey) && !isSearching;
+  const columns = isMobile() ? 2 : 3;
+
+  // Only display complete rows of stacks if more stacks are still loading.
+  // This avoids rendering an incomplete row until we know no more stacks remain.
+  const displayStacks = useMemo(() => {
+    if (!hasMoreStacksToFetch) return visibleStacks;
+    const fullRows = Math.floor(visibleStacks.length / columns) * columns;
+    return visibleStacks.slice(0, fullRows);
+  }, [visibleStacks, hasMoreStacksToFetch, columns]);
 
   const handleThumbnailClick = (index: number) => {
     setSelectedStackIndex(index);
@@ -80,13 +92,13 @@ export default function Photos() {
             query={query}
             onQueryChange={handleQueryChange}
             searchInputRef={searchInputRef}
-            visibleStacks={visibleStacks}
+            mediaStacks={displayStacks}
             searchProcessing={searchProcessing}
             onThumbnailClick={handleThumbnailClick}
           />
         )}
 
-        {lastEvaluatedKey && !isSearching && (
+        {hasMoreStacksToFetch && (
           <InfiniteScroll
             fetchMore={fetchMorePhotos}
             isFetching={isFetchingMore}
@@ -95,12 +107,12 @@ export default function Photos() {
 
         {selectedStackIndex !== null && (
           <Modal
-            mediaStacks={visibleStacks}
+            mediaStacks={displayStacks}
             selectedStackIndex={selectedStackIndex}
             key="selected-modal"
             initialMediaIndex={0}
             onClose={handleCloseModal}
-            setStacks={setVisibleStacks}
+            setStacks={setMediaStacks}
           />
         )}
 

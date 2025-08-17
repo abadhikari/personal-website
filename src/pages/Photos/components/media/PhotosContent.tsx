@@ -11,7 +11,7 @@ type PhotosContentProps = {
   query: string;
   onQueryChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   searchInputRef: React.RefObject<HTMLInputElement>;
-  visibleStacks: MediaStack[];
+  mediaStacks: MediaStack[];
   searchProcessing: boolean;
   onThumbnailClick: (index: number) => void;
 };
@@ -23,7 +23,7 @@ type PhotosContentProps = {
  * @param {string} props.query - Current value of the search input.
  * @param {Function} props.onQueryChange - Handler to update the search query.
  * @param {React.RefObject<HTMLInputElement>} props.searchInputRef - Ref for the search input element.
- * @param {MediaStack[]} props.visibleStacks - The stacks of media currently visible (filtered or all).
+ * @param {MediaStack[]} props.mediaStacks - The stacks of media currently visible (filtered or all).
  * @param {boolean} props.searchProcessing - Whether a search is currently in progress.
  * @param {Function} props.onThumbnailClick - Handler for clicking a media stack thumbnail.
  *
@@ -33,7 +33,7 @@ export default function PhotosContent({
   query,
   onQueryChange,
   searchInputRef,
-  visibleStacks,
+  mediaStacks,
   searchProcessing,
   onThumbnailClick,
 }: PhotosContentProps) {
@@ -53,7 +53,7 @@ export default function PhotosContent({
       />
 
       <MediaFeed
-        stacks={visibleStacks}
+        stacks={mediaStacks}
         onClick={onThumbnailClick}
         searchProcessing={searchProcessing}
       />
