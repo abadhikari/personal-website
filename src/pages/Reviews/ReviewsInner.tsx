@@ -42,10 +42,6 @@ export default function ReviewsInner({ view }: ReviewsInnerProps) {
 
   const selectedReviews = isSearching ? searchResults : reviews;
 
-  if (error) {
-    return <ErrorScreen message={error} />;
-  }
-
   // Scroll to the top when view is changed (toggled)
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -56,6 +52,10 @@ export default function ReviewsInner({ view }: ReviewsInnerProps) {
     const isMapView = location.pathname === '/map';
     navigate(isMapView ? '/reviews' : '/map');
   };
+
+  if (error) {
+    return <ErrorScreen message={error} />;
+  }
 
   return (
     <>
