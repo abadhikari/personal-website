@@ -1,0 +1,40 @@
+.segmented {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px;
+  height: 30px;
+  border: 1px solid #d4d4d8;
+  border-radius: 999px;
+  background: #f6f6f7;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.06);
+  margin-bottom: 10px;
+}
+
+.segment {
+  border: 0;
+  background: #eeeef1;
+  height: 24px;
+  padding: 0 14px;
+  min-width: 40px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color .18s ease, color .18s ease, transform .12s ease;
+}
+
+.segment:hover { 
+  background: #333c4a; 
+  transform: scale(1.2); 
+}
+
+.active {
+  background: #222831;
+}
+
+.active:hover { 
+  background: #222831;
+  transform: none; 
+}

@@ -5,6 +5,7 @@ import EarthSpinner from '../../components/common/animations/EarthSpinner';
 import LinePulseSpinner from '../../components/common/animations/LinePulseSpinner';
 import ErrorScreen from '../../components/common/Error/ErrorScreen';
 import InfiniteScroll from '../../components/common/InfiniteScroll';
+import { ContentCategory } from '../Upload/types/uploadTypes';
 
 import ReviewsContent from './components/feed/ReviewsContent';
 import ReviewsMapContent from './components/map/ReviewsMapContent';
@@ -32,9 +33,11 @@ interface ReviewsInnerProps {
  */
 export default function ReviewsInner({ view }: ReviewsInnerProps) {
   const [error, setError] = useState<string | null>(null);
+  const [activeCategoryId, setActiveCategoryId] =
+    useState<ContentCategory | null>(null);
 
   const { reviews, cursor, fetchMoreReviews, isFetchingMore, pageLoading } =
-    useReview({ setError, view });
+    useReview({ setError, view, activeCategoryId });
 
   const { isSearching, searchResults, clearSearch } = useSearch();
   const navigate = useNavigate();
@@ -73,7 +76,11 @@ export default function ReviewsInner({ view }: ReviewsInnerProps) {
           </button>
           {view === ViewType.FEED ? (
             <>
-              <ReviewsContent reviews={selectedReviews} />
+              <ReviewsContent
+                reviews={selectedReviews}
+                activeCategoryId={activeCategoryId}
+                setActiveCategoryId={setActiveCategoryId}
+              />
               {cursor && !isSearching && (
                 <InfiniteScroll
                   fetchMore={fetchMoreReviews}

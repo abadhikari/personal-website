@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
+import { ContentCategory } from '../../../Upload/types/uploadTypes';
 import { useSearch } from '../../contexts/SearchContext';
 import { Review } from '../../types/reviewTypes';
 import ViewType from '../../types/viewType';
@@ -12,6 +13,7 @@ interface SearchBarProps {
   reviews: Review[];
   viewType: ViewType;
   setSelectionWasManual?: (b: boolean) => void;
+  activeCategoryId: ContentCategory | null;
 }
 
 const MAX_AUTOCOMPLETE_RESULTS = 5;
@@ -29,6 +31,7 @@ export default function SearchBar({
   reviews,
   viewType,
   setSelectionWasManual,
+  activeCategoryId,
 }: SearchBarProps) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -141,6 +144,19 @@ export default function SearchBar({
     }
   };
 
+  const searchBarPlaceholder = useMemo(() => {
+    switch (activeCategoryId) {
+      case ContentCategory.BOOK:
+        return 'Search book reviews…';
+      case ContentCategory.FOOD_AND_DRINK:
+        return 'Search food & drink reviews…';
+      case ContentCategory.ENTERTAINMENT:
+        return 'Search entertainment reviews…';
+      default:
+        return 'Search all reviews…';
+    }
+  }, [activeCategoryId]);
+
   return (
     <div
       className={
@@ -158,7 +174,7 @@ export default function SearchBar({
           onKeyDown={handleKeyDown}
           onFocus={() => setIsInputFocused(true)}
           onBlur={() => setIsInputFocused(false)}
-          placeholder="Search reviews…"
+          placeholder={searchBarPlaceholder}
         />
         <SearchBarDropdown
           setShowDropdown={setShowDropdown}

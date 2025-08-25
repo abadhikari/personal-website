@@ -190,6 +190,7 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
         reviews={reviewsWithGeolocation}
         viewType={ViewType.MAP}
         setSelectionWasManual={setSelectionWasManual}
+        activeCategoryId={null}
       />
       <MapLegend />
       <MapControls mapRef={mapRef} />
