@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import log from '../../../utils/logger';
-import fetchReviews from '../api/fetchReviews';
+import { ContentCategory } from '../../Upload/types/uploadTypes';
+import fetchReviews, { FetchReviewsParams } from '../api/fetchReviews';
 import { Review } from '../types/reviewTypes';
 import ViewType from '../types/viewType';
 
@@ -31,17 +32,9 @@ export default function useReview({ setError, view }: UseReviewsParams) {
   const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [hasFetchedForMap, setHasFetchedForMap] = useState(false);
 
-  const fetchReviewData = async (
-    cursorKey: string | null = null,
-    search?: string,
-    limit: number = 10
-  ) => {
+  const fetchReviewData = async (options: FetchReviewsParams = {}) => {
     try {
-      const data = await fetchReviews({
-        limit,
-        search,
-        ...(cursorKey && { cursor: cursorKey }),
-      });
+      const data = await fetchReviews(options);
       setReviews((prev) => [...prev, ...data.results]);
       setCursor(data.nextCursor || null);
     } catch (err) {
@@ -56,7 +49,7 @@ export default function useReview({ setError, view }: UseReviewsParams) {
     if (isFetchingMore || !cursor) return;
     setIsFetchingMore(true);
     try {
-      await fetchReviewData(cursor);
+      await fetchReviewData({ cursor });
     } finally {
       setIsFetchingMore(false);
     }
@@ -72,7 +65,13 @@ export default function useReview({ setError, view }: UseReviewsParams) {
     if (view === ViewType.MAP && !hasFetchedForMap) {
       setReviews([]);
       setCursor(null);
-      fetchReviewData(null, undefined, 1000).finally(() => {
+      fetchReviewData({
+        limit: 1000,
+        categoryIds: [
+          ContentCategory.FOOD_AND_DRINK,
+          ContentCategory.ENTERTAINMENT,
+        ],
+      }).finally(() => {
         setPageLoading(false);
         setHasFetchedForMap(true);
       });
