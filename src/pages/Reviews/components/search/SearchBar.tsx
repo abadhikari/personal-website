@@ -146,10 +146,14 @@ export default function SearchBar({
 
   const searchBarPlaceholder = useMemo(() => {
     switch (activeCategoryId) {
+      case ContentCategory.MOVIE:
+        return 'Search movie reviews…';
+      case ContentCategory.SHOW:
+        return 'Search show reviews…';
       case ContentCategory.BOOK:
         return 'Search book reviews…';
       case ContentCategory.FOOD_AND_DRINK:
-        return 'Search food & drink reviews…';
+        return 'Search food reviews…';
       case ContentCategory.ENTERTAINMENT:
         return 'Search entertainment reviews…';
       default:

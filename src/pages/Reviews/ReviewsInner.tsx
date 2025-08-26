@@ -5,11 +5,11 @@ import EarthSpinner from '../../components/common/animations/EarthSpinner';
 import LinePulseSpinner from '../../components/common/animations/LinePulseSpinner';
 import ErrorScreen from '../../components/common/Error/ErrorScreen';
 import InfiniteScroll from '../../components/common/InfiniteScroll';
-import { ContentCategory } from '../Upload/types/uploadTypes';
 
 import ReviewsContent from './components/feed/ReviewsContent';
 import ReviewsMapContent from './components/map/ReviewsMapContent';
 import { useSearch } from './contexts/SearchContext';
+import useCategoryState from './hooks/useCategoryState';
 import useReview from './hooks/useReview';
 import ViewType from './types/viewType';
 
@@ -33,8 +33,7 @@ interface ReviewsInnerProps {
  */
 export default function ReviewsInner({ view }: ReviewsInnerProps) {
   const [error, setError] = useState<string | null>(null);
-  const [activeCategoryId, setActiveCategoryId] =
-    useState<ContentCategory | null>(null);
+  const [activeCategoryId, setActiveCategoryId] = useCategoryState();
 
   const { reviews, cursor, fetchMoreReviews, isFetchingMore, pageLoading } =
     useReview({ setError, view, activeCategoryId });

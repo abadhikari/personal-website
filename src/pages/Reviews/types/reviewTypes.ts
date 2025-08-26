@@ -1,3 +1,5 @@
+import { ContentCategory } from '../../Upload/types/uploadTypes';
+
 /**
  * Represents the primary category type of a review.
  */
@@ -211,3 +213,39 @@ export interface ReviewsReadApiResponse {
   results: Review[];
   nextCursor: string | null;
 }
+
+/**
+ * Canonical mapping from `ContentCategory` enum value → URL slug used in query params.
+ *
+ * Treat this as the single source of truth for category slugs throughout the app;
+ * derive any reverse lookups from it to avoid drift.
+ *
+ * Slugs are expected to be lowercase and stable (e.g., for shareable links/SEO).
+ */
+export const SlugByCategory: Record<ContentCategory, string> = {
+  [ContentCategory.MOVIE]: 'movies',
+  [ContentCategory.SHOW]: 'shows',
+  [ContentCategory.BOOK]: 'books',
+  [ContentCategory.FOOD_AND_DRINK]: 'food',
+  [ContentCategory.ENTERTAINMENT]: 'entertainment',
+};
+
+/**
+ * Reverse lookup mapping from slug (as it appears in the URL) → `ContentCategory` enum.
+ *
+ * This object is **derived from** `SlugByCategory` and frozen to prevent mutation.
+ * Note that at runtime, an unknown slug lookup will return `undefined`, even though the
+ * static type is `Record<string, ContentCategory>`. Callers should defensively handle
+ * unknown slugs (e.g., with `?? null` or an explicit check).
+ *
+ * Slug matching is case-sensitive to the values in `SlugByCategory`; normalize the input
+ * before lookup if you allow mixed case.
+ */
+export const CategoryBySlug: Record<string, ContentCategory> = Object.freeze(
+  Object.fromEntries(
+    Object.entries(SlugByCategory).map(([enumKey, slug]) => [
+      slug,
+      Number(enumKey) as ContentCategory,
+    ])
+  )
+);
