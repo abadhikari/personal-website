@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import maplibregl, { Map as MapLibre } from 'maplibre-gl';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import maplibregl, { LngLatBoundsLike, Map as MapLibre } from 'maplibre-gl';
 
 import { isMobile } from '../../../../utils/deviceType';
 import { useSearch } from '../../contexts/SearchContext';
@@ -51,12 +51,32 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
   const [selectionWasManual, setSelectionWasManual] = useState(false);
   const [selected, setSelected] = useState<Review | null>(null);
 
-  const { clearSearch } = useSearch();
+  const { clearSearch, isSearching } = useSearch();
 
   /**
    * Filters reviews to only those with valid latitude and longitude.
    */
-  const reviewsWithGeolocation = reviews.filter(hasGeolocation);
+  const reviewsWithGeolocation = useMemo(
+    () => reviews.filter(hasGeolocation),
+    [reviews]
+  );
+
+  /**
+   * Memoized geographic bounding box for all geolocated reviews.
+   */
+  const reviewsBoundaries: LngLatBoundsLike | null = useMemo(() => {
+    const points = reviewsWithGeolocation;
+    if (points.length < 1) return null;
+    const [{ longitude: lng0, latitude: lat0 }] = points.map(
+      (r) => r.subcontent as GeoReview
+    );
+    const b = new maplibregl.LngLatBounds([lng0, lat0], [lng0, lat0]);
+    for (let i = 1; i < points.length; i += 1) {
+      const { longitude, latitude } = points[i].subcontent as GeoReview;
+      b.extend([longitude, latitude]);
+    }
+    return b;
+  }, [reviewsWithGeolocation]);
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return undefined;
@@ -177,6 +197,26 @@ export default function ReviewsMap({ reviews }: ReviewsMapProps) {
       handleMarkerClick(reviewsWithGeolocation[0], { animate: false });
     }
   }, [reviewsWithGeolocation, selected]);
+
+  /**
+   * Adjusts the map viewport to fit all search results.
+   */
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    if (selected) return;
+    if (!isSearching) return;
+
+    const count = reviewsWithGeolocation.length;
+
+    if (count > 1 && reviewsBoundaries) {
+      map.fitBounds(reviewsBoundaries, {
+        padding: 100,
+        maxZoom: 14,
+        duration: 600,
+      });
+    }
+  }, [reviewsWithGeolocation, reviewsBoundaries, selected]);
 
   useEffect(() => {
     placeMarkers();
