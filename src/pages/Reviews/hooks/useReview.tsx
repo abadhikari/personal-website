@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
 import log from '../../../utils/logger';
 import { ContentCategory } from '../../Upload/types/uploadTypes';
@@ -37,13 +37,18 @@ export default function useReview({
   const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [hasFetchedForMap, setHasFetchedForMap] = useState(false);
 
+  useLayoutEffect(() => {
+    if (view !== ViewType.MAP) {
+      setPageLoading(true);
+    }
+  }, [activeCategoryId, view]);
+
   const fetchReviewData = async (
     options: FetchReviewsParams = {},
     clearReviews: boolean = false
   ) => {
     try {
       if (clearReviews) {
-        setPageLoading(true);
         setReviews([]);
         setCursor(null);
       }

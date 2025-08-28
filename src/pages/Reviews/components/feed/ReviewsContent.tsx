@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { ContentCategory } from '../../../Upload/types/uploadTypes';
 import { Review } from '../../types/reviewTypes';
 import ViewType from '../../types/viewType';
@@ -28,11 +30,46 @@ export default function ReviewsContent({
   activeCategoryId,
   setActiveCategoryId,
 }: ReviewsContentProps) {
+  const headerContent = useMemo(() => {
+    switch (activeCategoryId) {
+      case ContentCategory.MOVIE:
+        return {
+          title: 'Movie Reviews',
+          subtitle: 'My thoughts on films I’ve watched.',
+        };
+      case ContentCategory.SHOW:
+        return {
+          title: 'Show Reviews',
+          subtitle: 'Reviews of TV and streaming series.',
+        };
+      case ContentCategory.BOOK:
+        return {
+          title: 'Book Reviews',
+          subtitle: `Reviews of books I've read.`,
+        };
+      case ContentCategory.FOOD_AND_DRINK:
+        return {
+          title: 'Food Reviews',
+          subtitle: 'Reviews of restaurants, cafes, bars, etc.',
+        };
+      case ContentCategory.ENTERTAINMENT:
+        return {
+          title: 'Entertainment Reviews',
+          subtitle: 'Reviews of places like jazz clubs, museums, etc.',
+        };
+      default:
+        return {
+          title: 'My Reviews',
+          subtitle: "Reviews of places, food, and media I've experienced.",
+        };
+    }
+  }, [activeCategoryId]);
+
   return (
     <div className={`${styles.reviewsContainer} ${animationStyles.fadeInUp}`}>
-      <h1>My Reviews</h1>
+      <h1>{headerContent.title}</h1>
       <div className="divider" />
-      <p>Reviews of places, food, and media I&apos;ve experienced.</p>
+      <p>{headerContent.subtitle}</p>
 
       <CategorySelector
         value={activeCategoryId}
