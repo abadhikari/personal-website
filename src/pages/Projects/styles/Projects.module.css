@@ -156,8 +156,8 @@
 
   .projectCard {
     flex-direction: column;
-    height: 70vh;
-    width: 80%;
+    height: 90vh;
+    width: 90%;
     text-align: center;
   }
 

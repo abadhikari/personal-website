@@ -20,6 +20,75 @@ export default function Projects() {
       <h1>My Projects</h1>
       <div className="divider" />
       <ProjectCard
+        title="Map Page"
+        image={{ src: '/assets/mapPage.jpg', altText: 'map Page' }}
+        description={
+          <p>
+            Created a map view of reviews with physical locations on my website.
+            Basically a different view of the reviews page. See Map Page
+            <a href="https://abhinnaadhikari.com/map"> here.</a>
+          </p>
+        }
+        additionalContents={
+          <TechStack
+            frontend={{
+              technologies: ['Typescript', 'React'],
+              githubLink:
+                'https://github.com/abadhikari/personal-website/tree/main/src/pages/Reviews/components/map',
+            }}
+            backend={{
+              technologies: [
+                'Typescript',
+                'AWS CDK',
+                'AWS Lambda',
+                'AWS Cloudfront',
+                'AWS Cognito',
+                'AWS API Gateway',
+                'AWS RDS (PostgreSQL)',
+                'AWS Secrets Manager',
+              ],
+              githubLink:
+                'https://github.com/abadhikari/personal-website-cdk/blob/main/lib/stacks/reviews-page-stack.ts',
+            }}
+          />
+        }
+      />
+      <ProjectCard
+        title="Reviews Page"
+        image={{ src: '/assets/reviewsPage.jpg', altText: 'reviews Page' }}
+        description={
+          <p>
+            Created a reviews page on my website that serves as a centralized
+            location for anything I may want to review. Got tired of having 20
+            different review apps. See Reviews Page
+            <a href="https://abhinnaadhikari.com/reviews"> here.</a>
+          </p>
+        }
+        additionalContents={
+          <TechStack
+            frontend={{
+              technologies: ['Typescript', 'React'],
+              githubLink:
+                'https://github.com/abadhikari/personal-website/tree/main/src/pages/Reviews',
+            }}
+            backend={{
+              technologies: [
+                'Typescript',
+                'AWS CDK',
+                'AWS Lambda',
+                'AWS Cloudfront',
+                'AWS Cognito',
+                'AWS API Gateway',
+                'AWS RDS (PostgreSQL)',
+                'AWS Secrets Manager',
+              ],
+              githubLink:
+                'https://github.com/abadhikari/personal-website-cdk/blob/main/lib/stacks/reviews-page-stack.ts',
+            }}
+          />
+        }
+      />
+      <ProjectCard
         title="Photos Page"
         image={{ src: '/assets/photosPage.jpg', altText: 'photos Page' }}
         description={
@@ -45,6 +114,7 @@ export default function Projects() {
                 'AWS S3',
                 'AWS Cognito',
                 'AWS API Gateway',
+                'AWS DynamoDB',
               ],
               githubLink:
                 'https://github.com/abadhikari/personal-website-cdk/blob/main/lib/stacks/photos-page-stack.ts',
