@@ -12,7 +12,7 @@ export default function Header() {
         <Logo />
         <div className={styles.audioPlayerContainer}>
           <SimpleAudioPlayer
-            src="/assets/Debussy - Arabesque No. 1 (Jazz Version) by Jacob Dupre.mp3"
+            src="/assets/tangerine.mp3"
             initialVolume={0.3}
             className={styles.audioButton}
           />
