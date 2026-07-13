@@ -33,7 +33,7 @@ export default function useSearchQuery({
 }: UseSearchQueryParams) {
   const DEFAULT_DEBOUNCE = 100;
   const FIRST_SEARCH_DEBOUNCE = 300;
-  const STACK_LIMIT = 100;
+  const STACK_LIMIT = 50;
 
   const isFetchingRef = useRef(false);
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
