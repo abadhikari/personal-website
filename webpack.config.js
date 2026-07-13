@@ -84,7 +84,7 @@ module.exports = {
       changeOrigin: true,
       secure: true,
       pathRewrite: { '^/api': '' },
-      logLevel: 'debug',
+      logger: console,
       headers: {
         Origin: 'http://localhost:3000',
       },
