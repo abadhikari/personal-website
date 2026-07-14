@@ -35,7 +35,7 @@
 .dropdownDelete {
   background: none;
   border: none;
-  color: #f7f0e6;
+  color: var(--color-cream);
   font-size: 14px;
   font-weight: 500;
   padding: 8px 12px;
@@ -60,7 +60,7 @@
 .dropdownEdit {
   background: none;
   border: none;
-  color: #f7f0e6;
+  color: var(--color-cream);
   font-size: 14px;
   font-weight: 500;
   padding: 8px 12px;
@@ -77,7 +77,7 @@
 .dropdownShare {
   background: none;
   border: none;
-  color: #f7f0e6;
+  color: var(--color-cream);
   font-size: 14px;
   font-weight: 500;
   padding: 8px 12px;

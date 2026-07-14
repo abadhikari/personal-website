@@ -31,10 +31,10 @@
 }
 
 .active {
-  background: #222831;
+  background: var(--color-navy);
 }
 
 .active:hover { 
-  background: #222831;
+  background: var(--color-navy);
   transform: none; 
 }

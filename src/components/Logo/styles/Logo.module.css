@@ -5,11 +5,11 @@
 }
 
 .logoLeft {
-  color: #f7f0e6;
+  color: var(--color-cream);
   display: inline;
 }
 
 .logoRight {
-  color: #0cafff;
+  color: var(--color-accent-blue);
   display: inline;
 }

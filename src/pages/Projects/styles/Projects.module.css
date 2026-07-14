@@ -32,7 +32,7 @@
 
 .projectCard:hover h2,
 .projectCard:hover h3 {
-  color: #0cafff;
+  color: var(--color-accent-blue);
 }
 
 .projectCardImage {

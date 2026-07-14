@@ -22,14 +22,14 @@
   display: none;
   font-size: 2em;
   cursor: pointer;
-  color: #f7f0e6;
+  color: var(--color-cream);
 }
 
 @media (max-width: 900px) {
   .navbarLinks {
     flex-direction: column;
     position: absolute;
-    top: 60px;
+    top: var(--header-height);
     left: 0;
     width: 100%;
     background-color: rgba(34, 40, 49, 0.95);

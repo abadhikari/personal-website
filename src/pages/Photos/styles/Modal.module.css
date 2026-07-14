@@ -106,7 +106,7 @@
 }
 
 .saveButton {
-  background-color: #0cafff;
+  background-color: var(--color-accent-blue);
   color: white;
   border: none;
 }

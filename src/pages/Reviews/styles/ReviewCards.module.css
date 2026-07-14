@@ -51,7 +51,7 @@
 .readMoreBtn {
   font-weight: 500;
   font-size: 0.9rem;
-  color: #0cafff;
+  color: var(--color-accent-blue);
   border: none;
   background: none;
   padding: 0;

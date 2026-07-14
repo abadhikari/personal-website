@@ -90,7 +90,7 @@
 }
 
 .aboutInfoMysteryLink {
-  color: #0cafff;
+  color: var(--color-accent-blue);
 }
 
 .aboutInfoMysteryLink:hover {
